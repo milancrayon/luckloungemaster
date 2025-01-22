@@ -602,4 +602,19 @@ class ManageMastersController extends Controller
         $logs = NotificationLog::where('master_id', $id)->with('master')->orderBy('id', 'desc')->paginate(getPaginate());
         return view('admin.reports.notification_history', compact('pageTitle', 'logs', 'master'));
     }
+
+    public function transaction(Request $request, $masterId = null)
+    {
+        $pageTitle = 'Transaction Logs';
+
+        $remarks = MastersTransaction::distinct('remark')->orderBy('remark')->get('remark');
+
+        $transactions = MastersTransaction::searchable(['trx', 'master:mastername'])->filter(['trx_type', 'remark'])->dateFilter()->orderBy('id', 'desc')->with('master');
+        if ($masterId) {
+            $transactions = $transactions->where('master_id', $masterId);
+        }
+        $transactions = $transactions->paginate(getPaginate());
+
+        return view('admin.reports.transactions', compact('pageTitle', 'transactions', 'remarks'));
+    }
 }
