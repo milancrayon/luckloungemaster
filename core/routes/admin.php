@@ -107,6 +107,7 @@ Route::middleware('admin')->group(function () {
         Route::get('detail/{id}', 'detail')->name('detail');
         Route::post('store', 'store')->name('store');
         Route::post('update/{id}', 'update')->name('update');
+        Route::post('add-sub-balance/{id}', 'addSubBalance')->name('add.sub.balance');
     });
     // Subscriber
     Route::controller('SubscriberController')->prefix('subscriber')->name('subscriber.')->group(function () {
