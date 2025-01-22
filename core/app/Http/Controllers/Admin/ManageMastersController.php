@@ -281,6 +281,19 @@ class ManageMastersController extends Controller
         }
 
         $master->save();
+        $masterId = $master->id;
+        $masterBalance = $master->balance;
+
+        $transaction = new MastersTransaction();
+        $transaction->trx_type = '+';
+        $transaction->remark = 'balance_add';
+        $transaction->master_id = $masterId;
+        $transaction->amount = $amount;
+        $transaction->post_balance = $masterBalance;
+        $transaction->charge = 0;
+        $transaction->trx =  $trx;
+        $transaction->details =  "Initial Balance by Admin " . $amount;
+        $transaction->save();
 
         $notify[] = ['success', 'New Master created successfully'];
         return back()->withNotify($notify);
