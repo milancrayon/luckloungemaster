@@ -228,6 +228,68 @@ class ManageMastersController extends Controller
         return back()->withNotify($notify);
     }
 
+
+    public function store(Request $request)
+    {
+        $countryData = json_decode(file_get_contents(resource_path('views/partials/country.json')));
+        $countryArray = (array)$countryData;
+        $countries = implode(',', array_keys($countryArray));
+
+        $countryCode = $request->country;
+        $country = $countryData->$countryCode->country;
+        $dialCode = $countryData->$countryCode->dial_code;
+
+        $request->validate([
+            'firstname' => 'required|string|max:40',
+            'lastname' => 'required|string|max:40',
+            'email' => 'required|email|string|max:40|unique:masters,email',  // Ensure email is unique for new records
+            'mobile' => 'required|string|max:40',
+            'country' => 'required|in:' . $countries,
+        ]);
+
+        // Check if the mobile number already exists for other records
+        $exists = Master::where('mobile', $request->mobile)
+            ->where('dial_code', $dialCode)
+            ->exists();
+
+        if ($exists) {
+            $notify[] = ['error', 'The mobile number already exists.'];
+            return back()->withNotify($notify);
+        }
+
+        // Create a new Master instance
+        $master = new Master();
+        $master->mobile = $request->mobile;
+        $master->firstname = $request->firstname;
+        $master->lastname = $request->lastname;
+        $master->email = $request->email;
+
+        $master->address = $request->address;
+        $master->city = $request->city;
+        $master->state = $request->state;
+        $master->zip = $request->zip;
+        $master->country_name = @$country;
+        $master->dial_code = $dialCode;
+        $master->country_code = $countryCode;
+
+        $master->ev = $request->ev ? Status::VERIFIED : Status::UNVERIFIED;
+        $master->sv = $request->sv ? Status::VERIFIED : Status::UNVERIFIED;
+        $master->ts = $request->ts ? Status::ENABLE : Status::DISABLE;
+
+        // Handle KYC status
+        if (!$request->kv) {
+            $master->kv = Status::KYC_UNVERIFIED;
+            $master->kyc_data = null;
+        } else {
+            $master->kv = Status::KYC_VERIFIED;
+        }
+
+        $master->save();
+
+        $notify[] = ['success', 'Master details created successfully'];
+        return back()->withNotify($notify);
+    }
+
     public function addSubBalance(Request $request, $id)
     {
         $request->validate([
