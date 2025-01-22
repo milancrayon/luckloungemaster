@@ -293,7 +293,7 @@ class ManageMastersController extends Controller
 
         $master->save();
 
-        $notify[] = ['success', 'Master details created successfully'];
+        $notify[] = ['success', 'New Master created successfully'];
         return back()->withNotify($notify);
     }
 
