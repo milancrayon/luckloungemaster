@@ -163,8 +163,10 @@
 <script>
     (function($) {
         "use strict"
-
-        $('select[name=country]').trigger('change');
+        $(document).ready(function() {
+            // Trigger the 'change' event on the country select element
+            $('select[name=country]').trigger('change');
+        });
         $('.bal-btn').on('click', function() {
 
             $('.balanceAddSub')[0].reset();
