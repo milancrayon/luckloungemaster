@@ -17,7 +17,7 @@
             <div class="col-xxl-3 col-sm-6">
                 <x-widget
                     style="7"
-                    link="{{ route('admin.report.transaction', $user->id) }}"
+                    link="{{ route('admin.report.transaction', $master->id) }}"
                     title="Transactions"
                     icon="las la-exchange-alt"
                     value="{{ $totalTransaction }}"
