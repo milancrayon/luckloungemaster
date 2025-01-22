@@ -201,11 +201,7 @@
         "title": "Manage Masters",
         "icon": "las la-users",
         "counters": [
-            "bannedMastersCount",
-            "emailUnverifiedMastersCount",
-            "mobileUnverifiedMastersCount",
-            "kycUnverifiedMastersCount",
-            "kycPendingMastersCount"
+            "bannedMastersCount"
         ],
         "menu_active": "admin.masters*",
         "submenu": [
