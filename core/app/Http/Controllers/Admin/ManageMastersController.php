@@ -283,7 +283,7 @@ class ManageMastersController extends Controller
         $master->save();
         $masterId = $master->id;
         $masterBalance = $master->balance;
-
+        $trx = getTrx();
         $transaction = new MastersTransaction();
         $transaction->trx_type = '+';
         $transaction->remark = 'balance_add';
