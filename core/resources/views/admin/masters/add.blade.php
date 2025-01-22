@@ -3,7 +3,7 @@
 @section('panel')
 <div class="row">
     <div class="col-12">
-        <div class="card mt-30">
+        <div class="card">
             <div class="card-header">
                 <h5 class="card-title mb-0">@lang('Information of')</h5>
             </div>
