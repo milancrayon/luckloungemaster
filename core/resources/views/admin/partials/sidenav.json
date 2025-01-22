@@ -207,6 +207,19 @@
         "submenu": [
             {
                 "keyword": [
+                    "all masters users",
+                    "Manage Masters",
+                    "User management",
+                    "User control",
+                    "User activity",
+                    "User analytics"
+                ],
+                "title": "All Masters",
+                "route_name": "admin.masters.all",
+                "menu_active": "admin.masters.all"
+            },
+            {
+                "keyword": [
                     "active masters",
                     "Manage Masters",
                     "User management",

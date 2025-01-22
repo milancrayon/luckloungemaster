@@ -93,15 +93,6 @@ class ManageMastersController extends Controller
     }
 
 
-    // protected function masterData($scope = null)
-    // {
-    //     if ($scope) {
-    //         $masters = Master::$scope();
-    //     } else {
-    //         $masters = Master::query();
-    //     }
-    //     return $masters->searchable(['mastername', 'email'])->orderBy('id', 'desc')->paginate(getPaginate());
-    // }
     protected function masterData($scope = null)
     {
         if ($scope) {
@@ -109,22 +100,10 @@ class ManageMastersController extends Controller
         } else {
             $masters = Master::query();
         }
-
-        // Build the query
-        $query = $masters->searchable(['mastername', 'email'])->orderBy('id', 'desc');
-
-        // Get the raw SQL query with placeholders
-        $sql = $query->toSql();
-
-        // Get the query bindings (actual values for placeholders)
-        $bindings = $query->getBindings();
-
-        // Replace the placeholders with actual values to get the full query
-        $fullQuery = vsprintf(str_replace('?', '%s', $sql), $bindings);
-
-        // Print the full query
-        dd($fullQuery); // This will dump the SQL query with actual values
+        return $masters->searchable(['mastername', 'email'])->orderBy('id', 'desc')->paginate(getPaginate());
     }
+    
+
     public function detail($id)
     {
         $master = Master::findOrFail($id);
