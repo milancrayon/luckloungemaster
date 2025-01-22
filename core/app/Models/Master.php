@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Masters extends Authenticatable
+class Master extends Authenticatable
 {
     use HasApiTokens, UserNotify;
 

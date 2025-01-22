@@ -15,18 +15,23 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Bet;
-class AppServiceProvider extends ServiceProvider {
+use App\Models\Master;
+
+class AppServiceProvider extends ServiceProvider
+{
     /**
      * Register any application services.
      */
-    public function register(): void {
+    public function register(): void
+    {
         Builder::mixin(new Searchable);
     }
 
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void {
+    public function boot(): void
+    {
         if (!cache()->get('SystemInstalled')) {
             $envFilePath = base_path('.env');
             if (!file_exists($envFilePath)) {
@@ -57,8 +62,9 @@ class AppServiceProvider extends ServiceProvider {
                 'kycPendingUsersCount'       => User::kycPending()->count(),
                 'pendingTicketCount'         => SupportTicket::whereIN('status', [Status::TICKET_OPEN, Status::TICKET_REPLY])->count(),
                 'pendingDepositsCount'       => Deposit::pending()->count(),
-                'pendingWithdrawCount'       => Withdrawal::pending()->count(), 
+                'pendingWithdrawCount'       => Withdrawal::pending()->count(),
                 'pendingBetCount'            => Bet::pending()->count(),
+                'bannedMastersCount'           => Master::banned()->count(),
             ]);
         });
 
