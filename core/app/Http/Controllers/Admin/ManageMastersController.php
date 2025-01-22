@@ -116,7 +116,7 @@ class ManageMastersController extends Controller
         return view('admin.masters.detail', compact('pageTitle', 'master', 'totalDeposit', 'totalWithdrawals', 'totalTransaction', 'countries'));
     }
 
-    public function add($id)
+    public function addMasters($id)
     {
         $master = Master::findOrFail($id);
         $pageTitle = 'Master Detail - ' . $master->mastername;
