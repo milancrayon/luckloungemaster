@@ -61,9 +61,9 @@
                             @forelse($transactions as $trx)
                             <tr>
                                 <td>
-                                    <span class="fw-bold">{{ $trx->user->fullname }}</span>
+                                    <span class="fw-bold">{{ $trx->master->fullname }}</span>
                                     <br>
-                                    <span class="small"> <a href="{{ appendQuery('search', $trx->user->username) }}"><span>@</span>{{ $trx->user->username }}</a> </span>
+                                    <span class="small"> <a href="{{ appendQuery('search', $trx->master->mastername) }}"><span>@</span>{{ $trx->master->mastername }}</a> </span>
                                 </td>
 
                                 <td>
