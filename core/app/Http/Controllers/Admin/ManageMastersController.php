@@ -241,7 +241,7 @@ class ManageMastersController extends Controller
             'amount' => 'required|numeric|gt:0',
             'password' => ['required', 'confirmed', $passwordValidation]
         ]);
-
+        $amount = $request->amount;
         // Check if the mobile number already exists for other records
         $exists = Master::where('mobile', $request->mobile)
             ->where('dial_code', $dialCode)
@@ -258,7 +258,7 @@ class ManageMastersController extends Controller
         $master->lastname = $request->lastname;
         $master->email = $request->email;
         $master->exposure = 0;
-        $master->balance = $request->amount;
+        $master->balance = $amount;
 
         $master->address = $request->address;
         $master->city = $request->city;
