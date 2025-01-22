@@ -89,5 +89,5 @@
 
 @push('breadcrumb-plugins')
     <x-search-form placeholder="Username / Email" />
-    <a href="{{ route('admin.masters.add') }}">Add Master</a>
+    <a href="{{ route('admin.masters.add') }}" class="btn btn--primary btn--shadow w-100 btn-lg">Add Master</a>
 @endpush
