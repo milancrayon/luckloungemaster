@@ -290,6 +290,7 @@ class ManageMastersController extends Controller
         } else {
             $master->kv = Status::KYC_VERIFIED;
         }
+        echo "<pre>";
         print_r($master);
         exit();
         // $master->save();
