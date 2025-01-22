@@ -17,46 +17,46 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse($users as $user)
+                                @forelse($masters as $master)
                                     <tr>
                                         <td>
-                                            <span class="fw-bold">{{ $user->fullname }}</span>
+                                            <span class="fw-bold">{{ $master->fullname }}</span>
                                             <br>
                                             <span class="small">
-                                                <a href="{{ route('admin.users.detail', $user->id) }}"><span>@</span>{{ $user->username }}</a>
+                                                <a href="{{ route('admin.masters.detail', $master->id) }}"><span>@</span>{{ $master->mastername }}</a>
                                             </span>
                                         </td>
 
 
                                         <td>
-                                            {{ $user->email }}<br>{{ $user->mobileNumber }}
+                                            {{ $master->email }}<br>{{ $master->mobileNumber }}
                                         </td>
                                         <td>
-                                            <span class="fw-bold" title="{{ @$user->country_name }}">{{ $user->country_code }}</span>
+                                            <span class="fw-bold" title="{{ @$master->country_name }}">{{ $master->country_code }}</span>
                                         </td>
 
 
 
                                         <td>
-                                            {{ showDateTime($user->created_at) }} <br> {{ diffForHumans($user->created_at) }}
+                                            {{ showDateTime($master->created_at) }} <br> {{ diffForHumans($master->created_at) }}
                                         </td>
 
 
                                         <td>
                                             <span class="fw-bold">
 
-                                                {{ showAmount($user->balance) }}
+                                                {{ showAmount($master->balance) }}
                                             </span>
                                         </td>
 
                                         <td>
                                             <div class="button--group">
-                                                <a href="{{ route('admin.users.detail', $user->id) }}" class="btn btn-sm btn-outline--primary">
+                                                <a href="{{ route('admin.masters.detail', $master->id) }}" class="btn btn-sm btn-outline--primary">
                                                     <i class="las la-desktop"></i> @lang('Details')
                                                 </a>
-                                                @if (request()->routeIs('admin.users.kyc.pending'))
-                                                    <a href="{{ route('admin.users.kyc.details', $user->id) }}" target="_blank" class="btn btn-sm btn-outline--dark">
-                                                        <i class="las la-user-check"></i>@lang('KYC Data')
+                                                @if (request()->routeIs('admin.masters.kyc.pending'))
+                                                    <a href="{{ route('admin.masters.kyc.details', $master->id) }}" target="_blank" class="btn btn-sm btn-outline--dark">
+                                                        <i class="las la-master-check"></i>@lang('KYC Data')
                                                     </a>
                                                 @endif
                                             </div>
@@ -73,9 +73,9 @@
                         </table><!-- table end -->
                     </div>
                 </div>
-                @if ($users->hasPages())
+                @if ($masters->hasPages())
                     <div class="card-footer py-4">
-                        {{ paginateLinks($users) }}
+                        {{ paginateLinks($masters) }}
                     </div>
                 @endif
             </div>
