@@ -197,6 +197,47 @@
             }
         ]
     },
+    "manage_masters": {
+        "title": "Manage Masters",
+        "icon": "las la-users",
+        "counters": [
+            "bannedMastersCount",
+            "emailUnverifiedMastersCount",
+            "mobileUnverifiedMastersCount",
+            "kycUnverifiedMastersCount",
+            "kycPendingMastersCount"
+        ],
+        "menu_active": "admin.masters*",
+        "submenu": [
+            {
+                "keyword": [
+                    "active masters",
+                    "Manage Masters",
+                    "User management",
+                    "User control",
+                    "User status",
+                    "User activity",
+                    "User analytics"
+                ],
+                "title": "Active Masters",
+                "route_name": "admin.masters.active",
+                "menu_active": "admin.masters.active"
+            },
+            {
+                "keyword": [
+                    "banned masters",
+                    "Manage Masters",
+                    "User management",
+                    "Account bans",
+                    "User activity"
+                ],
+                "title": "Banned Masters",
+                "route_name": "admin.masters.banned",
+                "menu_active": "admin.masters.banned",
+                "counter": "bannedMastersCount"
+            }
+        ]
+    },
     "deposits": {
         "title": "Deposits",
         "icon": "las la-file-invoice-dollar",
@@ -571,14 +612,11 @@
             "admin.withdraw.method*"
         ]
     },
-    
-    
     "extra": {
         "title": "Extra",
         "icon": "la la-server",
         "menu_active": "admin.system*",
         "submenu": [
-           
             {
                 "keyword": [
                     "Server",
