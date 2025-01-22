@@ -110,13 +110,21 @@ class ManageMastersController extends Controller
             $masters = Master::query();
         }
 
-        // Get the query object
+        // Build the query
         $query = $masters->searchable(['mastername', 'email'])->orderBy('id', 'desc');
 
-        // Print the raw SQL query
-        dd($query->toSql()); // This will print the raw SQL query
-    }
+        // Get the raw SQL query with placeholders
+        $sql = $query->toSql();
 
+        // Get the query bindings (actual values for placeholders)
+        $bindings = $query->getBindings();
+
+        // Replace the placeholders with actual values to get the full query
+        $fullQuery = vsprintf(str_replace('?', '%s', $sql), $bindings);
+
+        // Print the full query
+        dd($fullQuery); // This will dump the SQL query with actual values
+    }
     public function detail($id)
     {
         $master = Master::findOrFail($id);
