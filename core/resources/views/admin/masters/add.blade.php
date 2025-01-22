@@ -10,7 +10,7 @@
                     style="7"
                     title="Balance"
                     icon="las la-money-bill-wave-alt"
-                    value="{{ showAmount($master->balance) }}"
+                    value="{{ showAmount(0) }}"
                     bg="indigo"
                     type="2" />
             </div>
