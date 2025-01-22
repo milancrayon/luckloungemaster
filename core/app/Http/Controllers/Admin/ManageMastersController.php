@@ -111,9 +111,7 @@ class ManageMastersController extends Controller
         $totalDeposit = 0;
         $totalWithdrawals = 0;
         $totalTransaction = 0;
-        // $totalDeposit = Deposit::where('master_id', $master->id)->successful()->sum('amount');
-        // $totalWithdrawals = Withdrawal::where('master_id', $master->id)->approved()->sum('amount');
-        // $totalTransaction = Transaction::where('master_id', $master->id)->count();
+
         $countries = json_decode(file_get_contents(resource_path('views/partials/country.json')));
         return view('admin.masters.detail', compact('pageTitle', 'master', 'totalDeposit', 'totalWithdrawals', 'totalTransaction', 'countries'));
     }
@@ -121,12 +119,8 @@ class ManageMastersController extends Controller
     public function addMasters()
     {
         $pageTitle = 'Add Master Detail';
-        $totalDeposit = 0;
-        $totalWithdrawals = 0;
-        $totalTransaction = 0;
-        $master = [];
         $countries = json_decode(file_get_contents(resource_path('views/partials/country.json')));
-        return view('admin.masters.add', compact('pageTitle', 'master', 'totalDeposit', 'totalWithdrawals', 'totalTransaction', 'countries'));
+        return view('admin.masters.add', compact('pageTitle', 'countries'));
     }
 
 
