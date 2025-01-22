@@ -37,12 +37,6 @@
             </div>
 
             <div class="flex-fill">
-                <a href="{{ route('admin.report.login.history') }}?search={{ $master->mastername }}" class="btn btn--primary btn--shadow w-100 btn-lg">
-                    <i class="las la-list-alt"></i>@lang('Logins')
-                </a>
-            </div>
-
-            <div class="flex-fill">
                 <button data-bs-toggle="modal" data-bs-target="#passwordreset" class="btn btn--success btn--shadow w-100 btn-lg bal-btn">
                     <i class="las la-plus-circle"></i> @lang('Password Reset')
                 </button>
