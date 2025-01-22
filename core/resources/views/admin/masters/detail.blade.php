@@ -4,7 +4,6 @@
 <div class="row">
     <div class="col-12">
         <div class="row gy-4">
-
             <div class="col-xxl-3 col-sm-6">
                 <x-widget
                     style="7"
@@ -15,9 +14,16 @@
                     bg="indigo"
                     type="2" />
             </div>
-
-
-
+            <div class="col-xxl-3 col-sm-6">
+                <x-widget
+                    style="7"
+                    link="{{ route('admin.report.transaction', $user->id) }}"
+                    title="Transactions"
+                    icon="las la-exchange-alt"
+                    value="{{ $totalTransaction }}"
+                    bg="17"
+                    type="2" />
+            </div>
         </div>
 
         <div class="d-flex flex-wrap gap-3 mt-4">
@@ -42,7 +48,7 @@
                     <i class="las la-plus-circle"></i> @lang('Password Reset')
                 </button>
             </div>
-           
+
 
             @if ($master->kyc_data)
             <div class="flex-fill">
