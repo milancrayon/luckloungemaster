@@ -170,40 +170,6 @@
     </div>
 </div>
 
-<!-- <div id="passwordreset" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><span>@lang('Password Reset')</span></h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <i class="las la-times"></i>
-                </button>
-            </div>
-            <form action="{{ route('admin.masters.passwordset', $master->id) }}" class="balanceAddSub disableSubmission" method="POST">
-                @csrf
-                <input type="hidden" name="act">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label>@lang('Password')</label>
-                        <div class="input-group">
-                            <input type="password" name="password" class="form-control" placeholder="@lang('New Password')" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>@lang('Password Confirm')</label>
-                        <div class="input-group">
-                            <input type="password" name="password_confirmation" class="form-control" placeholder="@lang('Confirmed Password')" required>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn--primary h-45 w-100">@lang('Submit')</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div> -->
-
 @endsection
 
 @push('breadcrumb-plugins')
