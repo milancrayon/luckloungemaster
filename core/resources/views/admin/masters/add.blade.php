@@ -51,7 +51,7 @@
 
         <div class="card mt-30">
             <div class="card-header">
-                <h5 class="card-title mb-0">@lang('Information of') {{ $master->fullname }}</h5>
+                <h5 class="card-title mb-0">@lang('Information of')</h5>
             </div>
             <div class="card-body">
                 <form action="{{ route('admin.masters.store') }}" method="POST"
@@ -62,21 +62,21 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>@lang('First Name')</label>
-                                <input class="form-control" type="text" name="firstname" required value="{{ $master->firstname }}">
+                                <input class="form-control" type="text" name="firstname" required value="">
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-control-label">@lang('Last Name')</label>
-                                <input class="form-control" type="text" name="lastname" required value="{{ $master->lastname }}">
+                                <input class="form-control" type="text" name="lastname" required value="">
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>@lang('Email') </label>
-                                <input class="form-control" type="email" name="email" value="{{ $master->email }}" required>
+                                <input class="form-control" type="email" name="email" value="" required>
                             </div>
                         </div>
 
@@ -84,8 +84,8 @@
                             <div class="form-group">
                                 <label>@lang('Mobile Number') </label>
                                 <div class="input-group ">
-                                    <span class="input-group-text mobile-code">+{{ $master->dial_code }}</span>
-                                    <input type="number" name="mobile" value="{{ $master->mobile }}" id="mobile" class="form-control checkUser" required>
+                                    <span class="input-group-text mobile-code">+</span>
+                                    <input type="number" name="mobile" value="" id="mobile" class="form-control checkUser" required>
                                 </div>
                             </div>
                         </div>
@@ -93,28 +93,28 @@
                         <div class="col-md-12">
                             <div class="form-group ">
                                 <label>@lang('Address')</label>
-                                <input class="form-control" type="text" name="address" value="{{ @$master->address }}">
+                                <input class="form-control" type="text" name="address" value="">
                             </div>
                         </div>
 
                         <div class="col-xl-3 col-md-6">
                             <div class="form-group">
                                 <label>@lang('City')</label>
-                                <input class="form-control" type="text" name="city" value="{{ @$master->city }}">
+                                <input class="form-control" type="text" name="city" value="">
                             </div>
                         </div>
 
                         <div class="col-xl-3 col-md-6">
                             <div class="form-group ">
                                 <label>@lang('State')</label>
-                                <input class="form-control" type="text" name="state" value="{{ @$master->state }}">
+                                <input class="form-control" type="text" name="state" value="">
                             </div>
                         </div>
 
                         <div class="col-xl-3 col-md-6">
                             <div class="form-group ">
                                 <label>@lang('Zip/Postal')</label>
-                                <input class="form-control" type="text" name="zip" value="{{ @$master->zip }}">
+                                <input class="form-control" type="text" name="zip" value="">
                             </div>
                         </div>
 
