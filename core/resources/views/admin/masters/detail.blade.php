@@ -47,11 +47,7 @@
                     <i class="las la-plus-circle"></i> @lang('Password Reset')
                 </button>
             </div>
-            <div class="flex-fill">
-                <a href="{{ route('admin.masters.notification.log', $master->id) }}" class="btn btn--secondary btn--shadow w-100 btn-lg">
-                    <i class="las la-bell"></i>@lang('Notifications')
-                </a>
-            </div>
+           
 
             @if ($master->kyc_data)
             <div class="flex-fill">
