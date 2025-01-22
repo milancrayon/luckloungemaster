@@ -268,7 +268,7 @@ class ManageMastersController extends Controller
         $master->firstname = $request->firstname;
         $master->lastname = $request->lastname;
         $master->email = $request->email;
-        $master->exposure = $request->exposure;
+        $master->exposure = 0;
         $master->balance = $request->amount;
 
         $master->address = $request->address;
