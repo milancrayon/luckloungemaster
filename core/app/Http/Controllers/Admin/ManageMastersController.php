@@ -238,6 +238,10 @@ class ManageMastersController extends Controller
         $countryCode = $request->country;
         $country = $countryData->$countryCode->country;
         $dialCode = $countryData->$countryCode->dial_code;
+        $passwordValidation = Password::min(6);
+        if (gs('secure_password')) {
+            $passwordValidation = $passwordValidation->mixedCase()->numbers()->symbols()->uncompromised();
+        }
 
         $request->validate([
             'firstname' => 'required|string|max:40',
@@ -245,6 +249,8 @@ class ManageMastersController extends Controller
             'email' => 'required|email|string|max:40|unique:masters,email',  // Ensure email is unique for new records
             'mobile' => 'required|string|max:40',
             'country' => 'required|in:' . $countries,
+            'amount' => 'required|numeric|gt:0',
+            'password' => ['required', 'confirmed', $passwordValidation]
         ]);
 
         // Check if the mobile number already exists for other records
