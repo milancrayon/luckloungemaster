@@ -164,7 +164,7 @@
     (function($) {
         "use strict"
 
-
+        $('select[name=country]').trigger('change');
         $('.bal-btn').on('click', function() {
 
             $('.balanceAddSub')[0].reset();
@@ -177,7 +177,7 @@
                 $('.type').text('Subtract');
             }
         });
-        jQuery('select[name=country]').trigger('change');
+
         let mobileElement = $('.mobile-code');
         $('select[name=country]').on('change', function() {
             mobileElement.text(`+${$('select[name=country] :selected').data('mobile_code')}`);
