@@ -89,5 +89,5 @@
 
 @push('breadcrumb-plugins')
     <x-search-form placeholder="Username / Email" />
-    <a>Add Master</a>
+    <a href="/">Add Master</a>
 @endpush

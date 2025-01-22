@@ -103,6 +103,8 @@ Route::middleware('admin')->group(function () {
         Route::get('/', 'allMasters')->name('all');
         Route::get('active', 'activeMasters')->name('active');
         Route::get('banned', 'bannedMasters')->name('banned');
+        Route::get('add/master', 'bannedMasters')->name('banned');
+        Route::get('detail/{id}', 'add')->name('add');
     });
     // Subscriber
     Route::controller('SubscriberController')->prefix('subscriber')->name('subscriber.')->group(function () {

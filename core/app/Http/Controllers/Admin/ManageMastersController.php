@@ -116,6 +116,20 @@ class ManageMastersController extends Controller
         return view('admin.masters.detail', compact('pageTitle', 'master', 'totalDeposit', 'totalWithdrawals', 'totalTransaction', 'countries'));
     }
 
+    public function add($id)
+    {
+        $master = Master::findOrFail($id);
+        $pageTitle = 'Master Detail - ' . $master->mastername;
+
+        $totalDeposit = Deposit::where('master_id', $master->id)->successful()->sum('amount');
+        $totalWithdrawals = Withdrawal::where('master_id', $master->id)->approved()->sum('amount');
+        $totalTransaction = Transaction::where('master_id', $master->id)->count();
+        $countries = json_decode(file_get_contents(resource_path('views/partials/country.json')));
+        return view('admin.masters.add', compact('pageTitle', 'master', 'totalDeposit', 'totalWithdrawals', 'totalTransaction', 'countries'));
+    }
+
+
+
 
     public function kycDetails($id)
     {
