@@ -290,10 +290,8 @@ class ManageMastersController extends Controller
         } else {
             $master->kv = Status::KYC_VERIFIED;
         }
-        echo "<pre>";
-        print_r($master);
-        exit();
-        // $master->save();
+
+        $master->save();
 
         $notify[] = ['success', 'Master details created successfully'];
         return back()->withNotify($notify);
