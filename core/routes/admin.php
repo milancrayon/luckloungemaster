@@ -106,6 +106,7 @@ Route::middleware('admin')->group(function () {
         Route::get('add', 'addMasters')->name('add');
         Route::get('detail/{id}', 'detail')->name('detail');
         Route::post('store', 'store')->name('store');
+        Route::post('update/{id}', 'update')->name('update');
     });
     // Subscriber
     Route::controller('SubscriberController')->prefix('subscriber')->name('subscriber.')->group(function () {
