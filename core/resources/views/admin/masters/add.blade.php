@@ -13,14 +13,20 @@
                     @csrf
 
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>@lang('Master Name')</label>
+                                <input class="form-control" type="text" name="mastername" required value="">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label>@lang('First Name')</label>
                                 <input class="form-control" type="text" name="firstname" required value="">
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-control-label">@lang('Last Name')</label>
                                 <input class="form-control" type="text" name="lastname" required value="">
