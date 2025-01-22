@@ -247,14 +247,11 @@
             },
             {
                 "keyword": [
-                    "Transaction Log",
-                    "Report",
-                    "Transaction masters",
-                    "Transaction history",
-                    "Transaction activity",
-                    "balance sheet",
-                    "balance log",
-                    "balance history"
+                    "banned masters",
+                    "Manage Masters",
+                    "User management",
+                    "Account bans",
+                    "User activity"
                 ],
                 "title": "Transaction History",
                 "route_name": "admin.masters.transaction",
