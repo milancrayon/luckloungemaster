@@ -95,7 +95,7 @@
                             <div class="form-group">
                                 <label>@lang('Exposure')</label>
                                 <div class="input-group">
-                                    <input type="number" step="any" name="exposure" class="form-control" placeholder="@lang('Please provide positive exposure')" disabled required value="0">
+                                    <input type="number" step="any" name="exposure" class="form-control" placeholder="@lang('Please provide positive exposure')" disabled  value="0">
                                 </div>
                             </div>
                         </div>
