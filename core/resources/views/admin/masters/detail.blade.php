@@ -57,11 +57,11 @@
             <div class="flex-fill">
                 @if ($master->status == Status::USER_ACTIVE)
                 <button type="button" class="btn btn--warning btn--gradi btn--shadow w-100 btn-lg masterStatus" data-bs-toggle="modal" data-bs-target="#masterStatusModal">
-                    <i class="las la-ban"></i>@lang('Ban User')
+                    <i class="las la-ban"></i>@lang('Ban Master')
                 </button>
                 @else
                 <button type="button" class="btn btn--success btn--gradi btn--shadow w-100 btn-lg masterStatus" data-bs-toggle="modal" data-bs-target="#masterStatusModal">
-                    <i class="las la-undo"></i>@lang('Unban User')
+                    <i class="las la-undo"></i>@lang('Unban Master')
                 </button>
                 @endif
             </div>
@@ -104,7 +104,7 @@
                                 <label>@lang('Mobile Number') </label>
                                 <div class="input-group ">
                                     <span class="input-group-text mobile-code">+{{ $master->dial_code }}</span>
-                                    <input type="number" name="mobile" value="{{ $master->mobile }}" id="mobile" class="form-control checkUser" required>
+                                    <input type="number" name="mobile" value="{{ $master->mobile }}" id="mobile" class="form-control checkMaster" required>
                                 </div>
                             </div>
                         </div>
@@ -266,9 +266,9 @@
             <div class="modal-header">
                 <h5 class="modal-title">
                     @if ($master->status == Status::USER_ACTIVE)
-                    @lang('Ban User')
+                    @lang('Ban Master')
                     @else
-                    @lang('Unban User')
+                    @lang('Unban Master')
                     @endif
                 </h5>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
