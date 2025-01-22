@@ -135,7 +135,7 @@
                                 <label>@lang('Email Verification')</label>
                                 <input type="checkbox" data-width="100%" data-onstyle="-success" data-offstyle="-danger"
                                     data-bs-toggle="toggle" data-on="@lang('Verified')" data-off="@lang('Unverified')" name="ev"
-                                    @if ($master->ev) checked @endif>
+                                    >
                             </div>
                         </div>
 
@@ -144,19 +144,19 @@
                                 <label>@lang('Mobile Verification')</label>
                                 <input type="checkbox" data-width="100%" data-onstyle="-success" data-offstyle="-danger"
                                     data-bs-toggle="toggle" data-on="@lang('Verified')" data-off="@lang('Unverified')" name="sv"
-                                    @if ($master->sv) checked @endif>
+                                    >
                             </div>
                         </div>
                         <div class="col-xl-3 col-md- col-12">
                             <div class="form-group">
                                 <label>@lang('2FA Verification') </label>
-                                <input type="checkbox" data-width="100%" data-height="50" data-onstyle="-success" data-offstyle="-danger" data-bs-toggle="toggle" data-on="@lang('Enable')" data-off="@lang('Disable')" name="ts" @if ($master->ts) checked @endif>
+                                <input type="checkbox" data-width="100%" data-height="50" data-onstyle="-success" data-offstyle="-danger" data-bs-toggle="toggle" data-on="@lang('Enable')" data-off="@lang('Disable')" name="ts">
                             </div>
                         </div>
                         <div class="col-xl-3 col-md- col-12">
                             <div class="form-group">
                                 <label>@lang('KYC') </label>
-                                <input type="checkbox" data-width="100%" data-height="50" data-onstyle="-success" data-offstyle="-danger" data-bs-toggle="toggle" data-on="@lang('Verified')" data-off="@lang('Unverified')" name="kv" @if ($master->kv == Status::KYC_VERIFIED) checked @endif>
+                                <input type="checkbox" data-width="100%" data-height="50" data-onstyle="-success" data-offstyle="-danger" data-bs-toggle="toggle" data-on="@lang('Verified')" data-off="@lang('Unverified')" name="kv">
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -170,7 +170,7 @@
     </div>
 </div>
 
-<div id="passwordreset" class="modal fade" tabindex="-1" role="dialog">
+<!-- <div id="passwordreset" class="modal fade" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -202,51 +202,8 @@
             </form>
         </div>
     </div>
-</div>
+</div> -->
 
-
-<div id="masterStatusModal" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">
-                    @if ($master->status == Status::USER_ACTIVE)
-                    @lang('Ban User')
-                    @else
-                    @lang('Unban User')
-                    @endif
-                </h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <i class="las la-times"></i>
-                </button>
-            </div>
-            <form action="{{ route('admin.masters.status', $master->id) }}" method="POST">
-                @csrf
-                <div class="modal-body">
-                    @if ($master->status == Status::USER_ACTIVE)
-                    <h6 class="mb-2">@lang('If you ban this master he/she won\'t able to access his/her dashboard.')</h6>
-                    <div class="form-group">
-                        <label>@lang('Reason')</label>
-                        <textarea class="form-control" name="reason" rows="4" required></textarea>
-                    </div>
-                    @else
-                    <p><span>@lang('Ban reason was'):</span></p>
-                    <p>{{ $master->ban_reason }}</p>
-                    <h4 class="text-center mt-3">@lang('Are you sure to unban this master?')</h4>
-                    @endif
-                </div>
-                <div class="modal-footer">
-                    @if ($master->status == Status::USER_ACTIVE)
-                    <button type="submit" class="btn btn--primary h-45 w-100">@lang('Submit')</button>
-                    @else
-                    <button type="button" class="btn btn--dark" data-bs-dismiss="modal">@lang('No')</button>
-                    <button type="submit" class="btn btn--primary">@lang('Yes')</button>
-                    @endif
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 @endsection
 
 @push('breadcrumb-plugins')
