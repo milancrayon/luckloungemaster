@@ -8,10 +8,10 @@
                 <div class="col-xxl-3 col-sm-6">
                     <x-widget
                               style="7"
-                              link="{{ route('admin.report.transaction', $user->id) }}"
+                              link="{{ route('admin.report.transaction', $master->id) }}"
                               title="Balance"
                               icon="las la-money-bill-wave-alt"
-                              value="{{ showAmount($user->balance) }}"
+                              value="{{ showAmount($master->balance) }}"
                               bg="indigo"
                               type="2" />
                 </div>
@@ -20,7 +20,7 @@
                 <div class="col-xxl-3 col-sm-6">
                     <x-widget
                               style="7"
-                              link="{{ route('admin.deposit.list', $user->id) }}"
+                              link="{{ route('admin.deposit.list', $master->id) }}"
                               title="Deposits"
                               icon="las la-wallet"
                               value="{{ showAmount($totalDeposit) }}"
@@ -31,7 +31,7 @@
                 <div class="col-xxl-3 col-sm-6">
                     <x-widget
                               style="7"
-                              link="{{ route('admin.withdraw.data.all', $user->id) }}"
+                              link="{{ route('admin.withdraw.data.all', $master->id) }}"
                               title="Withdrawals"
                               icon="la la-bank"
                               value="{{ showAmount($totalWithdrawals) }}"
@@ -42,7 +42,7 @@
                 <div class="col-xxl-3 col-sm-6">
                     <x-widget
                               style="7"
-                              link="{{ route('admin.report.transaction', $user->id) }}"
+                              link="{{ route('admin.report.transaction', $master->id) }}"
                               title="Transactions"
                               icon="las la-exchange-alt"
                               value="{{ $totalTransaction }}"
@@ -58,7 +58,7 @@
                     <!-- <button data-bs-toggle="modal" data-bs-target="#addSubModal" class="btn btn--success btn--shadow w-100 btn-lg bal-btn" data-act="add">
                         <i class="las la-plus-circle"></i> @lang('Balance')
                     </button> -->
-                    <a href="{{ route('admin.deposit.create') }}/{{ $user->id }}" class="btn btn--success btn--shadow w-100 btn-lg">
+                    <a href="{{ route('admin.deposit.create') }}/{{ $master->id }}" class="btn btn--success btn--shadow w-100 btn-lg">
                         <i class="las la-plus-circle"></i>@lang('Balance')
                     </a>
                 </div>
@@ -70,7 +70,7 @@
                 </div>
 
                 <div class="flex-fill">
-                    <a href="{{ route('admin.report.login.history') }}?search={{ $user->username }}" class="btn btn--primary btn--shadow w-100 btn-lg">
+                    <a href="{{ route('admin.report.login.history') }}?search={{ $master->mastername }}" class="btn btn--primary btn--shadow w-100 btn-lg">
                         <i class="las la-list-alt"></i>@lang('Logins')
                     </a>
                 </div>
@@ -81,26 +81,26 @@
                     </button>
                 </div>
                 <div class="flex-fill">
-                    <a href="{{ route('admin.users.notification.log', $user->id) }}" class="btn btn--secondary btn--shadow w-100 btn-lg">
+                    <a href="{{ route('admin.masters.notification.log', $master->id) }}" class="btn btn--secondary btn--shadow w-100 btn-lg">
                         <i class="las la-bell"></i>@lang('Notifications')
                     </a>
                 </div>
 
-                @if ($user->kyc_data)
+                @if ($master->kyc_data)
                     <div class="flex-fill">
-                        <a href="{{ route('admin.users.kyc.details', $user->id) }}" target="_blank" class="btn btn--dark btn--shadow w-100 btn-lg">
-                            <i class="las la-user-check"></i>@lang('KYC Data')
+                        <a href="{{ route('admin.masters.kyc.details', $master->id) }}" target="_blank" class="btn btn--dark btn--shadow w-100 btn-lg">
+                            <i class="las la-master-check"></i>@lang('KYC Data')
                         </a>
                     </div>
                 @endif
 
                 <div class="flex-fill">
-                    @if ($user->status == Status::USER_ACTIVE)
-                        <button type="button" class="btn btn--warning btn--gradi btn--shadow w-100 btn-lg userStatus" data-bs-toggle="modal" data-bs-target="#userStatusModal">
+                    @if ($master->status == Status::USER_ACTIVE)
+                        <button type="button" class="btn btn--warning btn--gradi btn--shadow w-100 btn-lg masterStatus" data-bs-toggle="modal" data-bs-target="#masterStatusModal">
                             <i class="las la-ban"></i>@lang('Ban User')
                         </button>
                     @else
-                        <button type="button" class="btn btn--success btn--gradi btn--shadow w-100 btn-lg userStatus" data-bs-toggle="modal" data-bs-target="#userStatusModal">
+                        <button type="button" class="btn btn--success btn--gradi btn--shadow w-100 btn-lg masterStatus" data-bs-toggle="modal" data-bs-target="#masterStatusModal">
                             <i class="las la-undo"></i>@lang('Unban User')
                         </button>
                     @endif
@@ -110,10 +110,10 @@
 
             <div class="card mt-30">
                 <div class="card-header">
-                    <h5 class="card-title mb-0">@lang('Information of') {{ $user->fullname }}</h5>
+                    <h5 class="card-title mb-0">@lang('Information of') {{ $master->fullname }}</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.users.update', [$user->id]) }}" method="POST"
+                    <form action="{{ route('admin.masters.update', [$master->id]) }}" method="POST"
                           enctype="multipart/form-data">
                         @csrf
 
@@ -121,21 +121,21 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>@lang('First Name')</label>
-                                    <input class="form-control" type="text" name="firstname" required value="{{ $user->firstname }}">
+                                    <input class="form-control" type="text" name="firstname" required value="{{ $master->firstname }}">
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="form-control-label">@lang('Last Name')</label>
-                                    <input class="form-control" type="text" name="lastname" required value="{{ $user->lastname }}">
+                                    <input class="form-control" type="text" name="lastname" required value="{{ $master->lastname }}">
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>@lang('Email') </label>
-                                    <input class="form-control" type="email" name="email" value="{{ $user->email }}" required>
+                                    <input class="form-control" type="email" name="email" value="{{ $master->email }}" required>
                                 </div>
                             </div>
 
@@ -143,8 +143,8 @@
                                 <div class="form-group">
                                     <label>@lang('Mobile Number') </label>
                                     <div class="input-group ">
-                                        <span class="input-group-text mobile-code">+{{ $user->dial_code }}</span>
-                                        <input type="number" name="mobile" value="{{ $user->mobile }}" id="mobile" class="form-control checkUser" required>
+                                        <span class="input-group-text mobile-code">+{{ $master->dial_code }}</span>
+                                        <input type="number" name="mobile" value="{{ $master->mobile }}" id="mobile" class="form-control checkUser" required>
                                     </div>
                                 </div>
                             </div>
@@ -152,28 +152,28 @@
                             <div class="col-md-12">
                                 <div class="form-group ">
                                     <label>@lang('Address')</label>
-                                    <input class="form-control" type="text" name="address" value="{{ @$user->address }}">
+                                    <input class="form-control" type="text" name="address" value="{{ @$master->address }}">
                                 </div>
                             </div>
 
                             <div class="col-xl-3 col-md-6">
                                 <div class="form-group">
                                     <label>@lang('City')</label>
-                                    <input class="form-control" type="text" name="city" value="{{ @$user->city }}">
+                                    <input class="form-control" type="text" name="city" value="{{ @$master->city }}">
                                 </div>
                             </div>
 
                             <div class="col-xl-3 col-md-6">
                                 <div class="form-group ">
                                     <label>@lang('State')</label>
-                                    <input class="form-control" type="text" name="state" value="{{ @$user->state }}">
+                                    <input class="form-control" type="text" name="state" value="{{ @$master->state }}">
                                 </div>
                             </div>
 
                             <div class="col-xl-3 col-md-6">
                                 <div class="form-group ">
                                     <label>@lang('Zip/Postal')</label>
-                                    <input class="form-control" type="text" name="zip" value="{{ @$user->zip }}">
+                                    <input class="form-control" type="text" name="zip" value="{{ @$master->zip }}">
                                 </div>
                             </div>
 
@@ -182,7 +182,7 @@
                                     <label>@lang('Country')<span class="text--danger">*</span></label>
                                     <select name="country" class="form-control select2">
                                         @foreach ($countries as $key => $country)
-                                            <option data-mobile_code="{{ $country->dial_code }}" value="{{ $key }}" @selected($user->country_code == $key)>{{ __($country->country) }}</option>
+                                            <option data-mobile_code="{{ $country->dial_code }}" value="{{ $key }}" @selected($master->country_code == $key)>{{ __($country->country) }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -194,7 +194,7 @@
                                     <label>@lang('Email Verification')</label>
                                     <input type="checkbox" data-width="100%" data-onstyle="-success" data-offstyle="-danger"
                                            data-bs-toggle="toggle" data-on="@lang('Verified')" data-off="@lang('Unverified')" name="ev"
-                                           @if ($user->ev) checked @endif>
+                                           @if ($master->ev) checked @endif>
                                 </div>
                             </div>
 
@@ -203,19 +203,19 @@
                                     <label>@lang('Mobile Verification')</label>
                                     <input type="checkbox" data-width="100%" data-onstyle="-success" data-offstyle="-danger"
                                            data-bs-toggle="toggle" data-on="@lang('Verified')" data-off="@lang('Unverified')" name="sv"
-                                           @if ($user->sv) checked @endif>
+                                           @if ($master->sv) checked @endif>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md- col-12">
                                 <div class="form-group">
                                     <label>@lang('2FA Verification') </label>
-                                    <input type="checkbox" data-width="100%" data-height="50" data-onstyle="-success" data-offstyle="-danger" data-bs-toggle="toggle" data-on="@lang('Enable')" data-off="@lang('Disable')" name="ts" @if ($user->ts) checked @endif>
+                                    <input type="checkbox" data-width="100%" data-height="50" data-onstyle="-success" data-offstyle="-danger" data-bs-toggle="toggle" data-on="@lang('Enable')" data-off="@lang('Disable')" name="ts" @if ($master->ts) checked @endif>
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md- col-12">
                                 <div class="form-group">
                                     <label>@lang('KYC') </label>
-                                    <input type="checkbox" data-width="100%" data-height="50" data-onstyle="-success" data-offstyle="-danger" data-bs-toggle="toggle" data-on="@lang('Verified')" data-off="@lang('Unverified')" name="kv" @if ($user->kv == Status::KYC_VERIFIED) checked @endif>
+                                    <input type="checkbox" data-width="100%" data-height="50" data-onstyle="-success" data-offstyle="-danger" data-bs-toggle="toggle" data-on="@lang('Verified')" data-off="@lang('Unverified')" name="kv" @if ($master->kv == Status::KYC_VERIFIED) checked @endif>
                                 </div>
                             </div>
                             <div class="col-md-12">
@@ -241,7 +241,7 @@
                         <i class="las la-times"></i>
                     </button>
                 </div>
-                <form action="{{ route('admin.users.add.sub.balance', $user->id) }}" class="balanceAddSub disableSubmission" method="POST">
+                <form action="{{ route('admin.masters.add.sub.balance', $master->id) }}" class="balanceAddSub disableSubmission" method="POST">
                     @csrf
                     <input type="hidden" name="act">
                     <div class="modal-body">
@@ -274,7 +274,7 @@
                         <i class="las la-times"></i>
                     </button>
                 </div>
-                <form action="{{ route('admin.users.passwordset', $user->id) }}" class="balanceAddSub disableSubmission" method="POST">
+                <form action="{{ route('admin.masters.passwordset', $master->id) }}" class="balanceAddSub disableSubmission" method="POST">
                     @csrf
                     <input type="hidden" name="act">
                     <div class="modal-body">
@@ -300,12 +300,12 @@
     </div>
 
 
-    <div id="userStatusModal" class="modal fade" tabindex="-1" role="dialog">
+    <div id="masterStatusModal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
-                        @if ($user->status == Status::USER_ACTIVE)
+                        @if ($master->status == Status::USER_ACTIVE)
                             @lang('Ban User')
                         @else
                             @lang('Unban User')
@@ -315,23 +315,23 @@
                         <i class="las la-times"></i>
                     </button>
                 </div>
-                <form action="{{ route('admin.users.status', $user->id) }}" method="POST">
+                <form action="{{ route('admin.masters.status', $master->id) }}" method="POST">
                     @csrf
                     <div class="modal-body">
-                        @if ($user->status == Status::USER_ACTIVE)
-                            <h6 class="mb-2">@lang('If you ban this user he/she won\'t able to access his/her dashboard.')</h6>
+                        @if ($master->status == Status::USER_ACTIVE)
+                            <h6 class="mb-2">@lang('If you ban this master he/she won\'t able to access his/her dashboard.')</h6>
                             <div class="form-group">
                                 <label>@lang('Reason')</label>
                                 <textarea class="form-control" name="reason" rows="4" required></textarea>
                             </div>
                         @else
                             <p><span>@lang('Ban reason was'):</span></p>
-                            <p>{{ $user->ban_reason }}</p>
-                            <h4 class="text-center mt-3">@lang('Are you sure to unban this user?')</h4>
+                            <p>{{ $master->ban_reason }}</p>
+                            <h4 class="text-center mt-3">@lang('Are you sure to unban this master?')</h4>
                         @endif
                     </div>
                     <div class="modal-footer">
-                        @if ($user->status == Status::USER_ACTIVE)
+                        @if ($master->status == Status::USER_ACTIVE)
                             <button type="submit" class="btn btn--primary h-45 w-100">@lang('Submit')</button>
                         @else
                             <button type="button" class="btn btn--dark" data-bs-dismiss="modal">@lang('No')</button>
@@ -345,7 +345,7 @@
 @endsection
 
 @push('breadcrumb-plugins')
-    <a href="{{ route('admin.users.login', $user->id) }}" target="_blank" class="btn btn-sm btn-outline--primary"><i class="las la-sign-in-alt"></i>@lang('Login as User')</a>
+    <a href="{{ route('admin.masters.login', $master->id) }}" target="_blank" class="btn btn-sm btn-outline--primary"><i class="las la-sign-in-alt"></i>@lang('Login as User')</a>
 @endpush
 
 @push('script')
