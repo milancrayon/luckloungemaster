@@ -1,0 +1,432 @@
+.c-point {
+    cursor: pointer;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 2px;
+    margin: 0 auto;
+}
+
+table tr {
+    color: white;
+}
+
+table tr td {
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all .3s;
+    padding: 10px 25px;
+    border: 1px solid #ffffff85;
+    position: relative;
+    text-align: center;
+    line-height: 1;
+    color: #fff;
+    font-size: 14px;
+}
+
+table .btn-color {
+    color: #fff;
+}
+
+.dark table .btn-color {
+    color: #fff;
+}
+
+table tr td input {
+    background: transparent;
+    border: 0px;
+    font-weight: bold;
+}
+
+table tr td:hover {
+    opacity: 0.5;
+}
+
+@media (max-width: 1199px) {
+    table {
+        width: 100%;
+    }
+
+    table tr td {
+        padding: 10px 20px;
+    }
+}
+
+@media (max-width: 991px) {
+    table {
+        width: 100%;
+    }
+
+    table tr td {
+        padding: 10px 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    table {
+        width: 100%;
+    }
+
+    table tr td {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 640px) {
+    table {
+        border-spacing: 3px;
+    }
+
+    table tr td {
+        padding: 18px 20px !important;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    table tr td {
+        padding: 15px 20px !important;
+        font-size: 16px;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+    }
+}
+
+@media (max-width: 380px) {
+    table tr td {
+        padding: 12px 14px !important;
+        font-size: 14px;
+    }
+}
+
+.oneToTw button {
+    background: transparent;
+    border-radius: 7px;
+}
+
+.thrtToTf button {
+    background: transparent;
+    border-radius: 7px;
+}
+
+.twfToTs button {
+    background: transparent;
+    border-radius: 7px;
+}
+
+.oneToEt button {
+    background: transparent;
+    border-radius: 7px;
+}
+
+.nineteenTtsix button {
+    background: transparent;
+    border-radius: 7px;
+}
+
+.even button {
+    background: transparent;
+    border-radius: 7px;
+}
+
+.odd button {
+    background: transparent;
+    border-radius: 10px;
+}
+
+.twByOne1 button {
+    background: transparent;
+    border-radius: 10px;
+    /* padding: 15px 20px; */
+}
+
+.twByOne2 button {
+    background: transparent;
+    border-radius: 10px;
+    /* padding: 15px 20px; */
+}
+
+.twByOne3 button {
+    background: transparent;
+    border-radius: 10px;
+    /* padding: 15px 20px; */
+}
+
+
+button:focus {
+
+    outline: 0px dotted;
+    outline: 0px auto -webkit-focus-ring-color;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+.bg-dark {
+    background-color: #000000b8 !important;
+}
+
+.__select {
+    opacity: 0.7;
+}
+
+.selected {
+    opacity: 0.7;
+}
+
+.custom-badge {
+    padding: 2px 2px;
+    font-size: 12px;
+    position: absolute;
+    top: -3px;
+    left: 2px;
+    font-weight: 400;
+}
+
+@media (max-width: 640px) {
+    .custom-badge {
+        font-size: 8px;
+    }
+}
+
+.buttons .btn-primary {
+    color: #000;
+    background-color: #fff;
+    border-color: #fff;
+    padding: 6px 25px;
+    font-size: 20px;
+}
+
+.buttons .btn-primary:hover,
+.buttons .btn-primary:active,
+.buttons .btn-primary:focus {
+    background-color: #531bc8 !important;
+    border-color: #531bc8 !important;
+    color: #fff;
+}
+
+.bg-danger {
+    background-color: #FF2424 !important;
+}
+
+table tr td {
+    word-break: normal;
+}
+
+
+.roulette-game-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.roulette-game-spin {
+    text-align: center;
+}
+
+.roulettegame_wrapper .roulettegame-spin h4.mobile_only {
+    display: none
+}
+
+@media (max-width: 1260px) {
+    .roulette-game-spin {
+        width: 260px;
+    }
+}
+
+@media (max-width: 1199px) {
+    .roulette-game-spin {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.numbers td.bg-transparent {
+    background-color: transparent;
+    color: #fff;
+}
+
+@media (max-width: 767px) {
+
+    table {
+        border-spacing: 2px !important;
+        position: relative;
+        padding: 0px;
+    }
+
+    table tr td {
+        padding: 0.8vw !important;
+        font-size: 12px;
+    }
+
+    .roulettegame_wrapper .roulettegame-spin {
+        order: 1;
+        position: relative;
+    }
+
+    .roulettegame_wrapper .roulettegame_form {
+        order: 3;
+    }
+
+    .roulettegame_wrapper .roulettegame-spin h4.mobile_only {
+        position: absolute;
+        top: 10px;
+        width: 125px;
+        right: 21px;
+        text-align: right;
+        display: block;
+        font-weight: normal;
+        font-size: 13px;
+    }
+
+    .roulettegame_wrapper {
+        padding-top: 77px !important;
+    }
+
+    .custom_back_button_in_mobile a {
+        color: #DA202F;
+    }
+
+    section.inner-hero.bg_img {
+        display: none;
+    }
+
+
+    .custom_back_button_in_mobile.d-none {
+        display: block !important;
+        position: absolute;
+        top: 81px;
+        width: 100%;
+    }
+
+    .custom_back_button_in_mobile.d-none a {
+        z-index: 9;
+        position: relative;
+        left: 10px;
+        font-size: 13px;
+    }
+
+    .roulettegame_wrapper .roulettegame_form .game-details-right .form-group .input-group.mb-3 {
+        margin-bottom: 0.5rem !important;
+    }
+
+    .roulettegame_wrapper .roulettegame_details {
+        order: 2;
+        margin-top: 0px;
+    }
+
+    .roulettegame_wrapper .roulettegame_details .roulette-wrapper {
+        height: unset !important;
+        padding: 0px 5px 20px !important;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+    }
+
+    .roulettegame_wrapper .roulettegame-spin .game-details-right {
+        border-bottom-left-radius: 0px;
+        padding-top: 25px;
+        border-bottom-right-radius: 0px;
+        padding-bottom: 13px;
+    }
+
+    .roulettegame_wrapper .form-control {
+        min-height: 42px;
+        font-size: 14px;
+        padding: 9px 15px;
+    }
+
+    .roulettegame_wrapper .game-details-right .input-group-text {
+
+        font-size: 14px;
+        padding: 6px 10px;
+    }
+
+    .roulettegame_wrapper .roulettegame_form .game-details-right {
+        display: flex;
+        padding: 15px;
+        flex-wrap: wrap;
+    }
+
+
+    .roulettegame_wrapper .roulettegame_form .game-details-right .form-group {
+        width: 63%;
+        margin-bottom: 0px;
+        order: 1;
+    }
+
+    .roulettegame_wrapper .roulettegame_form .game-details-right .form-group~.text-center {
+        width: calc(37% - 10px);
+        margin-left: 10px;
+        order: 2;
+    }
+
+    .roulettegame_wrapper .roulettegame_form .game-details-right>h4 {
+        font-size: 10px;
+        font-weight: normal;
+        width: 100%;
+        margin-left: auto;
+        margin-top: 10px;
+        text-align: right;
+        flex: 0 0 100%;
+        color: #6c757d;
+        margin-bottom: 0px !important;
+        order: 3;
+    }
+
+    .roulettegame_wrapper .roulettegame_form .game-details-right>h4 .user-balance {
+        color: inherit;
+    }
+
+    .roulettegame_wrapper .roulettegame_form .game-details-right .form-group~.text-center .cmn-btn.w-100.play-btn {
+        padding: 0px 10px;
+        height: 42px;
+    }
+
+    .roulettegame_wrapper .roulettegame_form .game-details-right .form-group small {
+        margin: 0px;
+
+        display: inline-block;
+    }
+
+    .roulettegame_wrapper .roulettegame_form .game-details-right .form-group small .fas.fa-info-circle.mr-2 {
+        margin-right: 6px;
+    }
+
+}
+
+@media (max-width: 570px) {
+
+    .roulettegame_wrapper .roulettegame-spin h4.mobile_only {
+        font-size: 11px;
+        right: 21px;
+    }
+
+    table tr td {
+        font-size: 2.5vw;
+        line-height: 3.5vw;
+    }
+
+    .custom_back_button_in_mobile.d-none a {
+        font-size: 11px;
+    }
+
+    .roulettegame_wrapper .roulettegame_form .game-details-right .form-group~.text-center .cmn-btn.w-100.play-btn {
+        font-size: 12px;
+    }
+
+    .game-instruction.mt-2 {
+        font-size: 9px;
+    }
+
+    .roulettegame_wrapper .roulettegame_form .game-details-right .form-group small {
+        font-size: 11px;
+        margin: 0px;
+        line-height: 15px;
+    }
+}
