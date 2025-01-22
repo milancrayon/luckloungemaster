@@ -262,35 +262,36 @@ class ManageMastersController extends Controller
             $notify[] = ['error', 'The mobile number already exists.'];
             return back()->withNotify($notify);
         }
-        print_r($request);
-        exit();
         // Create a new Master instance
-        // $master = new Master();
-        // $master->mobile = $request->mobile;
-        // $master->firstname = $request->firstname;
-        // $master->lastname = $request->lastname;
-        // $master->email = $request->email;
+        $master = new Master();
+        $master->mobile = $request->mobile;
+        $master->firstname = $request->firstname;
+        $master->lastname = $request->lastname;
+        $master->email = $request->email;
+        $master->exposure = $request->exposure;
+        $master->balance = $request->amount;
 
-        // $master->address = $request->address;
-        // $master->city = $request->city;
-        // $master->state = $request->state;
-        // $master->zip = $request->zip;
-        // $master->country_name = @$country;
-        // $master->dial_code = $dialCode;
-        // $master->country_code = $countryCode;
+        $master->address = $request->address;
+        $master->city = $request->city;
+        $master->state = $request->state;
+        $master->zip = $request->zip;
+        $master->country_name = @$country;
+        $master->dial_code = $dialCode;
+        $master->country_code = $countryCode;
 
-        // $master->ev = $request->ev ? Status::VERIFIED : Status::UNVERIFIED;
-        // $master->sv = $request->sv ? Status::VERIFIED : Status::UNVERIFIED;
-        // $master->ts = $request->ts ? Status::ENABLE : Status::DISABLE;
+        $master->ev = $request->ev ? Status::VERIFIED : Status::UNVERIFIED;
+        $master->sv = $request->sv ? Status::VERIFIED : Status::UNVERIFIED;
+        $master->ts = $request->ts ? Status::ENABLE : Status::DISABLE;
 
-        // // Handle KYC status
-        // if (!$request->kv) {
-        //     $master->kv = Status::KYC_UNVERIFIED;
-        //     $master->kyc_data = null;
-        // } else {
-        //     $master->kv = Status::KYC_VERIFIED;
-        // }
-
+        // Handle KYC status
+        if (!$request->kv) {
+            $master->kv = Status::KYC_UNVERIFIED;
+            $master->kyc_data = null;
+        } else {
+            $master->kv = Status::KYC_VERIFIED;
+        }
+        print_r($master);
+        exit();
         // $master->save();
 
         $notify[] = ['success', 'Master details created successfully'];
