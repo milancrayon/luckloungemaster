@@ -93,6 +93,15 @@ class ManageMastersController extends Controller
     }
 
 
+    // protected function masterData($scope = null)
+    // {
+    //     if ($scope) {
+    //         $masters = Master::$scope();
+    //     } else {
+    //         $masters = Master::query();
+    //     }
+    //     return $masters->searchable(['mastername', 'email'])->orderBy('id', 'desc')->paginate(getPaginate());
+    // }
     protected function masterData($scope = null)
     {
         if ($scope) {
@@ -100,9 +109,13 @@ class ManageMastersController extends Controller
         } else {
             $masters = Master::query();
         }
-        return $masters->searchable(['mastername', 'email'])->orderBy('id', 'desc')->paginate(getPaginate());
-    }
 
+        // Perform the query and paginate
+        $data = $masters->searchable(['mastername', 'email'])->orderBy('id', 'desc')->paginate(getPaginate());
+
+        // Print the data and stop execution (for debugging)
+        dd($data); // This will print the data and stop execution
+    }
 
     public function detail($id)
     {
