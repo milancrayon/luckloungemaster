@@ -82,14 +82,44 @@
                                 </select>
                             </div>
                         </div>
-
-
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group">
+                                <label>@lang('Amount')</label>
+                                <div class="input-group">
+                                    <input type="number" step="any" name="amount" class="form-control" placeholder="@lang('Please provide positive amount')" required>
+                                    <div class="input-group-text">{{ __(gs('cur_text')) }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group">
+                                <label>@lang('Exposure')</label>
+                                <div class="input-group">
+                                    <input type="number" step="any" name="exposure" class="form-control" placeholder="@lang('Please provide positive exposure')" required value="0">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group">
+                                <label>@lang('Password')</label>
+                                <div class="input-group">
+                                    <input type="password" name="password" class="form-control" placeholder="@lang('New Password')" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group">
+                                <label>@lang('Password Confirm')</label>
+                                <div class="input-group">
+                                    <input type="password" name="password_confirmation" class="form-control" placeholder="@lang('Confirmed Password')" required>
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-xl-3 col-md-6 col-12">
                             <div class="form-group">
                                 <label>@lang('Email Verification')</label>
                                 <input type="checkbox" data-width="100%" data-onstyle="-success" data-offstyle="-danger"
-                                    data-bs-toggle="toggle" data-on="@lang('Verified')" data-off="@lang('Unverified')" name="ev"
-                                    >
+                                    data-bs-toggle="toggle" data-on="@lang('Verified')" data-off="@lang('Unverified')" name="ev">
                             </div>
                         </div>
 
@@ -97,8 +127,7 @@
                             <div class="form-group">
                                 <label>@lang('Mobile Verification')</label>
                                 <input type="checkbox" data-width="100%" data-onstyle="-success" data-offstyle="-danger"
-                                    data-bs-toggle="toggle" data-on="@lang('Verified')" data-off="@lang('Unverified')" name="sv"
-                                    >
+                                    data-bs-toggle="toggle" data-on="@lang('Verified')" data-off="@lang('Unverified')" name="sv">
                             </div>
                         </div>
                         <div class="col-xl-3 col-md- col-12">
