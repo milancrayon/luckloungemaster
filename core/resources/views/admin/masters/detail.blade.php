@@ -7,7 +7,7 @@
             <div class="col-xxl-3 col-sm-6">
                 <x-widget
                     style="7"
-                    link="{{ route('admin.masters.transactions', $master->id) }}"
+                    link="{{ route('admin.masters.transaction', $master->id) }}"
                     title="Balance"
                     icon="las la-money-bill-wave-alt"
                     value="{{ showAmount($master->balance) }}"
@@ -17,7 +17,7 @@
             <div class="col-xxl-3 col-sm-6">
                 <x-widget
                     style="7"
-                    link="{{ route('admin.masters.transactions', $master->id) }}"
+                    link="{{ route('admin.masters.transaction', $master->id) }}"
                     title="Transactions"
                     icon="las la-exchange-alt"
                     value="{{ $totalTransaction }}"
