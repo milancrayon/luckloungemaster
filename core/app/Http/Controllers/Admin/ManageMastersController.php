@@ -348,12 +348,12 @@ class ManageMastersController extends Controller
         $transaction->details = $request->remark;
         $transaction->save();
 
-        notify($master, $notifyTemplate, [
-            'trx' => $trx,
-            'amount' => showAmount($amount, currencyFormat: false),
-            'remark' => $request->remark,
-            'post_balance' => showAmount($master->balance, currencyFormat: false)
-        ]);
+        // notify($master, $notifyTemplate, [
+        //     'trx' => $trx,
+        //     'amount' => showAmount($amount, currencyFormat: false),
+        //     'remark' => $request->remark,
+        //     'post_balance' => showAmount($master->balance, currencyFormat: false)
+        // ]);
 
         return back()->withNotify($notify);
     }

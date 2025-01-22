@@ -239,6 +239,8 @@ function notify($user, $templateName, $shortCodes = null, $sendVia = null, $crea
     $notify->send();
 }
 
+
+
 function getPaginate($paginate = null)
 {
     if (!$paginate) {
