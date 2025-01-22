@@ -615,6 +615,6 @@ class ManageMastersController extends Controller
         }
         $transactions = $transactions->paginate(getPaginate());
 
-        return view('admin.master.transactions', compact('pageTitle', 'transactions', 'remarks'));
+        return view('admin.masters.transactions', compact('pageTitle', 'transactions', 'remarks'));
     }
 }
