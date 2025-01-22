@@ -261,7 +261,7 @@
                 ],
                 "params": [
                     {
-                        "user_id": ""
+                        "master_id": ""
                     }
                 ]
             }
