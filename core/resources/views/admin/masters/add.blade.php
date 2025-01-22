@@ -3,52 +3,6 @@
 @section('panel')
 <div class="row">
     <div class="col-12">
-        <div class="row gy-4">
-
-            <div class="col-xxl-3 col-sm-6">
-                <x-widget
-                    style="7"
-                    title="Balance"
-                    icon="las la-money-bill-wave-alt"
-                    value="{{ showAmount(0) }}"
-                    bg="indigo"
-                    type="2" />
-            </div>
-
-
-            <div class="col-xxl-3 col-sm-6">
-                <x-widget
-                    style="7"
-                    title="Deposits"
-                    icon="las la-wallet"
-                    value="{{ showAmount($totalDeposit) }}"
-                    bg="8"
-                    type="2" />
-            </div>
-
-            <div class="col-xxl-3 col-sm-6">
-                <x-widget
-                    style="7"
-                    title="Withdrawals"
-                    icon="la la-bank"
-                    value="{{ showAmount($totalWithdrawals) }}"
-                    bg="6"
-                    type="2" />
-            </div>
-
-            <div class="col-xxl-3 col-sm-6">
-                <x-widget
-                    style="7"
-                    title="Transactions"
-                    icon="las la-exchange-alt"
-                    value="{{ $totalTransaction }}"
-                    bg="17"
-                    type="2" />
-            </div>
-
-        </div>
-
-
         <div class="card mt-30">
             <div class="card-header">
                 <h5 class="card-title mb-0">@lang('Information of')</h5>
