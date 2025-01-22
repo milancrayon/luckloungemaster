@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Deposit;
 use App\Models\NotificationLog;
 use App\Models\NotificationTemplate;
-use App\Models\Transaction;
+use App\Models\MastersTransaction;
 use App\Models\Master;
 use App\Models\Withdrawal;
 use Illuminate\Http\Request;
@@ -68,7 +68,6 @@ class ManageMastersController extends Controller
         return view('admin.masters.list', compact('pageTitle', 'masters'));
     }
 
-
     public function mobileUnverifiedMasters()
     {
         $pageTitle = 'Mobile Unverified Masters';
@@ -84,14 +83,12 @@ class ManageMastersController extends Controller
         return view('admin.masters.list', compact('pageTitle', 'masters'));
     }
 
-
     public function mastersWithBalance()
     {
         $pageTitle = 'Masters with Balance';
         $masters = $this->masterData('withBalance');
         return view('admin.masters.list', compact('pageTitle', 'masters'));
     }
-
 
     protected function masterData($scope = null)
     {
@@ -103,14 +100,13 @@ class ManageMastersController extends Controller
         return $masters->searchable(['mastername', 'email'])->orderBy('id', 'desc')->paginate(getPaginate());
     }
 
-
     public function detail($id)
     {
         $master = Master::findOrFail($id);
         $pageTitle = 'Master Detail - ' . $master->mastername;
         $totalDeposit = 0;
         $totalWithdrawals = 0;
-        $totalTransaction = 0;
+        $totalTransaction = MastersTransaction::where('master_id', $master->id)->count();
 
         $countries = json_decode(file_get_contents(resource_path('views/partials/country.json')));
         return view('admin.masters.detail', compact('pageTitle', 'master', 'totalDeposit', 'totalWithdrawals', 'totalTransaction', 'countries'));
@@ -122,9 +118,6 @@ class ManageMastersController extends Controller
         $countries = json_decode(file_get_contents(resource_path('views/partials/country.json')));
         return view('admin.masters.add', compact('pageTitle', 'countries'));
     }
-
-
-
 
     public function kycDetails($id)
     {
@@ -305,7 +298,7 @@ class ManageMastersController extends Controller
         $amount = $request->amount;
         $trx = getTrx();
 
-        $transaction = new Transaction();
+        $transaction = new MastersTransaction();
 
         if ($request->act == 'add') {
             $master->balance += $amount;
