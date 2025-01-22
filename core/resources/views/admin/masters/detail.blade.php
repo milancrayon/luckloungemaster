@@ -307,10 +307,6 @@
 </div>
 @endsection
 
-@push('breadcrumb-plugins')
-<a href="{{ route('admin.masters.login', $master->id) }}" target="_blank" class="btn btn-sm btn-outline--primary"><i class="las la-sign-in-alt"></i>@lang('Login as User')</a>
-@endpush
-
 @push('script')
 <script>
     (function($) {
