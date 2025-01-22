@@ -244,7 +244,30 @@
                 "route_name": "admin.masters.banned",
                 "menu_active": "admin.masters.banned",
                 "counter": "bannedMastersCount"
-            }
+            },
+            {
+                "keyword": [
+                    "Transaction Log",
+                    "Report",
+                    "Transaction masters",
+                    "Transaction history",
+                    "Transaction activity",
+                    "balance sheet",
+                    "balance log",
+                    "balance history"
+                ],
+                "title": "Transaction History",
+                "route_name": "admin.masters.transaction",
+                "menu_active": [
+                    "admin.masters.transaction",
+                    "admin.masters.transaction.search"
+                ],
+                "params": [
+                    {
+                        "user_id": ""
+                    }
+                ]
+            },
         ]
     },
     "deposits": {
