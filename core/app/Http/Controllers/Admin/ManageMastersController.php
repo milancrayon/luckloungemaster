@@ -122,7 +122,7 @@ class ManageMastersController extends Controller
         $totalDeposit = 0;
         $totalWithdrawals = 0;
         $totalTransaction = 0;
-        $master = null;
+        $master = [];
         $countries = json_decode(file_get_contents(resource_path('views/partials/country.json')));
         return view('admin.masters.add', compact('pageTitle', 'master', 'totalDeposit', 'totalWithdrawals', 'totalTransaction', 'countries'));
     }
