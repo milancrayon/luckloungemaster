@@ -105,6 +105,7 @@ Route::middleware('admin')->group(function () {
         Route::get('banned', 'bannedMasters')->name('banned');
         Route::get('add', 'addMasters')->name('add');
         Route::get('detail/{id}', 'detail')->name('detail');
+        Route::post('store', 'store')->name('store');
     });
     // Subscriber
     Route::controller('SubscriberController')->prefix('subscriber')->name('subscriber.')->group(function () {
