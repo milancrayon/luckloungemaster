@@ -110,12 +110,11 @@ class ManageMastersController extends Controller
             $masters = Master::query();
         }
 
-        // Perform the query and paginate
-        // $data = $masters->searchable(['mastername', 'email'])->orderBy('id', 'desc')->paginate(getPaginate());
-        $data = $masters->orderBy('id', 'desc');
+        // Get the query object
+        $query = $masters->searchable(['mastername', 'email'])->orderBy('id', 'desc');
 
-        // Print the data and stop execution (for debugging)
-        dd($data); // This will print the data and stop execution
+        // Print the raw SQL query
+        dd($query->toSql()); // This will print the raw SQL query
     }
 
     public function detail($id)
