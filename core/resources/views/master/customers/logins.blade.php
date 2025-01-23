@@ -24,7 +24,7 @@
                                 <td>
                                     <span class="fw-bold">{{ @$log->user->fullname }}</span>
                                     <br>
-                                    <span class="small"> <a href="{{ route('master.users.detail', $log->user_id) }}"><span>@</span>{{ @$log->user->username }}</a> </span>
+                                    <span class="small"> <a href="{{ route('master.customers.detail', $log->user_id) }}"><span>@</span>{{ @$log->user->username }}</a> </span>
                                 </td>
 
                                 <td>
