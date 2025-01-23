@@ -41,9 +41,7 @@
                                             <i class="menu-icon las la-dot-circle"></i>
                                             <span class="menu-title">{{ __($menu->title) }}</span>
                                             @php $counter = @$menu->counter; @endphp
-                                            @if (@$$counter)
-                                                <span class="menu-badge bg--info ms-auto">{{ @$$counter }}</span>
-                                            @endif
+                                            
                                         </a>
                                     </li>
                                 @endforeach
@@ -64,9 +62,7 @@
                             <i class="menu-icon {{ $data->icon }}"></i>
                             <span class="menu-title">{{ __(@$data->title) }}</span>
                             @php $counter = @$data->counter; @endphp
-                            @if (@$$counter)
-                                <span class="menu-badge bg--info ms-auto">{{ @$$counter }}</span>
-                            @endif
+                            
                         </a>
                     </li>
                 @endif
