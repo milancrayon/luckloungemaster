@@ -54,15 +54,9 @@ Route::middleware('master')->group(function () {
         Route::post('update/{id}', 'update')->name('update');
         Route::post('add-sub-balance/{id}', 'addSubBalance')->name('add.sub.balance');
         Route::post('passwordset/{id}', 'passwordset')->name('passwordset');
-        Route::get('send-notification/{id}', 'showNotificationSingleForm')->name('notification.single');
-        Route::post('send-notification/{id}', 'sendNotificationSingle')->name('notification.single');
         Route::get('login/{id}', 'login')->name('login');
         Route::post('status/{id}', 'status')->name('status');
-
-        Route::get('send-notification', 'showNotificationAllForm')->name('notification.all');
-        Route::post('send-notification', 'sendNotificationAll')->name('notification.all.send');
         Route::get('list', 'list')->name('list');
         Route::get('count-by-segment/{methodName}', 'countBySegment')->name('segment.count');
-        Route::get('notification-log/{id}', 'notificationLog')->name('notification.log');
     });
 });
