@@ -26,29 +26,20 @@
                                         <a href="{{ route('master.customers.detail', $customer->id) }}"><span>@</span>{{ $customer->customername }}</a>
                                     </span>
                                 </td>
-
-
                                 <td>
                                     {{ $customer->email }}<br>{{ $customer->mobileNumber }}
                                 </td>
                                 <td>
                                     <span class="fw-bold" title="{{ @$customer->country_name }}">{{ $customer->country_code }}</span>
                                 </td>
-
-
-
                                 <td>
                                     {{ showDateTime($customer->created_at) }} <br> {{ diffForHumans($customer->created_at) }}
                                 </td>
-
-
                                 <td>
                                     <span class="fw-bold">
-
                                         {{ showAmount($customer->balance) }}
                                     </span>
                                 </td>
-
                                 <td>
                                     <div class="button--group">
                                         <a href="{{ route('master.customers.detail', $customer->id) }}" class="btn btn-sm btn-outline--primary">
@@ -61,14 +52,12 @@
                                         @endif
                                     </div>
                                 </td>
-
                             </tr>
                             @empty
                             <tr>
                                 <td class="text-muted text-center" colspan="100%">{{ __($emptyMessage) }}</td>
                             </tr>
                             @endforelse
-
                         </tbody>
                     </table><!-- table end -->
                 </div>
@@ -80,12 +69,8 @@
             @endif
         </div>
     </div>
-
-
 </div>
 @endsection
-
-
 
 @push('breadcrumb-plugins')
 <x-search-form placeholder="Username / Email" />
