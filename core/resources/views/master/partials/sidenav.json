@@ -120,6 +120,44 @@
                 "title": "All Masters",
                 "route_name": "master.customers.all",
                 "menu_active": "master.customers.all"
+            },
+            {
+                "keyword": [
+                    "Transaction Log",
+                    "Report",
+                    "Transaction report",
+                    "Transaction history",
+                    "Transaction activity",
+                    "balance sheet",
+                    "balance log",
+                    "balance history"
+                ],
+                "title": "Transaction History",
+                "route_name": "master.customers.transaction",
+                "menu_active": [
+                    "master.customers.transaction",
+                    "master.customers.transaction.search"
+                ],
+                "params": [
+                    {
+                        "user_id": ""
+                    }
+                ]
+            },
+            {
+                "keyword": [
+                    "Login History",
+                    "Report",
+                    "Login report",
+                    "Login history",
+                    "Login activity"
+                ],
+                "title": "Login History",
+                "route_name": "master.customers.login.history",
+                "menu_active": [
+                    "master.customers.login.history",
+                    "master.customers.login.ipHistory"
+                ]
             }
         ]
     }
