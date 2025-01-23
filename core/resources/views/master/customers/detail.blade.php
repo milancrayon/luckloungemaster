@@ -164,7 +164,7 @@
                             </div>
                         </div>
 
-                        <!-- 
+
                         <div class="col-xl-3 col-md-6 col-12">
                             <div class="form-group">
                                 <label>@lang('Email Verification')</label>
@@ -182,7 +182,7 @@
                                     @if ($customer->sv) checked @endif>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-md- col-12">
+                        <!--     <div class="col-xl-3 col-md- col-12">
                             <div class="form-group">
                                 <label>@lang('2FA Verification') </label>
                                 <input type="checkbox" data-width="100%" data-height="50" data-onstyle="-success" data-offstyle="-danger" data-bs-toggle="toggle" data-on="@lang('Enable')" data-off="@lang('Disable')" name="ts" @if ($customer->ts) checked @endif>

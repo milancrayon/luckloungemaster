@@ -112,11 +112,11 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <div class="col-xl-3 col-md-6 col-12">
+                        <div class="col-xl-3 col-md-6 col-12">
                             <div class="form-group">
                                 <label>@lang('Email Verification')</label>
                                 <input type="checkbox" data-width="100%" data-onstyle="-success" data-offstyle="-danger"
-                                    data-bs-toggle="toggle" data-on="@lang('Verified')" data-off="@lang('Unverified')" name="ev">
+                                    data-bs-toggle="toggle" data-on="@lang('Verified')" data-off="@lang('Unverified')" name="ev" checked>
                             </div>
                         </div>
 
@@ -124,10 +124,10 @@
                             <div class="form-group">
                                 <label>@lang('Mobile Verification')</label>
                                 <input type="checkbox" data-width="100%" data-onstyle="-success" data-offstyle="-danger"
-                                    data-bs-toggle="toggle" data-on="@lang('Verified')" data-off="@lang('Unverified')" name="sv">
+                                    data-bs-toggle="toggle" data-on="@lang('Verified')" data-off="@lang('Unverified')" name="sv" checked>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-md- col-12">
+                        <!--   <div class="col-xl-3 col-md- col-12">
                             <div class="form-group">
                                 <label>@lang('2FA Verification') </label>
                                 <input type="checkbox" data-width="100%" data-height="50" data-onstyle="-success" data-offstyle="-danger" data-bs-toggle="toggle" data-on="@lang('Enable')" data-off="@lang('Disable')" name="ts">
