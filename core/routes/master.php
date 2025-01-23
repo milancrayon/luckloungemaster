@@ -46,7 +46,7 @@ Route::middleware('master')->group(function () {
         Route::get('kyc-pending', 'kycPendingCustomers')->name('kyc.pending');
         Route::get('mobile-verified', 'mobileVerifiedCustomers')->name('mobile.verified');
         Route::get('with-balance', 'customersWithBalance')->name('with.balance');
-
+        Route::get('add', 'addCustomers')->name('add');
         Route::get('detail/{id}', 'detail')->name('detail');
         Route::get('kyc-data/{id}', 'kycDetails')->name('kyc.details');
         Route::post('kyc-approve/{id}', 'kycApprove')->name('kyc.approve');
