@@ -12,7 +12,7 @@
                     title="Balance"
                     icon="las la-money-bill-wave-alt"
                     value="{{ showAmount($customer->balance) }}"
-                    bg="indigo"
+                    bg="indigo" 
                     type="2" />
             </div>
             <div class="col-xxl-3 col-sm-6">
