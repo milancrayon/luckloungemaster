@@ -8470,3 +8470,41 @@ label.required:after {
   font-weight: bold;
   text-transform: capitalize;
 }
+
+
+.master.widget-eight.style-two {
+  align-items: center;
+}
+
+.master.widget-eight.style-two .widget-eight__content-title {
+  display: none;
+}
+
+.master.widget-eight.style-two .widget-eight__description:after {
+  background-color: transparent !important;
+}
+
+.master.widget-eight.style-two .widget-eight__description::before {
+  background-color: transparent;
+}
+
+.master.widget-eight.style-two .widget-eight__content-amount {
+  font-size: 20px;
+}
+
+.master.widget-eight.style-two .widget-eight__description {
+  padding: 0px;
+  order: 2;
+}
+
+.master.widget-eight.style-two .widget-eight__content-icon {
+  background-color: transparent;
+  order: 1;
+  width: max-content;
+  margin-right: 10px;
+}
+
+.master.widget-eight.style-two .widget-eight.bg--indigo.style-two {
+  display: flex;
+  flex-wrap: wrap;
+}

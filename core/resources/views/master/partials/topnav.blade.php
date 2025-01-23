@@ -20,7 +20,7 @@ $routesData[] = $routeData;
 <!-- navbar-wrapper start -->
 <nav class="navbar-wrapper bg--dark  d-flex flex-wrap">
     <div class="navbar__left">
-        <div class="widget-eight style-two">
+        <div class="widget-eight style-two master">
             <x-widget
                 style="7"
                 title="Balance"
