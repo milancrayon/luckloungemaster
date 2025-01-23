@@ -539,7 +539,6 @@ class ManageCustomersController extends Controller
             'email' => 'required|email|string|max:40|unique:users,email',  // Ensure email is unique for new records
             'mobile' => 'required|string|max:40',
             'country' => 'required|in:' . $countries,
-            'amount' => 'required|numeric|gt:0',
             'password' => ['required', 'confirmed', $passwordValidation]
         ]);
         $master_id = auth()->guard('master')->user()->id;
