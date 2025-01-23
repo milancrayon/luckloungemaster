@@ -16,10 +16,7 @@
                             <a href="javascript:void(0)" class="{{ menuActive(@$data->menu_active, 3) }}">
                                 <i class="menu-icon {{ @$data->icon }}"></i>
                                 <span class="menu-title">{{ __(@$data->title) }}</span>
-                                @foreach (@$data->counters ?? [] as $counter)
-                                   
-                                @endif
-                            @endforeach
+                                
                         </a>
                         <div class="sidebar-submenu {{ menuActive(@$data->menu_active, 2) }} ">
                             <ul>
