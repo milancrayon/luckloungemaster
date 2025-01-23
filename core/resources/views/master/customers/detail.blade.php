@@ -8,6 +8,7 @@
             <div class="col-xxl-3 col-sm-6">
                 <x-widget
                     style="7"
+   
                     title="Balance"
                     icon="las la-money-bill-wave-alt"
                     value="{{ showAmount($customer->balance) }}"
@@ -17,6 +18,7 @@
             <div class="col-xxl-3 col-sm-6">
                 <x-widget
                     style="7"
+                   
                     title="Transactions"
                     icon="las la-exchange-alt"
                     value="{{ $totalTransaction }}"
@@ -41,7 +43,7 @@
             </div>
 
             <div class="flex-fill">
-                <a href="{{ route('master.report.login.history') }}?search={{ $customer->username }}" class="btn btn--primary btn--shadow w-100 btn-lg">
+                <a  class="btn btn--primary btn--shadow w-100 btn-lg">
                     <i class="las la-list-alt"></i>@lang('Logins')
                 </a>
             </div>
