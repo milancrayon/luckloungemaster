@@ -454,15 +454,6 @@ class ManageCustomersController extends Controller
 
         // Paginate the results
         $transactions = $transactions->paginate(getPaginate());
-
-
-        // If a $userId is provided, filter transactions by user_id
-        if ($userId) {
-            $transactions = $transactions->where('user_id', $userId);
-        }
-
-        // Paginate the results with the pagination helper function
-        $transactions = $transactions->paginate(getPaginate());
         echo "<pre>";
         print_r($transactions);
         exit();
