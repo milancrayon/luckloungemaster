@@ -572,6 +572,8 @@ class ManageCustomersController extends Controller
         $customer->ev = $request->ev ? Status::VERIFIED : Status::UNVERIFIED;
         $customer->sv = $request->sv ? Status::VERIFIED : Status::UNVERIFIED;
         $customer->ts = $request->ts ? Status::ENABLE : Status::DISABLE;
+        $customer->created_by = auth()->guard('master')->user()->id;
+        $customer->updated_by = auth()->guard('master')->user()->id;
 
         // Handle KYC status
         if (!$request->kv) {

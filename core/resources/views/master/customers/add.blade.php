@@ -88,7 +88,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-xl-5 col-md-4">
+                        <div class="col-xl-5 col-md-6">
                             <div class="form-group">
                                 <label>@lang('Password')</label>
                                 <div class="input-group">
@@ -96,7 +96,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-5 col-md-4">
+                        <div class="col-xl-5 col-md-6">
                             <div class="form-group">
                                 <label>@lang('Password Confirm')</label>
                                 <div class="input-group">
