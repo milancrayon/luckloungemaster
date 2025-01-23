@@ -156,7 +156,7 @@
                         </div>
 
 
-                        <div class="col-xl-3 col-md-6 col-12">
+                        <!-- <div class="col-xl-3 col-md-6 col-12">
                             <div class="form-group">
                                 <label>@lang('Email Verification')</label>
                                 <input type="checkbox" data-width="100%" data-onstyle="-success" data-offstyle="-danger"
@@ -184,7 +184,7 @@
                                 <label>@lang('KYC') </label>
                                 <input type="checkbox" data-width="100%" data-height="50" data-onstyle="-success" data-offstyle="-danger" data-bs-toggle="toggle" data-on="@lang('Verified')" data-off="@lang('Unverified')" name="kv" @if ($master->kv == Status::KYC_VERIFIED) checked @endif>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-md-12">
                             <button type="submit" class="btn btn--primary w-100 h-45">@lang('Submit')
                             </button>
