@@ -23,49 +23,49 @@ class ManageCustomersController extends Controller
     {
         $pageTitle = 'All Customers';
         $customers = $this->customerData();
-        return view('admin.customers.list', compact('pageTitle', 'customers'));
+        return view('master.customers.list', compact('pageTitle', 'customers'));
     }
 
     public function activeCustomers()
     {
         $pageTitle = 'Active Customers';
         $customers = $this->customerData('active');
-        return view('admin.customers.list', compact('pageTitle', 'customers'));
+        return view('master.customers.list', compact('pageTitle', 'customers'));
     }
 
     public function bannedCustomers()
     {
         $pageTitle = 'Banned Customers';
         $customers = $this->customerData('banned');
-        return view('admin.customers.list', compact('pageTitle', 'customers'));
+        return view('master.customers.list', compact('pageTitle', 'customers'));
     }
 
     public function emailUnverifiedCustomers()
     {
         $pageTitle = 'Email Unverified Customers';
         $customers = $this->customerData('emailUnverified');
-        return view('admin.customers.list', compact('pageTitle', 'customers'));
+        return view('master.customers.list', compact('pageTitle', 'customers'));
     }
 
     public function kycUnverifiedCustomers()
     {
         $pageTitle = 'KYC Unverified Customers';
         $customers = $this->customerData('kycUnverified');
-        return view('admin.customers.list', compact('pageTitle', 'customers'));
+        return view('master.customers.list', compact('pageTitle', 'customers'));
     }
 
     public function kycPendingCustomers()
     {
         $pageTitle = 'KYC Unverified Customers';
         $customers = $this->customerData('kycPending');
-        return view('admin.customers.list', compact('pageTitle', 'customers'));
+        return view('master.customers.list', compact('pageTitle', 'customers'));
     }
 
     public function emailVerifiedCustomers()
     {
         $pageTitle = 'Email Verified Customers';
         $customers = $this->customerData('emailVerified');
-        return view('admin.customers.list', compact('pageTitle', 'customers'));
+        return view('master.customers.list', compact('pageTitle', 'customers'));
     }
 
 
@@ -73,7 +73,7 @@ class ManageCustomersController extends Controller
     {
         $pageTitle = 'Mobile Unverified Customers';
         $customers = $this->customerData('mobileUnverified');
-        return view('admin.customers.list', compact('pageTitle', 'customers'));
+        return view('master.customers.list', compact('pageTitle', 'customers'));
     }
 
 
@@ -81,7 +81,7 @@ class ManageCustomersController extends Controller
     {
         $pageTitle = 'Mobile Verified Customers';
         $customers = $this->customerData('mobileVerified');
-        return view('admin.customers.list', compact('pageTitle', 'customers'));
+        return view('master.customers.list', compact('pageTitle', 'customers'));
     }
 
 
@@ -89,7 +89,7 @@ class ManageCustomersController extends Controller
     {
         $pageTitle = 'Customers with Balance';
         $customers = $this->customerData('withBalance');
-        return view('admin.customers.list', compact('pageTitle', 'customers'));
+        return view('master.customers.list', compact('pageTitle', 'customers'));
     }
 
 
@@ -113,7 +113,7 @@ class ManageCustomersController extends Controller
         $totalWithdrawals = Withdrawal::where('customer_id', $customer->id)->approved()->sum('amount');
         $totalTransaction = Transaction::where('customer_id', $customer->id)->count();
         $countries = json_decode(file_get_contents(resource_path('views/partials/country.json')));
-        return view('admin.customers.detail', compact('pageTitle', 'customer', 'totalDeposit', 'totalWithdrawals', 'totalTransaction', 'countries'));
+        return view('master.customers.detail', compact('pageTitle', 'customer', 'totalDeposit', 'totalWithdrawals', 'totalTransaction', 'countries'));
     }
 
 
@@ -121,7 +121,7 @@ class ManageCustomersController extends Controller
     {
         $pageTitle = 'KYC Details';
         $customer = User::findOrFail($id);
-        return view('admin.customers.kyc_detail', compact('pageTitle', 'customer'));
+        return view('master.customers.kyc_detail', compact('pageTitle', 'customer'));
     }
 
     public function kycApprove($id)
@@ -133,7 +133,7 @@ class ManageCustomersController extends Controller
         notify($customer, 'KYC_APPROVE', []);
 
         $notify[] = ['success', 'KYC approved successfully'];
-        return to_route('admin.customers.kyc.pending')->withNotify($notify);
+        return to_route('master.customers.kyc.pending')->withNotify($notify);
     }
 
     public function kycReject(Request $request, $id)
@@ -151,7 +151,7 @@ class ManageCustomersController extends Controller
         ]);
 
         $notify[] = ['success', 'KYC rejected successfully'];
-        return to_route('admin.customers.kyc.pending')->withNotify($notify);
+        return to_route('master.customers.kyc.pending')->withNotify($notify);
     }
 
 
@@ -323,10 +323,10 @@ class ManageCustomersController extends Controller
         $customer = User::findOrFail($id);
         if (!gs('en') && !gs('sn') && !gs('pn')) {
             $notify[] = ['warning', 'Notification options are disabled currently'];
-            return to_route('admin.customers.detail', $customer->id)->withNotify($notify);
+            return to_route('master.customers.detail', $customer->id)->withNotify($notify);
         }
         $pageTitle = 'Send Notification to ' . $customer->customername;
-        return view('admin.customers.notification_single', compact('pageTitle', 'customer'));
+        return view('master.customers.notification_single', compact('pageTitle', 'customer'));
     }
 
     public function sendNotificationSingle(Request $request, $id)
@@ -340,7 +340,7 @@ class ManageCustomersController extends Controller
 
         if (!gs('en') && !gs('sn') && !gs('pn')) {
             $notify[] = ['warning', 'Notification options are disabled currently'];
-            return to_route('admin.dashboard')->withNotify($notify);
+            return to_route('master.dashboard')->withNotify($notify);
         }
 
         $imageUrl = null;
@@ -367,7 +367,7 @@ class ManageCustomersController extends Controller
     {
         if (!gs('en') && !gs('sn') && !gs('pn')) {
             $notify[] = ['warning', 'Notification options are disabled currently'];
-            return to_route('admin.dashboard')->withNotify($notify);
+            return to_route('master.dashboard')->withNotify($notify);
         }
 
         $notifyToCustomer = User::notifyToCustomer();
@@ -378,7 +378,7 @@ class ManageCustomersController extends Controller
             session()->forget('SEND_NOTIFICATION');
         }
 
-        return view('admin.customers.notification_all', compact('pageTitle', 'customers', 'notifyToCustomer'));
+        return view('master.customers.notification_all', compact('pageTitle', 'customers', 'notifyToCustomer'));
     }
 
     public function sendNotificationAll(Request $request)
@@ -401,7 +401,7 @@ class ManageCustomersController extends Controller
 
         if (!gs('en') && !gs('sn') && !gs('pn')) {
             $notify[] = ['warning', 'Notification options are disabled currently'];
-            return to_route('admin.dashboard')->withNotify($notify);
+            return to_route('master.dashboard')->withNotify($notify);
         }
 
 
@@ -478,11 +478,11 @@ class ManageCustomersController extends Controller
         if ($sessionData['total_sent'] >= $totalCustomerCount) {
             session()->forget("SEND_NOTIFICATION");
             $message = ucfirst($request->via) . " notifications were sent successfully";
-            $url     = route("admin.customers.notification.all");
+            $url     = route("master.customers.notification.all");
         } else {
             session()->put('SEND_NOTIFICATION', $sessionData);
             $message = $sessionData['total_sent'] . " " . $sessionData['via'] . "  notifications were sent successfully";
-            $url     = route("admin.customers.notification.all") . "?email_sent=yes";
+            $url     = route("master.customers.notification.all") . "?email_sent=yes";
         }
         $notify[] = ['success', $message];
         return redirect($url)->withNotify($notify);
@@ -515,6 +515,6 @@ class ManageCustomersController extends Controller
         $customer = User::findOrFail($id);
         $pageTitle = 'Notifications Sent to ' . $customer->customername;
         $logs = NotificationLog::where('customer_id', $id)->with('customer')->orderBy('id', 'desc')->paginate(getPaginate());
-        return view('admin.reports.notification_history', compact('pageTitle', 'logs', 'customer'));
+        return view('master.reports.notification_history', compact('pageTitle', 'logs', 'customer'));
     }
 }
