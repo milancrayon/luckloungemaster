@@ -36,39 +36,6 @@ $routesData[] = $routeData;
                 </button>
             </li>
 
-            <li class="dropdown d-flex profile-dropdown">
-                <button type="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true"
-                    aria-expanded="false">
-                    <span class="navbar-user">
-                        <span class="navbar-user__thumb"><img src="{{ getImage(getFilePath('masterProfile') . '/' . auth()->guard('master')->user()->image, getFileSize('masterProfile')) }}" alt="image"></span>
-                        <span class="navbar-user__info">
-                            <span class="navbar-user__name">{{ auth()->guard('master')->user()->username }}</span>
-                        </span>
-                        <span class="icon"><i class="las la-chevron-circle-down"></i></span>
-                    </span>
-                </button>
-                <div class="dropdown-menu dropdown-menu--sm p-0 border-0 box--shadow1 dropdown-menu-right">
-                    <a href="{{ route('master.profile') }}"
-                        class="dropdown-menu__item d-flex align-items-center px-3 py-2">
-                        <i class="dropdown-menu__icon las la-user-circle"></i>
-                        <span class="dropdown-menu__caption">@lang('Profile')</span>
-                    </a>
-
-                    <a href="{{ route('master.password') }}"
-                        class="dropdown-menu__item d-flex align-items-center px-3 py-2">
-                        <i class="dropdown-menu__icon las la-key"></i>
-                        <span class="dropdown-menu__caption">@lang('Password')</span>
-                    </a>
-
-                    <a href="{{ route('master.logout') }}" class="dropdown-menu__item d-flex align-items-center px-3 py-2">
-                        <i class="dropdown-menu__icon las la-sign-out-alt"></i>
-                        <span class="dropdown-menu__caption">@lang('Logout')</span>
-                    </a>
-                </div>
-                <button type="button" class="breadcrumb-nav-open ms-2 d-none">
-                    <i class="las la-sliders-h"></i>
-                </button>
-            </li>
         </ul>
     </div>
 </nav>
