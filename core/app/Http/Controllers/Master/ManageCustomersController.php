@@ -455,7 +455,8 @@ class ManageCustomersController extends Controller
 
         // Paginate the results with the pagination helper function
         $transactions = $transactions->paginate(getPaginate());
-
+        print_r($transactions);
+        print_r();
         return view('master.customers.transactions', compact('pageTitle', 'transactions', 'remarks'));
     }
 
