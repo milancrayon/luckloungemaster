@@ -9,9 +9,6 @@
         "menu_active": "master.dashboard"
     },
     "transactions": {
-        "keyword": [
-            "Customer management"
-        ],
         "title": "Transaction History",
         "icon": "la la-list",
         "route_name": "master.transactions",
