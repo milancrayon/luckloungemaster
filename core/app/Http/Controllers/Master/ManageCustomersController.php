@@ -584,7 +584,14 @@ class ManageCustomersController extends Controller
         }
 
         $customer->save();
-        $notify[] = ['success', 'New Master created successfully'];
+        $notify[] = ['success', 'New Customer created successfully'];
         return back()->withNotify($notify);
+    }
+
+    public function addCustomers()
+    {
+        $pageTitle = 'Add Customer Detail';
+        $countries = json_decode(file_get_contents(resource_path('views/partials/country.json')));
+        return view('master.customers.add', compact('pageTitle', 'countries'));
     }
 }
