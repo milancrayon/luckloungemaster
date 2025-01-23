@@ -34,7 +34,7 @@ $routesData[] = $routeData;
                     <span class="navbar-user">
                         <span class="navbar-user__thumb"></span>
                         <span class="navbar-user__info">
-                            <span class="navbar-user__name">{{ auth()->guard('master')->user()->username }}</span>
+                            <span class="navbar-user__name">{{ auth()->guard('master')->user()->mastername }}</span>
                         </span>
                         <span class="icon"><i class="las la-chevron-circle-down"></i></span>
                     </span>
