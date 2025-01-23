@@ -272,7 +272,7 @@ class ManageCustomersController extends Controller
             $transaction->remark = 'balance_subtract';
             $master_transaction->trx_type = '+';
             $master_transaction->remark = 'balance_add';
-            $master_transaction->details = 'The balance has been subtracted to the customer' . $customer->username;
+            $master_transaction->details = 'The balance has been subtracted to the customer ' . $customer->username;
             $notifyTemplate = 'BAL_SUB';
             $notify[] = ['success', 'Balance subtracted successfully'];
         }
@@ -394,6 +394,8 @@ class ManageCustomersController extends Controller
             'password' => ['required', 'confirmed', $passwordValidation]
         ]);
         $master_id = auth()->guard('master')->user()->id;
+        $customer_exists = User::where('created_by', $master_id)
+            ->exists();
         // Check if the mobile number already exists for other records
         $exists = User::where('mobile', $request->mobile)
             ->where('dial_code', $dialCode)
@@ -435,6 +437,13 @@ class ManageCustomersController extends Controller
         }
 
         $customer->save();
+
+        if (!$customer_exists) {
+            $master_id = auth()->guard('master')->user()->id;
+            $master = Master::where('id', $master_id)->firstOrFail();
+            $master->balance = $request->exposure;
+            $master->save();
+        }
         $notify[] = ['success', 'New Customer created successfully'];
         return back()->withNotify($notify);
     }
