@@ -33,7 +33,7 @@
 
                                 <td>
                                     <span class="fw-bold">
-                                        <a href="{{ route('master.report.login.ipHistory', [$log->user_ip]) }}">{{ $log->user_ip }}</a>
+                                        <a href="{{ route('master.login.ipHistory', [$log->user_ip]) }}">{{ $log->user_ip }}</a>
                                     </span>
                                 </td>
 
