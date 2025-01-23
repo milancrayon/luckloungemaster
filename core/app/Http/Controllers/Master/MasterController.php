@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Deposit;
 use App\Models\Game;
 use App\Models\GameLog;
+use App\Models\MastersTransaction;
 use App\Models\User;
 use App\Models\UserLogin;
 use App\Models\Withdrawal;
