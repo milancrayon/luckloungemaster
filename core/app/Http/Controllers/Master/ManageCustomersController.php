@@ -441,9 +441,9 @@ class ManageCustomersController extends Controller
             $master = Master::findOrFail($master_id);
 
             $master->balance = $request->exposure;
+            $master->save();
             var_dump($master->balance);
             exit();
-            $master->save();
         }
         exit();
         $customer->save();
