@@ -34,4 +34,35 @@ Route::middleware('master')->group(function () {
         Route::post('password', 'passwordUpdate')->name('password.update');
         Route::get('transactions', 'transaction')->name('transaction');
     });
+    // Customers Manager
+    Route::controller('ManageCustomersController')->name('customers.')->prefix('customers')->group(function () {
+        Route::get('/', 'allCustomers')->name('all');
+        Route::get('active', 'activeCustomers')->name('active');
+        Route::get('banned', 'bannedCustomers')->name('banned');
+        Route::get('email-verified', 'emailVerifiedCustomers')->name('email.verified');
+        Route::get('email-unverified', 'emailUnverifiedCustomers')->name('email.unverified');
+        Route::get('mobile-unverified', 'mobileUnverifiedCustomers')->name('mobile.unverified');
+        Route::get('kyc-unverified', 'kycUnverifiedCustomers')->name('kyc.unverified');
+        Route::get('kyc-pending', 'kycPendingCustomers')->name('kyc.pending');
+        Route::get('mobile-verified', 'mobileVerifiedCustomers')->name('mobile.verified');
+        Route::get('with-balance', 'customersWithBalance')->name('with.balance');
+
+        Route::get('detail/{id}', 'detail')->name('detail');
+        Route::get('kyc-data/{id}', 'kycDetails')->name('kyc.details');
+        Route::post('kyc-approve/{id}', 'kycApprove')->name('kyc.approve');
+        Route::post('kyc-reject/{id}', 'kycReject')->name('kyc.reject');
+        Route::post('update/{id}', 'update')->name('update');
+        Route::post('add-sub-balance/{id}', 'addSubBalance')->name('add.sub.balance');
+        Route::post('passwordset/{id}', 'passwordset')->name('passwordset');
+        Route::get('send-notification/{id}', 'showNotificationSingleForm')->name('notification.single');
+        Route::post('send-notification/{id}', 'sendNotificationSingle')->name('notification.single');
+        Route::get('login/{id}', 'login')->name('login');
+        Route::post('status/{id}', 'status')->name('status');
+
+        Route::get('send-notification', 'showNotificationAllForm')->name('notification.all');
+        Route::post('send-notification', 'sendNotificationAll')->name('notification.all.send');
+        Route::get('list', 'list')->name('list');
+        Route::get('count-by-segment/{methodName}', 'countBySegment')->name('segment.count');
+        Route::get('notification-log/{id}', 'notificationLog')->name('notification.log');
+    });
 });
