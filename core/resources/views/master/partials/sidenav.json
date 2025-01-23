@@ -12,6 +12,6 @@
         "title": "Transaction History",
         "icon": "la la-list",
         "route_name": "master.transactions",
-        "menu_active": "master.transactions"
+        "menu_active": "master.transaction"
     }
 }
