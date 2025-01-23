@@ -70,16 +70,16 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer('master.partials.sidenav', function ($view) {
             $view->with([
-                'bannedMastersCount'           => User::banned()->count(),
-                'emailUnverifiedMastersCount'  => User::emailUnverified()->count(),
-                'mobileUnverifiedMastersCount' => User::mobileUnverified()->count(),
-                'kycUnverifiedMastersCount'    => User::kycUnverified()->count(),
-                'kycPendingMastersCount'       => User::kycPending()->count(),
+                'bannedCustomersCount'           => User::banned()->count(),
+                'emailUnverifiedCustomersCount'  => User::emailUnverified()->count(),
+                'mobileUnverifiedCustomersCount' => User::mobileUnverified()->count(),
+                'kycUnverifiedCustomersCount'    => User::kycUnverified()->count(),
+                'kycPendingCustomersCount'       => User::kycPending()->count(),
                 'pendingTicketCount'         => SupportTicket::whereIN('status', [Status::TICKET_OPEN, Status::TICKET_REPLY])->count(),
                 'pendingDepositsCount'       => Deposit::pending()->count(),
                 'pendingWithdrawCount'       => Withdrawal::pending()->count(),
                 'pendingBetCount'            => Bet::pending()->count(),
-                'bannedMastersCount'           => Master::banned()->count(),
+                'bannedCustomersCount'           => Master::banned()->count(),
             ]);
         });
 
