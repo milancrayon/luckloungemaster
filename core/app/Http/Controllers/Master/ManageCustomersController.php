@@ -162,6 +162,14 @@ class ManageCustomersController extends Controller
 
     public function update(Request $request, $id)
     {
+        $master_id = auth()->guard('master')->user()->id;
+        $master = Master::where('id', $master_id)->firstOrFail();  // Fetch master based on authenticated user's ID
+
+        // Check if the master's status is not 1 (e.g., banned or inactive)
+        if ($master->status != 1) {
+            $notify[] = ['error', 'Your account is banned. You cannot perform this action.'];
+            return back()->withNotify($notify);
+        }
         $customer = User::where('id', $id)
             ->where('created_by', auth()->guard('master')->user()->id)
             ->firstOrFail();  // Use firstOrFail instead of findOrFail for custom conditions
@@ -172,7 +180,7 @@ class ManageCustomersController extends Controller
         $countryCode    = $request->country;
         $country        = $countryData->$countryCode->country;
         $dialCode       = $countryData->$countryCode->dial_code;
-        $master_id = auth()->guard('master')->user()->id;
+
         $request->validate([
             'firstname' => 'required|string|max:40',
             'lastname' => 'required|string|max:40',
@@ -227,8 +235,13 @@ class ManageCustomersController extends Controller
     public function addSubBalance(Request $request, $id)
     {
         $master_id = auth()->guard('master')->user()->id;
-        $master = Master::where('id', $master_id)->firstOrFail();  // Use firstOrFail instead of findOrFail for custom conditions
+        $master = Master::where('id', $master_id)->firstOrFail();  // Fetch master based on authenticated user's ID
 
+        // Check if the master's status is not 1 (e.g., banned or inactive)
+        if ($master->status != 1) {
+            $notify[] = ['error', 'Your account is banned. You cannot perform this action.'];
+            return back()->withNotify($notify);
+        }
 
         $request->validate([
             'amount' => 'required|numeric|gt:0',
@@ -372,6 +385,15 @@ class ManageCustomersController extends Controller
 
     public function store(Request $request)
     {
+        $master_id = auth()->guard('master')->user()->id;
+        $master = Master::where('id', $master_id)->firstOrFail();  // Fetch master based on authenticated user's ID
+
+        // Check if the master's status is not 1 (e.g., banned or inactive)
+        if ($master->status != 1) {
+            $notify[] = ['error', 'Your account is banned. You cannot perform this action.'];
+            return back()->withNotify($notify);
+        }
+
         $countryData = json_decode(file_get_contents(resource_path('views/partials/country.json')));
         $countryArray = (array)$countryData;
         $countries = implode(',', array_keys($countryArray));
@@ -393,7 +415,6 @@ class ManageCustomersController extends Controller
             'country' => 'required|in:' . $countries,
             'password' => ['required', 'confirmed', $passwordValidation]
         ]);
-        $master_id = auth()->guard('master')->user()->id;
 
         // Check if the mobile number already exists for other records
         $exists = User::where('mobile', $request->mobile)
