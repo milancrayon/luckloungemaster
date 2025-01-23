@@ -8448,3 +8448,25 @@ label.required:after {
   background-size: cover !important;
   width: 100px;
 }
+
+
+.navbar-user__thumb .navbar-user__icon {
+  width: 35px;
+  height: 35px;
+  object-fit: cover;
+  -o-object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  background-color: #030442;
+  font-weight: bold;
+  text-transform: capitalize;
+}
