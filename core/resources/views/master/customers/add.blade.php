@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('master.layouts.app')
 
 @section('panel')
 <div class="row">
@@ -8,7 +8,7 @@
                 <h5 class="card-title mb-0">@lang('Information of')</h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('admin.masters.store') }}" method="POST"
+                <form action="{{ route('master.masters.store') }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
 
