@@ -17,11 +17,7 @@
                                 <i class="menu-icon {{ @$data->icon }}"></i>
                                 <span class="menu-title">{{ __(@$data->title) }}</span>
                                 @foreach (@$data->counters ?? [] as $counter)
-                                    @if ($$counter > 0)
-                                        <span class="menu-badge menu-badge-level-one bg--warning ms-auto">
-                                            <i class="fas fa-exclamation"></i>
-                                        </span>
-                                    @break
+                                   
                                 @endif
                             @endforeach
                         </a>
