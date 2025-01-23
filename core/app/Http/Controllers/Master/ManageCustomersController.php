@@ -167,7 +167,7 @@ class ManageCustomersController extends Controller
         $request->validate([
             'firstname' => 'required|string|max:40',
             'lastname' => 'required|string|max:40',
-            'email' => 'required|email|string|max:40|unique:customers,email,' . $customer->id,
+            'email' => 'required|email|string|max:40|unique:users,email,' . $customer->id,
             'mobile' => 'required|string|max:40',
             'country' => 'required|in:' . $countries,
         ]);
