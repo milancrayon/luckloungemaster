@@ -319,13 +319,9 @@
 @push('script')
 <script>
     (function($) {
-        "use strict"
-
-
+        "use strict";
         $('.bal-btn').on('click', function() {
-
             $('.balanceAddSub')[0].reset();
-
             var act = $(this).data('act');
             $('#addSubModal').find('input[name=act]').val(act);
             if (act == 'add') {
@@ -334,12 +330,10 @@
                 $('.type').text('Subtract');
             }
         });
-
         let mobileElement = $('.mobile-code');
         $('select[name=country]').on('change', function() {
             mobileElement.text(`+${$('select[name=country] :selected').data('mobile_code')}`);
         });
-
     })(jQuery);
 </script>
 @endpush
