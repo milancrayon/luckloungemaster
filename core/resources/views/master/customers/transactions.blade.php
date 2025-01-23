@@ -40,7 +40,7 @@
                                 <button class="btn btn--primary w-100 h-45"><i class="fas fa-filter"></i> @lang('Filter')</button>
                             </div>
                         </div>
-                    </form>
+                    </form> 
                 </div>
             </div>
             <div class="card">
