@@ -1,17 +1,8 @@
 {
-    "dashboard": {
-        "keyword": [
-            "Customer management"
-        ],
-        "title": "Dashboard",
-        "icon": "las la-home",
-        "route_name": "master.dashboard",
-        "menu_active": "master.dashboard"
-    },
     "transaction": {
         "title": "Transaction History",
         "icon": "la la-list",
         "route_name": "master.transaction",
         "menu_active": "master.transaction"
     }
-} 
+}
