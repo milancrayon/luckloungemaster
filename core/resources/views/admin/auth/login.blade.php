@@ -1,7 +1,7 @@
-@extends('master.layouts.master')
+@extends('admin.layouts.master')
 @section('content')
 <div class="login-main"
-    style="background-image: url('{{ asset('assets/master/images/login.jpg') }}')">
+    style="background-image: url('{{ asset('assets/admin/images/login.jpg') }}')">
     <div class="container custom-container">
         <div class="row justify-content-center">
             <div class="col-xxl-5 col-xl-5 col-lg-6 col-md-8 col-sm-11">
@@ -13,7 +13,7 @@
                                 @lang('Dashboard')</p>
                         </div>
                         <div class="login-wrapper__body">
-                            <form action="{{ route('master.login') }}" method="POST"
+                            <form action="{{ route('admin.login') }}" method="POST"
                                 class="cmn-form mt-30 verify-gcaptcha login-form">
                                 @csrf
                                 <div class="form-group">
@@ -23,7 +23,7 @@
                                 <div class="form-group">
                                     <div class="d-flex justify-content-between">
                                         <label>@lang('Password')</label>
-                                        <a href="{{ route('master.password.reset') }}" class="forget-text">@lang('Forgot Password?')</a>
+                                        <a href="{{ route('admin.password.reset') }}" class="forget-text">@lang('Forgot Password?')</a>
                                     </div>
                                     <input type="password" class="form-control" name="password" required>
                                 </div>

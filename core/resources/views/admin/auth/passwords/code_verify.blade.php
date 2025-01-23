@@ -1,13 +1,13 @@
-@extends('master.layouts.master')
+@extends('admin.layouts.master')
 @section('content')
-    <div class="login-main" style="background-image: url('{{ asset('assets/master/images/login.jpg') }}')">
+    <div class="login-main" style="background-image: url('{{ asset('assets/admin/images/login.jpg') }}')">
         <div class="container custom-container d-flex justify-content-center">
             <div class="login-area">
                 <div class="text-center mb-3">
                     <h2 class="text-white mb-2">@lang('Verify Code')</h2>
                     <p class="text-white mb-2">@lang('Please check your email and enter the verification code you got in your email.')</p>
                 </div>
-                <form action="{{ route('master.password.verify.code') }}" method="POST" class="login-form w-100">
+                <form action="{{ route('admin.password.verify.code') }}" method="POST" class="login-form w-100">
                     @csrf
 
                     <div class="code-box-wrapper d-flex w-100">
@@ -28,8 +28,8 @@
                     </div>
                     <button type="submit" class="btn cmn-btn w-100">@lang('Submit')</button>
                     <div class="d-flex flex-wrap justify-content-between mt-3">
-                        <a href="{{ route('master.password.reset') }}" class="forget-text">@lang('Try to send again')</a>
-                        <a href="{{ route('master.login') }}" class="text-white"><i class="las la-sign-in-alt"></i>@lang('Back to Login')</a>
+                        <a href="{{ route('admin.password.reset') }}" class="forget-text">@lang('Try to send again')</a>
+                        <a href="{{ route('admin.login') }}" class="text-white"><i class="las la-sign-in-alt"></i>@lang('Back to Login')</a>
                     </div>
                 </form>
             </div>
@@ -38,7 +38,7 @@
 @endsection
 
 @push('style')
-    <link rel="stylesheet" href="{{ asset('assets/master/css/verification_code.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/admin/css/verification_code.css') }}">
 @endpush
 
 @push('script')

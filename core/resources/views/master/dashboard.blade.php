@@ -1,5 +1,5 @@
-@extends('admin.layouts.app')
+@extends('master.layouts.app')
 
 @section('panel')
-@include('admin.partials.cron_modal')
+@include('master.partials.cron_modal')
 @endsection
