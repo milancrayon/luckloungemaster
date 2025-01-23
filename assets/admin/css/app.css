@@ -8489,7 +8489,7 @@ label.required:after {
 }
 
 .master.widget-eight.style-two .widget-eight__content-amount {
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .master.widget-eight.style-two .widget-eight__description {
@@ -8507,4 +8507,5 @@ label.required:after {
 .master.widget-eight.style-two .widget-eight.bg--indigo.style-two {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
 }
