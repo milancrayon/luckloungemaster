@@ -30,6 +30,7 @@
         </div>
 
         <div class="d-flex flex-wrap gap-3 mt-4">
+            @if(auth()->guard('master')->user()->status == 1)
             <div class="flex-fill">
                 <button data-bs-toggle="modal" data-bs-target="#addSubModal" class="btn btn--success btn--shadow w-100 btn-lg bal-btn" data-act="add">
                     <i class="las la-plus-circle"></i> @lang('Balance')
@@ -41,7 +42,7 @@
                     <i class="las la-minus-circle"></i> @lang('Balance')
                 </button>
             </div>
-
+            @endif
             <div class="flex-fill">
                 <a href="{{ route('master.customers.login.history') }}?search={{ $customer->username }}" class="btn btn--primary btn--shadow w-100 btn-lg">
                     <i class="las la-list-alt"></i>@lang('Logins')
@@ -163,7 +164,7 @@
                             </div>
                         </div>
 
-<!-- 
+                        <!-- 
                         <div class="col-xl-3 col-md-6 col-12">
                             <div class="form-group">
                                 <label>@lang('Email Verification')</label>

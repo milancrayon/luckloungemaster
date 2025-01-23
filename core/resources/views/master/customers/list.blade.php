@@ -74,5 +74,7 @@
 
 @push('breadcrumb-plugins')
 <x-search-form placeholder="Username / Email" />
+@if(auth()->guard('master')->user()->status == 1)
 <a href="{{ route('master.customers.add') }}" class="btn btn--primary btn--shadow w-max custom_add_button btn-lg">Add Customer</a>
+@endif
 @endpush
