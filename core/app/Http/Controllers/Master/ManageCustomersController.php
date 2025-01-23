@@ -439,14 +439,22 @@ class ManageCustomersController extends Controller
 
         $remarks = Transaction::distinct('remark')->orderBy('remark')->get('remark');
 
-        $transactions = Transaction::with(['user' => function ($query) {
-            // Apply the condition to the 'user' relationship
-            $query->where('created_by', auth()->guard('master')->user()->id);
-        }])
-            ->searchable(['trx', 'user:username'])  // Assuming you have a custom searchable scope
+        $transactions = Transaction::select('transactions.*', 'users.username')  // Select fields from both tables
+            ->join('users', 'users.id', '=', 'transactions.user_id')  // Join with the 'users' table based on the user_id
+            ->where('users.created_by', auth()->guard('master')->user()->id)  // Filter users by 'created_by'
+            ->searchable(['trx', 'users.username'])  // Assuming you have a custom searchable scope
             ->filter(['trx_type', 'remark'])  // Assuming you have a custom filter scope
             ->dateFilter()  // Assuming you have a custom date filter scope
-            ->orderBy('id', 'desc');  // Ordering the transactions
+            ->orderBy('transactions.id', 'desc');  // Ordering by transaction ID
+
+        // If $userId is provided, filter by user_id
+        if ($userId) {
+            $transactions = $transactions->where('transactions.user_id', $userId);
+        }
+
+        // Paginate the results
+        $transactions = $transactions->paginate(getPaginate());
+
 
         // If a $userId is provided, filter transactions by user_id
         if ($userId) {
