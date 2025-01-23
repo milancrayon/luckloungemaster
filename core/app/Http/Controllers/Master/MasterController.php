@@ -10,7 +10,7 @@ use App\Models\User;
 use App\Models\UserLogin;
 use App\Models\Withdrawal;
 use Carbon\Carbon;
-
+use Illuminate\Http\Request;
 
 class MasterController extends Controller
 {
