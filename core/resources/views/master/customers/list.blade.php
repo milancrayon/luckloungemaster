@@ -23,7 +23,7 @@
                                     <span class="fw-bold">{{ $customer->fullname }}</span>
                                     <br>
                                     <span class="small">
-                                        <a href="{{ route('master.customers.detail', $customer->id) }}"><span>@</span>{{ $customer->customername }}</a>
+                                        <a href="{{ route('master.customers.detail', $customer->id) }}"><span>@</span>{{ $customer->username }}</a>
                                     </span>
                                 </td>
                                 <td>
