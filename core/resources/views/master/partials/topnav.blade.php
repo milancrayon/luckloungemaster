@@ -35,34 +35,6 @@
                     <a href="{{ route('home') }}" target="_blank"><i class="las la-globe"></i></a>
                 </button>
             </li>
-            <li class="dropdown">
-                <div class="dropdown-menu dropdown-menu--md p-0 border-0 box--shadow1 dropdown-menu-right">
-                  
-                    <div class="dropdown-menu__body @if (blank($masterNotifications)) d-flex justify-content-center align-items-center @endif">
-                        @forelse($masterNotifications as $notification)
-                            <a href="{{ route('master.notification.read', $notification->id) }}"
-                               class="dropdown-menu__item">
-                                <div class="navbar-notifi">
-                                    <div class="navbar-notifi__right">
-                                        <h6 class="notifi__title">{{ __($notification->title) }}</h6>
-                                        <span class="time"><i class="far fa-clock"></i>
-                                            {{ diffForHumans($notification->created_at) }}</span>
-                                    </div>
-                                </div>
-                            </a>
-                        @empty
-                            <div class="empty-notification text-center">
-                                <img src="{{ getImage('assets/images/empty_list.png') }}" alt="empty">
-                                <p class="mt-3">@lang('No unread notification found')</p>
-                            </div>
-                        @endforelse
-                    </div>
-                    <div class="dropdown-menu__footer">
-                        <a href="{{ route('master.notifications') }}"
-                           class="view-all-message">@lang('View all notifications')</a>
-                    </div>
-                </div>
-            </li>
             <li>
                 <button type="button" class="primary--layer" data-bs-toggle="tooltip" data-bs-placement="bottom" title="@lang('System Setting')">
                     <a href="{{ route('master.setting.system') }}"><i class="las la-wrench"></i></a>
