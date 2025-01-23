@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Master;
 use App\Constants\Status;
 use App\Http\Controllers\Controller;
 use App\Models\Master;
+use App\Models\MastersTransaction;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Models\UserLogin;
@@ -247,13 +248,15 @@ class ManageCustomersController extends Controller
         $trx = getTrx();
 
         $transaction = new Transaction();
-
+        $master_transaction = new MastersTransaction();
         if ($request->act == 'add') {
             $customer->balance += $amount;
-
+            $master->balance -= $amount;
             $transaction->trx_type = '+';
             $transaction->remark = 'balance_add';
-
+            $master_transaction->trx_type = '+';
+            $master_transaction->remark = 'balance_add';
+            $master_transaction->details = 'The balance has been added to the customer and master accounts.';
             $notifyTemplate = 'BAL_ADD';
 
             $notify[] = ['success', 'Balance added successfully'];
@@ -264,15 +267,19 @@ class ManageCustomersController extends Controller
             }
 
             $customer->balance -= $amount;
-
+            $master->balance -= $amount;
             $transaction->trx_type = '-';
             $transaction->remark = 'balance_subtract';
 
+            $master_transaction->trx_type = '-';
+            $master_transaction->remark = 'balance_subtract';
+            $master_transaction->details = 'The balance has been subtracted to the customer and master accounts.';
             $notifyTemplate = 'BAL_SUB';
             $notify[] = ['success', 'Balance subtracted successfully'];
         }
 
         $customer->save();
+        $master->save();
 
         $transaction->user_id = $customer->id;
         $transaction->amount = $amount;
@@ -281,6 +288,13 @@ class ManageCustomersController extends Controller
         $transaction->trx =  $trx;
         $transaction->details = $request->remark;
         $transaction->save();
+
+        $master_transaction->user_id = $master->id;
+        $master_transaction->amount = $amount;
+        $master_transaction->post_balance = $master->balance;
+        $master_transaction->charge = 0;
+        $master_transaction->trx =  $trx;
+        $master_transaction->save();
 
         notify($customer, $notifyTemplate, [
             'trx' => $trx,
