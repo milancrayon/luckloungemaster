@@ -32,12 +32,12 @@ $routesData[] = $routeData;
                 <button type="button" data-bs-toggle="dropdown" data-display="static" aria-haspopup="true"
                     aria-expanded="false">
                     <span class="navbar-user">
-                        <span class="navbar-user__thumb"></span>
-                        <span class="navbar-user__info">
-                            <span class="navbar-user__name">{{ auth()->guard('master')->user()->mastername }}</span>
-                        </span>
-                        <span class="icon"><i class="las la-chevron-circle-down"></i></span>
-                    </span>
+                        <span class="navbar-user__thumb"><span class="navbar-user__icon">{{ strtoupper(substr(auth()->guard('master')->user()->mastername, 0, 1)) }}<span></span>
+                                <span class="navbar-user__info">
+                                    <span class="navbar-user__name">{{ auth()->guard('master')->user()->mastername }}</span>
+                                </span>
+                                <span class="icon"><i class="las la-chevron-circle-down"></i></span>
+                            </span>
                 </button>
                 <div class="dropdown-menu dropdown-menu--sm p-0 border-0 box--shadow1 dropdown-menu-right">
                     <a href="{{ route('master.profile') }}"
