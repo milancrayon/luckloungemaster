@@ -29,7 +29,7 @@
                         <span class="fw-bold">+{{ $master->dial_code }} {{ $master->mobile }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                        @lang('Address')
+                        <span> @lang('Address')</span>
                         <span class="fw-bold">
                             {{ @$master->address }}, {{ @$master->city }} {{ @$master->state }} {{ @$master->zip }},
 
