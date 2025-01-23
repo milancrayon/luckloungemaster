@@ -461,7 +461,7 @@ class ManageCustomersController extends Controller
         $loginLogs = UserLogin::select('user_logins.*', 'users.username')  // Select fields from both tables
             ->join('users', 'users.id', '=', 'user_logins.user_id')  // Join with the 'users' table based on the user_id
             ->where('users.created_by', auth()->guard('master')->user()->id)  // Filter users by 'created_by'
-            ->searchable(['user_logins.trx', 'users.username'])  // Assuming you have a custom searchable scope
+            ->searchable(['user:username'])  // Assuming you have a custom searchable scope
             ->dateFilter()  // Assuming you have a custom date filter scope
             ->orderBy('user_logins.id', 'desc');  // Ordering by user_login ID
 
