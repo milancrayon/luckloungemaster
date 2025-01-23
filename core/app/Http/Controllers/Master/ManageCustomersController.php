@@ -435,19 +435,16 @@ class ManageCustomersController extends Controller
             $customer->kv = Status::KYC_VERIFIED;
         }
         $customer_exists = User::where('created_by', $master_id)->exists();
-        var_dump(!$customer_exists);
-        exit();
+
         if (!$customer_exists) {
             // If no customer exists, update the master's balance with the exposure value
             $master = Master::findOrFail($master_id);
+            var_dump($master->balanc);
+            exit();
             $master->balance = $request->exposure;
             $master->save();
-
-            return response()->json([
-                'success' => 'Master balance updated as no customer found.',
-                'new_balance' => $master->balance
-            ]);
         }
+        exit();
         $customer->save();
 
         $notify[] = ['success', 'New Customer created successfully'];
