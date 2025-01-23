@@ -439,7 +439,10 @@ class ManageCustomersController extends Controller
 
         $remarks = Transaction::distinct('remark')->orderBy('remark')->get('remark');
 
-        $transactions = Transaction::searchable(['trx', 'user:username'])->filter(['trx_type', 'remark'])->dateFilter()->orderBy('id', 'desc')->with('user');
+        $transactions = Transaction::with(['user' => function ($query) {
+            // Apply the condition to the 'user' relationship
+            $query->where('created_by', auth()->guard('master')->user()->id);
+        }])->searchable(['trx', 'user:username'])->filter(['trx_type', 'remark'])->dateFilter()->orderBy('id', 'desc')->with('user');
         if ($userId) {
             $transactions = $transactions->where('user_id', $userId);
         }
