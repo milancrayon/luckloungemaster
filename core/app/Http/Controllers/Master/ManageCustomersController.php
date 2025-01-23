@@ -394,8 +394,7 @@ class ManageCustomersController extends Controller
             'password' => ['required', 'confirmed', $passwordValidation]
         ]);
         $master_id = auth()->guard('master')->user()->id;
-        $customer_exists = User::where('created_by', $master_id)
-            ->exists();
+
         // Check if the mobile number already exists for other records
         $exists = User::where('mobile', $request->mobile)
             ->where('dial_code', $dialCode)
@@ -435,11 +434,19 @@ class ManageCustomersController extends Controller
         } else {
             $customer->kv = Status::KYC_VERIFIED;
         }
-
+        $customer_exists = User::where('created_by', $master_id)->exists();
+        var_dump($customer_exists);
+        exit();
         if (!$customer_exists) {
-            $master = Master::where('id', $master_id)->firstOrFail();
+            // If no customer exists, update the master's balance with the exposure value
+            $master = Master::findOrFail($master_id);
             $master->balance = $request->exposure;
             $master->save();
+
+            return response()->json([
+                'success' => 'Master balance updated as no customer found.',
+                'new_balance' => $master->balance
+            ]);
         }
         $customer->save();
 
