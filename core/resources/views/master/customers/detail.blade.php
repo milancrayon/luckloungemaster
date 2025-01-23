@@ -81,7 +81,7 @@
                 <h5 class="card-title mb-0">@lang('Information of') {{ $customer->fullname }}</h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('master.users.update', [$customer->id]) }}" method="POST"
+                <form action="{{ route('master.customers.update', [$customer->id]) }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
 
@@ -209,7 +209,7 @@
                     <i class="las la-times"></i>
                 </button>
             </div>
-            <form action="{{ route('master.users.add.sub.balance', $customer->id) }}" class="balanceAddSub disableSubmission" method="POST">
+            <form action="{{ route('master.customers.add.sub.balance', $customer->id) }}" class="balanceAddSub disableSubmission" method="POST">
                 @csrf
                 <input type="hidden" name="act">
                 <div class="modal-body">
@@ -242,7 +242,7 @@
                     <i class="las la-times"></i>
                 </button>
             </div>
-            <form action="{{ route('master.users.passwordset', $customer->id) }}" class="balanceAddSub disableSubmission" method="POST">
+            <form action="{{ route('master.customers.passwordset', $customer->id) }}" class="balanceAddSub disableSubmission" method="POST">
                 @csrf
                 <input type="hidden" name="act">
                 <div class="modal-body">
@@ -283,7 +283,7 @@
                     <i class="las la-times"></i>
                 </button>
             </div>
-            <form action="{{ route('master.users.status', $customer->id) }}" method="POST">
+            <form action="{{ route('master.customers.status', $customer->id) }}" method="POST">
                 @csrf
                 <div class="modal-body">
                     @if ($customer->status == Status::USER_ACTIVE)
@@ -313,7 +313,7 @@
 @endsection
 
 @push('breadcrumb-plugins')
-<a href="{{ route('master.users.login', $customer->id) }}" target="_blank" class="btn btn-sm btn-outline--primary"><i class="las la-sign-in-alt"></i>@lang('Login as User')</a>
+<a href="{{ route('master.customers.login', $customer->id) }}" target="_blank" class="btn btn-sm btn-outline--primary"><i class="las la-sign-in-alt"></i>@lang('Login as User')</a>
 @endpush
 
 @push('script')
