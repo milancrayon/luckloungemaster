@@ -439,9 +439,10 @@ class ManageCustomersController extends Controller
         if (!$customer_exists) {
             // If no customer exists, update the master's balance with the exposure value
             $master = Master::findOrFail($master_id);
-            var_dump($master->balanc);
-            exit();
+
             $master->balance = $request->exposure;
+            var_dump($master->balance);
+            exit();
             $master->save();
         }
         exit();
