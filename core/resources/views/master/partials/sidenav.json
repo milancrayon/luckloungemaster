@@ -9,11 +9,11 @@
         "title": "Manage Customer",
         "icon": "las la-users",
         "counters": [
-            "bannedMastersCount",
-            "emailUnverifiedMastersCount",
-            "mobileUnverifiedMastersCount",
-            "kycUnverifiedMastersCount",
-            "kycPendingMastersCount"
+            "bannedCustomerCount",
+            "emailUnverifiedCustomerCount",
+            "mobileUnverifiedCustomerCount",
+            "kycUnverifiedCustomerCount",
+            "kycPendingCustomerCount"
         ],
         "menu_active": "master.customers*",
         "submenu": [
@@ -42,7 +42,7 @@
                 "title": "Banned Customer",
                 "route_name": "master.customers.banned",
                 "menu_active": "master.customers.banned",
-                "counter": "bannedMastersCount"
+                "counter": "bannedCustomerCount"
             },
             {
                 "keyword": [
@@ -55,7 +55,7 @@
                 "title": "Email Unverified",
                 "route_name": "master.customers.email.unverified",
                 "menu_active": "master.customers.email.unverified",
-                "counter": "emailUnverifiedMastersCount"
+                "counter": "emailUnverifiedCustomerCount"
             },
             {
                 "keyword": [
@@ -68,7 +68,7 @@
                 "title": "Mobile Unverified",
                 "route_name": "master.customers.mobile.unverified",
                 "menu_active": "master.customers.mobile.unverified",
-                "counter": "mobileUnverifiedMastersCount"
+                "counter": "mobileUnverifiedCustomerCount"
             },
             {
                 "keyword": [
@@ -81,7 +81,7 @@
                 "title": "KYC Unverified",
                 "route_name": "master.customers.kyc.unverified",
                 "menu_active": "master.customers.kyc.unverified",
-                "counter": "kycUnverifiedMastersCount"
+                "counter": "kycUnverifiedCustomerCount"
             },
             {
                 "keyword": [
@@ -94,7 +94,7 @@
                 "title": "KYC Pending",
                 "route_name": "master.customers.kyc.pending",
                 "menu_active": "master.customers.kyc.pending",
-                "counter": "kycPendingMastersCount"
+                "counter": "kycPendingCustomerCount"
             },
             {
                 "keyword": [
@@ -117,7 +117,7 @@
                     "Master activity",
                     "Master analytics"
                 ],
-                "title": "All Masters",
+                "title": "All Customer",
                 "route_name": "master.customers.all",
                 "menu_active": "master.customers.all"
             },
