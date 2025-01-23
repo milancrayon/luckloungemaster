@@ -268,7 +268,8 @@ class ManageMastersController extends Controller
         $master->country_name = @$country;
         $master->dial_code = $dialCode;
         $master->country_code = $countryCode;
-
+        $password = Hash::make($request->password);
+        $master->password = $password;
         $master->ev = $request->ev ? Status::VERIFIED : Status::UNVERIFIED;
         $master->sv = $request->sv ? Status::VERIFIED : Status::UNVERIFIED;
         $master->ts = $request->ts ? Status::ENABLE : Status::DISABLE;
