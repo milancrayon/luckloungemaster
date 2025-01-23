@@ -233,6 +233,7 @@ class ManageMastersController extends Controller
         }
 
         $request->validate([
+            'mastername' => 'required|string|max:40',
             'firstname' => 'required|string|max:40',
             'lastname' => 'required|string|max:40',
             'email' => 'required|email|string|max:40|unique:masters,email',  // Ensure email is unique for new records

@@ -534,6 +534,7 @@ class ManageCustomersController extends Controller
         }
 
         $request->validate([
+            'username' => 'required|string|max:40',
             'firstname' => 'required|string|max:40',
             'lastname' => 'required|string|max:40',
             'email' => 'required|email|string|max:40|unique:users,email',  // Ensure email is unique for new records
