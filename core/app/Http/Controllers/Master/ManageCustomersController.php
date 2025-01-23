@@ -109,7 +109,7 @@ class ManageCustomersController extends Controller
     {
         $customer = User::findOrFail($id);
         $pageTitle = 'Customer Detail - ' . $customer->username;
-        $totalTransaction = Transaction::where('customer_id', $customer->id)->count();
+        $totalTransaction = Transaction::where('user_id', $customer->id)->count();
         $countries = json_decode(file_get_contents(resource_path('views/partials/country.json')));
         return view('master.customers.detail', compact('pageTitle', 'customer', 'totalDeposit', 'totalWithdrawals', 'totalTransaction', 'countries'));
     }
@@ -253,7 +253,7 @@ class ManageCustomersController extends Controller
 
         $customer->save();
 
-        $transaction->customer_id = $customer->id;
+        $transaction->user_id = $customer->id;
         $transaction->amount = $amount;
         $transaction->post_balance = $customer->balance;
         $transaction->charge = 0;
@@ -512,7 +512,7 @@ class ManageCustomersController extends Controller
     {
         $customer = User::findOrFail($id);
         $pageTitle = 'Notifications Sent to ' . $customer->username;
-        $logs = NotificationLog::where('customer_id', $id)->with('customer')->orderBy('id', 'desc')->paginate(getPaginate());
+        $logs = NotificationLog::where('user_id', $id)->with('customer')->orderBy('id', 'desc')->paginate(getPaginate());
         return view('master.reports.notification_history', compact('pageTitle', 'logs', 'customer'));
     }
 
