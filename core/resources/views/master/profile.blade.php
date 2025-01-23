@@ -48,15 +48,73 @@
                 <form action="{{ route('master.profile.update') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
-
-                        <div class="col-xxl-8 col-lg-6">
-                            <div class="form-group ">
-                                <label>@lang('Name')</label>
-                                <input class="form-control" type="text" name="name" value="{{ $master->name }}" required>
-                            </div>
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label>@lang('Email')</label>
+                                <label>@lang('First Name')</label>
+                                <input class="form-control" type="text" name="firstname" required value="{{ $master->firstname }}">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label">@lang('Last Name')</label>
+                                <input class="form-control" type="text" name="lastname" required value="{{ $master->lastname }}">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>@lang('Email') </label>
                                 <input class="form-control" type="email" name="email" value="{{ $master->email }}" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>@lang('Mobile Number') </label>
+                                <div class="input-group ">
+                                    <span class="input-group-text mobile-code">+{{ $master->dial_code }}</span>
+                                    <input type="number" name="mobile" value="{{ $master->mobile }}" id="mobile" class="form-control checkMaster" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group ">
+                                <label>@lang('Address')</label>
+                                <input class="form-control" type="text" name="address" value="{{ @$master->address }}">
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group">
+                                <label>@lang('City')</label>
+                                <input class="form-control" type="text" name="city" value="{{ @$master->city }}">
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group ">
+                                <label>@lang('State')</label>
+                                <input class="form-control" type="text" name="state" value="{{ @$master->state }}">
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group ">
+                                <label>@lang('Zip/Postal')</label>
+                                <input class="form-control" type="text" name="zip" value="{{ @$master->zip }}">
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6">
+                            <div class="form-group ">
+                                <label>@lang('Country')<span class="text--danger">*</span></label>
+                                <select name="country" class="form-control select2">
+                                    @foreach ($countries as $key => $country)
+                                    <option data-mobile_code="{{ $country->dial_code }}" value="{{ $key }}" @selected($master->country_code == $key)>{{ __($country->country) }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>
