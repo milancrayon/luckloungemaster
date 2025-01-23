@@ -236,7 +236,7 @@ class ManageCustomersController extends Controller
         ]);
         $amount = $request->amount;
         echo "<pre>";
-        print_r($customer);
+        print_r($customer->balance);
         exit();
         if ($exists) {
             $notify[] = ['error', 'The mobile number already exists.'];
