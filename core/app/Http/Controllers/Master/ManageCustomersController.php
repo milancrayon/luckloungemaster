@@ -101,14 +101,14 @@ class ManageCustomersController extends Controller
             $customers = User::query();
         };
         $customers->where('created_by', auth()->guard('master')->user()->id);
-        return $customers->searchable(['customername', 'email'])->orderBy('id', 'desc')->paginate(getPaginate());
+        return $customers->searchable(['username', 'email'])->orderBy('id', 'desc')->paginate(getPaginate());
     }
 
 
     public function detail($id)
     {
         $customer = User::findOrFail($id);
-        $pageTitle = 'Customer Detail - ' . $customer->customername;
+        $pageTitle = 'Customer Detail - ' . $customer->username;
 
         $totalDeposit = Deposit::where('customer_id', $customer->id)->successful()->sum('amount');
         $totalWithdrawals = Withdrawal::where('customer_id', $customer->id)->approved()->sum('amount');
@@ -241,7 +241,7 @@ class ManageCustomersController extends Controller
             $notify[] = ['success', 'Balance added successfully'];
         } else {
             if ($amount > $customer->balance) {
-                $notify[] = ['error', $customer->customername . ' doesn\'t have sufficient balance.'];
+                $notify[] = ['error', $customer->username . ' doesn\'t have sufficient balance.'];
                 return back()->withNotify($notify);
             }
 
@@ -326,7 +326,7 @@ class ManageCustomersController extends Controller
             $notify[] = ['warning', 'Notification options are disabled currently'];
             return to_route('master.customers.detail', $customer->id)->withNotify($notify);
         }
-        $pageTitle = 'Send Notification to ' . $customer->customername;
+        $pageTitle = 'Send Notification to ' . $customer->username;
         return view('master.customers.notification_single', compact('pageTitle', 'customer'));
     }
 
@@ -500,7 +500,7 @@ class ManageCustomersController extends Controller
 
         if (request()->search) {
             $query->where(function ($q) {
-                $q->where('email', 'like', '%' . request()->search . '%')->orWhere('customername', 'like', '%' . request()->search . '%');
+                $q->where('email', 'like', '%' . request()->search . '%')->orWhere('username', 'like', '%' . request()->search . '%');
             });
         }
         $customers = $query->orderBy('id', 'desc')->paginate(getPaginate());
@@ -514,8 +514,77 @@ class ManageCustomersController extends Controller
     public function notificationLog($id)
     {
         $customer = User::findOrFail($id);
-        $pageTitle = 'Notifications Sent to ' . $customer->customername;
+        $pageTitle = 'Notifications Sent to ' . $customer->username;
         $logs = NotificationLog::where('customer_id', $id)->with('customer')->orderBy('id', 'desc')->paginate(getPaginate());
         return view('master.reports.notification_history', compact('pageTitle', 'logs', 'customer'));
+    }
+
+    public function store(Request $request)
+    {
+        $countryData = json_decode(file_get_contents(resource_path('views/partials/country.json')));
+        $countryArray = (array)$countryData;
+        $countries = implode(',', array_keys($countryArray));
+
+        $countryCode = $request->country;
+        $country = $countryData->$countryCode->country;
+        $dialCode = $countryData->$countryCode->dial_code;
+        $passwordValidation = Password::min(6);
+        if (gs('secure_password')) {
+            $passwordValidation = $passwordValidation->mixedCase()->numbers()->symbols()->uncompromised();
+        }
+
+        $request->validate([
+            'firstname' => 'required|string|max:40',
+            'lastname' => 'required|string|max:40',
+            'email' => 'required|email|string|max:40|unique:user,email',  // Ensure email is unique for new records
+            'mobile' => 'required|string|max:40',
+            'country' => 'required|in:' . $countries,
+            'amount' => 'required|numeric|gt:0',
+            'password' => ['required', 'confirmed', $passwordValidation]
+        ]);
+        $amount = $request->amount;
+        // Check if the mobile number already exists for other records
+        $exists = User::where('mobile', $request->mobile)
+            ->where('dial_code', $dialCode)
+            ->exists();
+
+        if ($exists) {
+            $notify[] = ['error', 'The mobile number already exists.'];
+            return back()->withNotify($notify);
+        }
+        // Create a new Master instance
+        $customer = new User();
+        $customer->mobile = $request->mobile;
+        $customer->firstname = $request->firstname;
+        $customer->lastname = $request->lastname;
+        $customer->username = $request->username;
+        $customer->email = $request->email;
+        $customer->exposure = 0;
+        $customer->balance = $amount;
+
+        $customer->address = $request->address;
+        $customer->city = $request->city;
+        $customer->state = $request->state;
+        $customer->zip = $request->zip;
+        $customer->country_name = @$country;
+        $customer->dial_code = $dialCode;
+        $customer->country_code = $countryCode;
+        $password = Hash::make($request->password);
+        $customer->password = $password;
+        $customer->ev = $request->ev ? Status::VERIFIED : Status::UNVERIFIED;
+        $customer->sv = $request->sv ? Status::VERIFIED : Status::UNVERIFIED;
+        $customer->ts = $request->ts ? Status::ENABLE : Status::DISABLE;
+
+        // Handle KYC status
+        if (!$request->kv) {
+            $customer->kv = Status::KYC_UNVERIFIED;
+            $customer->kyc_data = null;
+        } else {
+            $customer->kv = Status::KYC_VERIFIED;
+        }
+
+        $customer->save();
+        $notify[] = ['success', 'New Master created successfully'];
+        return back()->withNotify($notify);
     }
 }
