@@ -50,6 +50,11 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
+
+        'master' => [
+            'driver' => 'session',
+            'provider' => 'masters', // Define a custom provider if necessary
+        ],
     ],
 
     /*
@@ -77,6 +82,10 @@ return [
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
+        ],
+        'masters' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Master::class, // Custom model for master users
         ],
 
         // 'users' => [
@@ -114,6 +123,12 @@ return [
         'admins' => [
             'provider' => 'admins',
             'table' => 'admin_password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'masters' => [
+            'provider' => 'masters',
+            'table' => 'master_password_resets',
             'expire' => 60,
             'throttle' => 60,
         ],
