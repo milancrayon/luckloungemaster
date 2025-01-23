@@ -43,7 +43,7 @@
             </div>
 
             <div class="flex-fill">
-                <a href="{{ route('master.customers.login.history') }}?search={{ $user->username }}" class="btn btn--primary btn--shadow w-100 btn-lg">
+                <a href="{{ route('master.customers.login.history') }}?search={{ $customer->username }}" class="btn btn--primary btn--shadow w-100 btn-lg">
                     <i class="las la-list-alt"></i>@lang('Logins')
                 </a>
             </div>
