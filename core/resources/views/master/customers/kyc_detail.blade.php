@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('master.layouts.app')
 @section('panel')
     <div class="row justify-content-center">
         <div class="col-lg-8">
@@ -15,7 +15,7 @@
                                             {{ implode(',', $val->value) }}
                                         @elseif($val->type == 'file')
                                             @if ($val->value)
-                                                <a href="{{ route('admin.download.attachment', encrypt(getFilePath('verify') . '/' . $val->value)) }}" class="me-3"><i class="fa-regular fa-file"></i> @lang('Attachment') </a>
+                                                <a href="{{ route('master.download.attachment', encrypt(getFilePath('verify') . '/' . $val->value)) }}" class="me-3"><i class="fa-regular fa-file"></i> @lang('Attachment') </a>
                                             @else
                                                 @lang('No File')
                                             @endif
@@ -40,7 +40,7 @@
                     @if ($user->kv == Status::KYC_PENDING)
                         <div class="d-flex flex-wrap justify-content-end mt-3">
                             <button class="btn btn-outline--danger me-3" data-bs-toggle="modal" data-bs-target="#kycRejectionModal"><i class="las la-ban"></i>@lang('Reject')</button>
-                            <button class="btn btn-outline--success confirmationBtn" data-question="@lang('Are you sure to approve this documents?')" data-action="{{ route('admin.users.kyc.approve', $user->id) }}"><i class="las la-check"></i>@lang('Approve')</button>
+                            <button class="btn btn-outline--success confirmationBtn" data-question="@lang('Are you sure to approve this documents?')" data-action="{{ route('master.users.kyc.approve', $user->id) }}"><i class="las la-check"></i>@lang('Approve')</button>
                         </div>
                     @endif
                 </div>
@@ -58,7 +58,7 @@
                         <i class="las la-times"></i>
                     </button>
                 </div>
-                <form action="{{ route('admin.users.kyc.reject', $user->id) }}" method="POST">
+                <form action="{{ route('master.users.kyc.reject', $user->id) }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         <div class="alert alert-primary p-3">

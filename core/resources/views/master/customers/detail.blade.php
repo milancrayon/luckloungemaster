@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('master.layouts.app')
 
 @section('panel')
     <div class="row">
@@ -8,7 +8,7 @@
                 <div class="col-xxl-3 col-sm-6">
                     <x-widget
                               style="7"
-                              link="{{ route('admin.report.transaction', $user->id) }}"
+                              link="{{ route('master.report.transaction', $user->id) }}"
                               title="Balance"
                               icon="las la-money-bill-wave-alt"
                               value="{{ showAmount($user->balance) }}"
@@ -20,7 +20,7 @@
                 <div class="col-xxl-3 col-sm-6">
                     <x-widget
                               style="7"
-                              link="{{ route('admin.deposit.list', $user->id) }}"
+                              link="{{ route('master.deposit.list', $user->id) }}"
                               title="Deposits"
                               icon="las la-wallet"
                               value="{{ showAmount($totalDeposit) }}"
@@ -31,7 +31,7 @@
                 <div class="col-xxl-3 col-sm-6">
                     <x-widget
                               style="7"
-                              link="{{ route('admin.withdraw.data.all', $user->id) }}"
+                              link="{{ route('master.withdraw.data.all', $user->id) }}"
                               title="Withdrawals"
                               icon="la la-bank"
                               value="{{ showAmount($totalWithdrawals) }}"
@@ -42,7 +42,7 @@
                 <div class="col-xxl-3 col-sm-6">
                     <x-widget
                               style="7"
-                              link="{{ route('admin.report.transaction', $user->id) }}"
+                              link="{{ route('master.report.transaction', $user->id) }}"
                               title="Transactions"
                               icon="las la-exchange-alt"
                               value="{{ $totalTransaction }}"
@@ -58,7 +58,7 @@
                     <!-- <button data-bs-toggle="modal" data-bs-target="#addSubModal" class="btn btn--success btn--shadow w-100 btn-lg bal-btn" data-act="add">
                         <i class="las la-plus-circle"></i> @lang('Balance')
                     </button> -->
-                    <a href="{{ route('admin.deposit.create') }}/{{ $user->id }}" class="btn btn--success btn--shadow w-100 btn-lg">
+                    <a href="{{ route('master.deposit.create') }}/{{ $user->id }}" class="btn btn--success btn--shadow w-100 btn-lg">
                         <i class="las la-plus-circle"></i>@lang('Balance')
                     </a>
                 </div>
@@ -70,7 +70,7 @@
                 </div>
 
                 <div class="flex-fill">
-                    <a href="{{ route('admin.report.login.history') }}?search={{ $user->username }}" class="btn btn--primary btn--shadow w-100 btn-lg">
+                    <a href="{{ route('master.report.login.history') }}?search={{ $user->username }}" class="btn btn--primary btn--shadow w-100 btn-lg">
                         <i class="las la-list-alt"></i>@lang('Logins')
                     </a>
                 </div>
@@ -81,14 +81,14 @@
                     </button>
                 </div>
                 <div class="flex-fill">
-                    <a href="{{ route('admin.users.notification.log', $user->id) }}" class="btn btn--secondary btn--shadow w-100 btn-lg">
+                    <a href="{{ route('master.users.notification.log', $user->id) }}" class="btn btn--secondary btn--shadow w-100 btn-lg">
                         <i class="las la-bell"></i>@lang('Notifications')
                     </a>
                 </div>
 
                 @if ($user->kyc_data)
                     <div class="flex-fill">
-                        <a href="{{ route('admin.users.kyc.details', $user->id) }}" target="_blank" class="btn btn--dark btn--shadow w-100 btn-lg">
+                        <a href="{{ route('master.users.kyc.details', $user->id) }}" target="_blank" class="btn btn--dark btn--shadow w-100 btn-lg">
                             <i class="las la-user-check"></i>@lang('KYC Data')
                         </a>
                     </div>
@@ -113,7 +113,7 @@
                     <h5 class="card-title mb-0">@lang('Information of') {{ $user->fullname }}</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.users.update', [$user->id]) }}" method="POST"
+                    <form action="{{ route('master.users.update', [$user->id]) }}" method="POST"
                           enctype="multipart/form-data">
                         @csrf
 
@@ -241,7 +241,7 @@
                         <i class="las la-times"></i>
                     </button>
                 </div>
-                <form action="{{ route('admin.users.add.sub.balance', $user->id) }}" class="balanceAddSub disableSubmission" method="POST">
+                <form action="{{ route('master.users.add.sub.balance', $user->id) }}" class="balanceAddSub disableSubmission" method="POST">
                     @csrf
                     <input type="hidden" name="act">
                     <div class="modal-body">
@@ -274,7 +274,7 @@
                         <i class="las la-times"></i>
                     </button>
                 </div>
-                <form action="{{ route('admin.users.passwordset', $user->id) }}" class="balanceAddSub disableSubmission" method="POST">
+                <form action="{{ route('master.users.passwordset', $user->id) }}" class="balanceAddSub disableSubmission" method="POST">
                     @csrf
                     <input type="hidden" name="act">
                     <div class="modal-body">
@@ -315,7 +315,7 @@
                         <i class="las la-times"></i>
                     </button>
                 </div>
-                <form action="{{ route('admin.users.status', $user->id) }}" method="POST">
+                <form action="{{ route('master.users.status', $user->id) }}" method="POST">
                     @csrf
                     <div class="modal-body">
                         @if ($user->status == Status::USER_ACTIVE)
@@ -345,7 +345,7 @@
 @endsection
 
 @push('breadcrumb-plugins')
-    <a href="{{ route('admin.users.login', $user->id) }}" target="_blank" class="btn btn-sm btn-outline--primary"><i class="las la-sign-in-alt"></i>@lang('Login as User')</a>
+    <a href="{{ route('master.users.login', $user->id) }}" target="_blank" class="btn btn-sm btn-outline--primary"><i class="las la-sign-in-alt"></i>@lang('Login as User')</a>
 @endpush
 
 @push('script')

@@ -1,92 +1,92 @@
-@extends('admin.layouts.app')
+@extends('master.layouts.app')
 @section('panel')
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-body p-0">
-                    <div class="table-responsive--md  table-responsive">
-                        <table class="table table--light style--two">
-                            <thead>
-                                <tr>
-                                    <th>@lang('User')</th>
-                                    <th>@lang('Email-Mobile')</th>
-                                    <th>@lang('Country')</th>
-                                    <th>@lang('Joined At')</th>
-                                    <th>@lang('Balance')</th>
-                                    <th>@lang('Action')</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @forelse($users as $user)
-                                    <tr>
-                                        <td>
-                                            <span class="fw-bold">{{ $user->fullname }}</span>
-                                            <br>
-                                            <span class="small">
-                                                <a href="{{ route('admin.users.detail', $user->id) }}"><span>@</span>{{ $user->username }}</a>
-                                            </span>
-                                        </td>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body p-0">
+                <div class="table-responsive--md  table-responsive">
+                    <table class="table table--light style--two">
+                        <thead>
+                            <tr>
+                                <th>@lang('User')</th>
+                                <th>@lang('Email-Mobile')</th>
+                                <th>@lang('Country')</th>
+                                <th>@lang('Joined At')</th>
+                                <th>@lang('Balance')</th>
+                                <th>@lang('Action')</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($customers as $customer)
+                            <tr>
+                                <td>
+                                    <span class="fw-bold">{{ $customer->fullname }}</span>
+                                    <br>
+                                    <span class="small">
+                                        <a href="{{ route('master.customers.detail', $customer->id) }}"><span>@</span>{{ $customer->customername }}</a>
+                                    </span>
+                                </td>
 
 
-                                        <td>
-                                            {{ $user->email }}<br>{{ $user->mobileNumber }}
-                                        </td>
-                                        <td>
-                                            <span class="fw-bold" title="{{ @$user->country_name }}">{{ $user->country_code }}</span>
-                                        </td>
+                                <td>
+                                    {{ $customer->email }}<br>{{ $customer->mobileNumber }}
+                                </td>
+                                <td>
+                                    <span class="fw-bold" title="{{ @$customer->country_name }}">{{ $customer->country_code }}</span>
+                                </td>
 
 
 
-                                        <td>
-                                            {{ showDateTime($user->created_at) }} <br> {{ diffForHumans($user->created_at) }}
-                                        </td>
+                                <td>
+                                    {{ showDateTime($customer->created_at) }} <br> {{ diffForHumans($customer->created_at) }}
+                                </td>
 
 
-                                        <td>
-                                            <span class="fw-bold">
+                                <td>
+                                    <span class="fw-bold">
 
-                                                {{ showAmount($user->balance) }}
-                                            </span>
-                                        </td>
+                                        {{ showAmount($customer->balance) }}
+                                    </span>
+                                </td>
 
-                                        <td>
-                                            <div class="button--group">
-                                                <a href="{{ route('admin.users.detail', $user->id) }}" class="btn btn-sm btn-outline--primary">
-                                                    <i class="las la-desktop"></i> @lang('Details')
-                                                </a>
-                                                @if (request()->routeIs('admin.users.kyc.pending'))
-                                                    <a href="{{ route('admin.users.kyc.details', $user->id) }}" target="_blank" class="btn btn-sm btn-outline--dark">
-                                                        <i class="las la-user-check"></i>@lang('KYC Data')
-                                                    </a>
-                                                @endif
-                                            </div>
-                                        </td>
+                                <td>
+                                    <div class="button--group">
+                                        <a href="{{ route('master.customers.detail', $customer->id) }}" class="btn btn-sm btn-outline--primary">
+                                            <i class="las la-desktop"></i> @lang('Details')
+                                        </a>
+                                        @if (request()->routeIs('master.customers.kyc.pending'))
+                                        <a href="{{ route('master.customers.kyc.details', $customer->id) }}" target="_blank" class="btn btn-sm btn-outline--dark">
+                                            <i class="las la-customer-check"></i>@lang('KYC Data')
+                                        </a>
+                                        @endif
+                                    </div>
+                                </td>
 
-                                    </tr>
-                                @empty
-                                    <tr>
-                                        <td class="text-muted text-center" colspan="100%">{{ __($emptyMessage) }}</td>
-                                    </tr>
-                                @endforelse
+                            </tr>
+                            @empty
+                            <tr>
+                                <td class="text-muted text-center" colspan="100%">{{ __($emptyMessage) }}</td>
+                            </tr>
+                            @endforelse
 
-                            </tbody>
-                        </table><!-- table end -->
-                    </div>
+                        </tbody>
+                    </table><!-- table end -->
                 </div>
-                @if ($users->hasPages())
-                    <div class="card-footer py-4">
-                        {{ paginateLinks($users) }}
-                    </div>
-                @endif
             </div>
+            @if ($customers->hasPages())
+            <div class="card-footer py-4">
+                {{ paginateLinks($customers) }}
+            </div>
+            @endif
         </div>
-
-
     </div>
+
+
+</div>
 @endsection
 
 
 
 @push('breadcrumb-plugins')
-    <x-search-form placeholder="Username / Email" />
+<x-search-form placeholder="Username / Email" />
 @endpush
