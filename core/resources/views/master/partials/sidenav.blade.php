@@ -21,7 +21,7 @@
                                         <span class="menu-badge menu-badge-level-one bg--warning ms-auto">
                                             <i class="fas fa-exclamation"></i>
                                         </span>
-                                    @break
+                                    @break 
                                 @endif
                             @endforeach
                         </a>
