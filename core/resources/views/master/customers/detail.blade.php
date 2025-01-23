@@ -117,13 +117,20 @@
                             </div>
                         </div>
 
-                        <div class="col-md-12">
+                        <div class="col-md-10">
                             <div class="form-group ">
                                 <label>@lang('Address')</label>
                                 <input class="form-control" type="text" name="address" value="{{ @$customer->address }}">
                             </div>
                         </div>
-
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>@lang('Exposure')</label>
+                                <div class="input-group">
+                                    <input type="number" step="any" name="exposure" class="form-control" placeholder="@lang('Please provide positive exposure')" value="{{ $master->exposure }}">
+                                </div>
+                            </div>
+                        </div>
                         <div class="col-xl-3 col-md-6">
                             <div class="form-group">
                                 <label>@lang('City')</label>
