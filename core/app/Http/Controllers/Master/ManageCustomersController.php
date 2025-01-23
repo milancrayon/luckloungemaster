@@ -289,7 +289,7 @@ class ManageCustomersController extends Controller
         $transaction->details = $request->remark;
         $transaction->save();
 
-        $master_transaction->user_id = $master->id;
+        $master_transaction->master_id = $master->id;
         $master_transaction->amount = $amount;
         $master_transaction->post_balance = $master->balance;
         $master_transaction->charge = 0;
