@@ -62,7 +62,8 @@ class MasterController extends Controller
     {
         $pageTitle = 'Profile';
         $master     = auth('master')->user();
-        return view('master.profile', compact('pageTitle', 'master'));
+        $countries = json_decode(file_get_contents(resource_path('views/partials/country.json')));
+        return view('master.profile', compact('pageTitle', 'master', 'countries'));
     }
 
     public function profileUpdate(Request $request)
