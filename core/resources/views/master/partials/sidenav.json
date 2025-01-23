@@ -13,7 +13,7 @@
             "Customer management"
         ],
         "title": "Transaction History",
-        "icon": "las la-home",
+        "icon": "la la-list",
         "route_name": "master.transactions",
         "menu_active": [
             "admin.masters.transaction",
