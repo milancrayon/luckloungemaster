@@ -25,4 +25,8 @@ Route::namespace('Auth')->group(function () {
     });
 });
 
-Route::middleware('master')->group(function () {});
+Route::middleware('master')->group(function () {
+    Route::controller('AdminController')->group(function () {
+        Route::get('dashboard', 'dashboard')->name('dashboard');
+    });
+});
