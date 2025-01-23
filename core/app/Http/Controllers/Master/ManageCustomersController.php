@@ -451,7 +451,15 @@ class ManageCustomersController extends Controller
     public function loginHistory(Request $request)
     {
         $pageTitle = 'User Login History';
-        $loginLogs = UserLogin::orderBy('id', 'desc')->searchable(['user:username'])->dateFilter()->with('user')->paginate(getPaginate());
+        $loginLogs = UserLogin::with(['user' => function ($query) {
+            // Apply the condition to the 'user' relationship
+            $query->where('created_by', auth()->guard('master')->user()->id);
+        }])
+            ->orderBy('id', 'desc')
+            ->searchable(['user:username'])  // Assuming you have a custom searchable scope
+            ->dateFilter()  // Assuming you have a custom date filter scope
+            ->paginate(getPaginate());  // Assuming you have a helper function for pagination
+
         return view('master.customers.logins', compact('pageTitle', 'loginLogs'));
     }
 
