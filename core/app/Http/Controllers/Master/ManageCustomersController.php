@@ -226,7 +226,7 @@ class ManageCustomersController extends Controller
     public function addSubBalance(Request $request, $id)
     {
         $master_id = auth()->guard('master')->user()->id;
-        $customer = Master::where('id', $master_id);
+        $customer = Master::where('id', $master_id)->firstOrFail();  // Use firstOrFail instead of findOrFail for custom conditions
 
 
         $request->validate([
@@ -235,7 +235,6 @@ class ManageCustomersController extends Controller
             'remark' => 'required|string|max:255',
         ]);
         $amount = $request->amount;
-        echo "<pre>";
         print_r($customer->balance);
         exit();
         if ($exists) {
