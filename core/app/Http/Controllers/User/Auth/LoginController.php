@@ -37,8 +37,8 @@ class LoginController extends Controller
 
         $this->validateLogin($request);
 
-        if(!verifyCaptcha()){
-            $notify[] = ['error','Invalid captcha provided'];
+        if (!verifyCaptcha()) {
+            $notify[] = ['error', 'Invalid captcha provided'];
             return back()->withNotify($notify);
         }
 
@@ -50,7 +50,7 @@ class LoginController extends Controller
 
             return $this->sendLockoutResponse($request);
         }
-
+       
         if ($this->attemptLogin($request)) {
             return $this->sendLoginResponse($request);
         }
@@ -90,7 +90,6 @@ class LoginController extends Controller
             Intended::reAssignSession();
             $validator->validate();
         }
-
     }
 
     public function logout()
@@ -108,7 +107,7 @@ class LoginController extends Controller
         $user->tv = $user->ts == Status::VERIFIED ? Status::UNVERIFIED : Status::VERIFIED;
         $user->save();
         $ip = getRealIP();
-        $exist = UserLogin::where('user_ip',$ip)->first();
+        $exist = UserLogin::where('user_ip', $ip)->first();
         $userLogin = new UserLogin();
         if ($exist) {
             $userLogin->longitude =  $exist->longitude;
@@ -116,12 +115,12 @@ class LoginController extends Controller
             $userLogin->city =  $exist->city;
             $userLogin->country_code = $exist->country_code;
             $userLogin->country =  $exist->country;
-        }else{
+        } else {
             $info = json_decode(json_encode(getIpInfo()), true);
-            $userLogin->longitude =  @implode(',',$info['long']);
-            $userLogin->latitude =  @implode(',',$info['lat']);
-            $userLogin->city =  @implode(',',$info['city']);
-            $userLogin->country_code = @implode(',',$info['code']);
+            $userLogin->longitude =  @implode(',', $info['long']);
+            $userLogin->latitude =  @implode(',', $info['lat']);
+            $userLogin->city =  @implode(',', $info['city']);
+            $userLogin->country_code = @implode(',', $info['code']);
             $userLogin->country =  @implode(',', $info['country']);
         }
 
@@ -136,6 +135,4 @@ class LoginController extends Controller
         $redirection = Intended::getRedirection();
         return $redirection ? $redirection : to_route('user.home');
     }
-
-
 }
