@@ -9,11 +9,11 @@
         "title": "Manage Customer",
         "icon": "las la-users",
         "counters": [
-            "bannedUsersCount",
-            "emailUnverifiedUsersCount",
-            "mobileUnverifiedUsersCount",
-            "kycUnverifiedUsersCount",
-            "kycPendingUsersCount"
+            "bannedMastersCount",
+            "emailUnverifiedMastersCount",
+            "mobileUnverifiedMastersCount",
+            "kycUnverifiedMastersCount",
+            "kycPendingMastersCount"
         ],
         "menu_active": "master.customers*",
         "submenu": [
@@ -21,11 +21,11 @@
                 "keyword": [
                     "active customers",
                     "Manage Customer",
-                    "User management",
-                    "User control",
-                    "User status",
-                    "User activity",
-                    "User analytics"
+                    "Master management",
+                    "Master control",
+                    "Master status",
+                    "Master activity",
+                    "Master analytics"
                 ],
                 "title": "Active Customer",
                 "route_name": "master.customers.active",
@@ -35,73 +35,73 @@
                 "keyword": [
                     "banned customers",
                     "Manage Customer",
-                    "User management",
+                    "Master management",
                     "Account bans",
-                    "User activity"
+                    "Master activity"
                 ],
                 "title": "Banned Customer",
                 "route_name": "master.customers.banned",
                 "menu_active": "master.customers.banned",
-                "counter": "bannedUsersCount"
+                "counter": "bannedMastersCount"
             },
             {
                 "keyword": [
                     "email unverified customers",
                     "Manage Customer",
-                    "User verification",
-                    "User authentication",
-                    "User management"
+                    "Master verification",
+                    "Master authentication",
+                    "Master management"
                 ],
                 "title": "Email Unverified",
                 "route_name": "master.customers.email.unverified",
                 "menu_active": "master.customers.email.unverified",
-                "counter": "emailUnverifiedUsersCount"
+                "counter": "emailUnverifiedMastersCount"
             },
             {
                 "keyword": [
                     "mobile unverified customers",
                     "Manage Customer",
-                    "User verification",
-                    "User authentication",
-                    "User management"
+                    "Master verification",
+                    "Master authentication",
+                    "Master management"
                 ],
                 "title": "Mobile Unverified",
                 "route_name": "master.customers.mobile.unverified",
                 "menu_active": "master.customers.mobile.unverified",
-                "counter": "mobileUnverifiedUsersCount"
+                "counter": "mobileUnverifiedMastersCount"
             },
             {
                 "keyword": [
                     "kyc unverified customers",
                     "Manage Customer",
-                    "User verification",
-                    "User authentication",
-                    "User management"
+                    "Master verification",
+                    "Master authentication",
+                    "Master management"
                 ],
                 "title": "KYC Unverified",
                 "route_name": "master.customers.kyc.unverified",
                 "menu_active": "master.customers.kyc.unverified",
-                "counter": "kycUnverifiedUsersCount"
+                "counter": "kycUnverifiedMastersCount"
             },
             {
                 "keyword": [
                     "kyc pending customers",
                     "Manage Customer",
-                    "User verification",
-                    "User authentication",
-                    "User management"
+                    "Master verification",
+                    "Master authentication",
+                    "Master management"
                 ],
                 "title": "KYC Pending",
                 "route_name": "master.customers.kyc.pending",
                 "menu_active": "master.customers.kyc.pending",
-                "counter": "kycPendingUsersCount"
+                "counter": "kycPendingMastersCount"
             },
             {
                 "keyword": [
                     "with balance customers",
                     "Manage Customer",
-                    "User management",
-                    "User activity",
+                    "Master management",
+                    "Master activity",
                     "Account management"
                 ],
                 "title": "With Balance",
@@ -112,12 +112,12 @@
                 "keyword": [
                     "all customers customers",
                     "Manage Customer",
-                    "User management",
-                    "User control",
-                    "User activity",
-                    "User analytics"
+                    "Master management",
+                    "Master control",
+                    "Master activity",
+                    "Master analytics"
                 ],
-                "title": "All Users",
+                "title": "All Masters",
                 "route_name": "master.customers.all",
                 "menu_active": "master.customers.all"
             }
