@@ -455,20 +455,23 @@ class ManageCustomersController extends Controller
         // Paginate the results
         $transactions = $transactions->paginate(getPaginate());
 
+
+
         return view('master.customers.transactions', compact('pageTitle', 'transactions', 'remarks'));
     }
 
     public function loginHistory(Request $request)
     {
         $pageTitle = 'User Login History';
-        $loginLogs = UserLogin::with(['user' => function ($query) {
-            // Apply the condition to the 'user' relationship
-            $query->where('created_by', auth()->guard('master')->user()->id);
-        }])
-            ->orderBy('id', 'desc')
-            ->searchable(['user:username'])  // Assuming you have a custom searchable scope
+        $loginLogs = UserLogin::select('user_logins.*', 'users.username')  // Select fields from both tables
+            ->join('users', 'users.id', '=', 'user_logins.user_id')  // Join with the 'users' table based on the user_id
+            ->where('users.created_by', auth()->guard('master')->user()->id)  // Filter users by 'created_by'
+            ->searchable(['user_logins.trx', 'users.username'])  // Assuming you have a custom searchable scope
             ->dateFilter()  // Assuming you have a custom date filter scope
-            ->paginate(getPaginate());  // Assuming you have a helper function for pagination
+            ->orderBy('user_logins.id', 'desc');  // Ordering by user_login ID
+
+        // Paginate the results
+        $loginLogs = $loginLogs->paginate(getPaginate());
 
         return view('master.customers.logins', compact('pageTitle', 'loginLogs'));
     }
@@ -476,7 +479,13 @@ class ManageCustomersController extends Controller
     public function loginIpHistory($ip)
     {
         $pageTitle = 'Login by - ' . $ip;
-        $loginLogs = UserLogin::where('user_ip', $ip)->orderBy('id', 'desc')->with('user')->paginate(getPaginate());
+        $loginLogs = UserLogin::where('user_ip', $ip)
+            ->orderBy('id', 'desc')
+            ->with(['user' => function ($query) {
+                // Apply a condition to the related 'user' model
+                $query->where('created_by', auth()->guard('master')->user()->id);
+            }])
+            ->paginate(getPaginate());
         return view('master.customers.logins', compact('pageTitle', 'loginLogs', 'ip'));
     }
 }
