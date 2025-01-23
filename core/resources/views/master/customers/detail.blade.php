@@ -8,7 +8,7 @@
             <div class="col-xxl-3 col-sm-6">
                 <x-widget
                     style="7"
-
+                    link="{{ route('master.customers.transaction', $customer->id) }}"
                     title="Balance"
                     icon="las la-money-bill-wave-alt"
                     value="{{ showAmount($customer->balance) }}"
@@ -18,7 +18,7 @@
             <div class="col-xxl-3 col-sm-6">
                 <x-widget
                     style="7"
-
+                    link="{{ route('master.customers.transaction', $customer->id) }}"
                     title="Transactions"
                     icon="las la-exchange-alt"
                     value="{{ $totalTransaction }}"
@@ -56,7 +56,7 @@
 
             @if ($customer->kyc_data)
             <div class="flex-fill">
-                <a href="{{ route('master.customers.kyc.details', $customer->id) }}" target="_blank" class="btn btn--dark btn--shadow w-100 btn-lg">
+                <a href="{{ route('master.users.kyc.details', $customer->id) }}" target="_blank" class="btn btn--dark btn--shadow w-100 btn-lg">
                     <i class="las la-user-check"></i>@lang('KYC Data')
                 </a>
             </div>
@@ -287,7 +287,7 @@
                 @csrf
                 <div class="modal-body">
                     @if ($customer->status == Status::USER_ACTIVE)
-                    <h6 class="mb-2">@lang('If you ban this user he/she won\'t able to access his/her dashboard.')</h6>
+                    <h6 class="mb-2">@lang('If you ban this customer he/she won\'t able to access his/her dashboard.')</h6>
                     <div class="form-group">
                         <label>@lang('Reason')</label>
                         <textarea class="form-control" name="reason" rows="4" required></textarea>
@@ -295,7 +295,7 @@
                     @else
                     <p><span>@lang('Ban reason was'):</span></p>
                     <p>{{ $customer->ban_reason }}</p>
-                    <h4 class="text-center mt-3">@lang('Are you sure to unban this user?')</h4>
+                    <h4 class="text-center mt-3">@lang('Are you sure to unban this customer?')</h4>
                     @endif
                 </div>
                 <div class="modal-footer">
@@ -313,7 +313,7 @@
 @endsection
 
 @push('breadcrumb-plugins')
-<a href="{{ route('master.customers.login', $customer->id) }}" target="_blank" class="btn btn-sm btn-outline--primary"><i class="las la-sign-in-alt"></i>@lang('Login as User')</a>
+<a href="{{ route('master.customers.login', $customer->id) }}" target="_blank" class="btn btn-sm btn-outline--primary"><i class="las la-sign-in-alt"></i>@lang('Login as Customer')</a>
 @endpush
 
 @push('script')

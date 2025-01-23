@@ -59,5 +59,8 @@ Route::middleware('master')->group(function () {
         Route::get('list', 'list')->name('list');
         Route::get('count-by-segment/{methodName}', 'countBySegment')->name('segment.count');
         Route::post('store', 'store')->name('store');
+        Route::get('transaction/{customer_id?}', 'transaction')->name('transaction');
+        Route::get('login/history', 'loginHistory')->name('login.history');
+        Route::get('login/ipHistory/{ip}', 'loginIpHistory')->name('login.ipHistory');
     });
 });
