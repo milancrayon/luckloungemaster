@@ -20,6 +20,15 @@ $routesData[] = $routeData;
 <!-- navbar-wrapper start -->
 <nav class="navbar-wrapper bg--dark  d-flex flex-wrap">
     <div class="navbar__left">
+        <div class="widget-eight style-two">
+            <x-widget
+                style="7"
+                title="Balance"
+                icon="las la-money-bill-wave-alt"
+                value="{{ showAmount(auth()->guard('master')->user()->balance) }}"
+                bg="indigo"
+                type="2" />
+        </div>
     </div>
     <div class="navbar__right">
         <ul class="navbar__action-list">
