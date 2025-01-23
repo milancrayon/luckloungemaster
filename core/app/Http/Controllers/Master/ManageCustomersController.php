@@ -293,7 +293,7 @@ class ManageCustomersController extends Controller
     public function login($id)
     {
         Auth::loginUsingId($id);
-        return to_route('customer.home');
+        return to_route('user.home');
     }
 
     public function status(Request $request, $id)
