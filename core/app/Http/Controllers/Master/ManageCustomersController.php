@@ -111,7 +111,7 @@ class ManageCustomersController extends Controller
         $pageTitle = 'Customer Detail - ' . $customer->username;
         $totalTransaction = Transaction::where('user_id', $customer->id)->count();
         $countries = json_decode(file_get_contents(resource_path('views/partials/country.json')));
-        return view('master.customers.detail', compact('pageTitle', 'customer', 'totalDeposit', 'totalWithdrawals', 'totalTransaction', 'countries'));
+        return view('master.customers.detail', compact('pageTitle', 'customer', 'totalTransaction', 'countries'));
     }
 
 
