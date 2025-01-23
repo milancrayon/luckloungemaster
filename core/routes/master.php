@@ -28,5 +28,9 @@ Route::namespace('Auth')->group(function () {
 Route::middleware('master')->group(function () {
     Route::controller('MasterController')->group(function () {
         Route::get('dashboard', 'dashboard')->name('dashboard');
+        Route::get('profile', 'profile')->name('profile');
+        Route::post('profile', 'profileUpdate')->name('profile.update');
+        Route::get('password', 'password')->name('password');
+        Route::post('password', 'passwordUpdate')->name('password.update');
     });
 });

@@ -57,4 +57,62 @@ class MasterController extends Controller
 
         return view('master.dashboard', compact('pageTitle', 'widget', 'chart', 'deposit', 'withdrawals'));
     }
+
+    public function profile()
+    {
+        $pageTitle = 'Profile';
+        $master     = auth('master')->user();
+        return view('master.profile', compact('pageTitle', 'master'));
+    }
+
+    public function profileUpdate(Request $request)
+    {
+        $request->validate([
+            'name'  => 'required',
+            'email' => 'required|email',
+            'image' => ['nullable', 'image', new FileTypeValidate(['jpg', 'jpeg', 'png'])],
+        ]);
+        $user = auth('master')->user();
+
+        if ($request->hasFile('image')) {
+            try {
+                $old         = $user->image;
+                $user->image = fileUploader($request->image, getFilePath('masterProfile'), getFileSize('masterProfile'), $old);
+            } catch (\Exception $exp) {
+                $notify[] = ['error', 'Couldn\'t upload your image'];
+                return back()->withNotify($notify);
+            }
+        }
+
+        $user->name  = $request->name;
+        $user->email = $request->email;
+        $user->save();
+        $notify[] = ['success', 'Profile updated successfully'];
+        return to_route('master.profile')->withNotify($notify);
+    }
+
+    public function password()
+    {
+        $pageTitle = 'Password Setting';
+        $master     = auth('master')->user();
+        return view('master.password', compact('pageTitle', 'master'));
+    }
+
+    public function passwordUpdate(Request $request)
+    {
+        $request->validate([
+            'old_password' => 'required',
+            'password'     => 'required|min:5|confirmed',
+        ]);
+
+        $user = auth('master')->user();
+        if (!Hash::check($request->old_password, $user->password)) {
+            $notify[] = ['error', 'Password doesn\'t match!!'];
+            return back()->withNotify($notify);
+        }
+        $user->password = Hash::make($request->password);
+        $user->save();
+        $notify[] = ['success', 'Password changed successfully.'];
+        return to_route('master.password')->withNotify($notify);
+    }
 }
