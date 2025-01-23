@@ -1,10 +1,4 @@
 {
-    "transaction": {
-        "title": "Transaction History",
-        "icon": "la la-list",
-        "route_name": "master.transaction",
-        "menu_active": "master.transaction"
-    },
     "manage_customers": {
         "title": "Manage Customer",
         "icon": "las la-users",
@@ -160,5 +154,11 @@
                 ]
             }
         ]
+    },
+    "transaction": {
+        "title": "Transaction History",
+        "icon": "la la-list",
+        "route_name": "master.transaction",
+        "menu_active": "master.transaction"
     }
 }
