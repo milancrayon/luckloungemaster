@@ -107,7 +107,10 @@ class ManageCustomersController extends Controller
 
     public function detail($id)
     {
-        $customer = User::findOrFail($id)->where('created_by', auth()->guard('master')->user()->id);
+        $customer = User::where('id', $id)
+            ->where('created_by', auth()->guard('master')->user()->id)
+            ->firstOrFail();  // Use firstOrFail instead of findOrFail for custom conditions
+
         $pageTitle = 'Customer Detail - ' . $customer->username;
         $totalTransaction = Transaction::where('user_id', $customer->id)->count();
         $countries = json_decode(file_get_contents(resource_path('views/partials/country.json')));
@@ -118,13 +121,17 @@ class ManageCustomersController extends Controller
     public function kycDetails($id)
     {
         $pageTitle = 'KYC Details';
-        $customer = User::findOrFail($id)->where('created_by', auth()->guard('master')->user()->id);
+        $customer = User::where('id', $id)
+            ->where('created_by', auth()->guard('master')->user()->id)
+            ->firstOrFail();  // Use firstOrFail instead of findOrFail for custom conditions
         return view('master.customers.kyc_detail', compact('pageTitle', 'customer'));
     }
 
     public function kycApprove($id)
     {
-        $customer = User::findOrFail($id)->where('created_by', auth()->guard('master')->user()->id);
+        $customer = User::where('id', $id)
+            ->where('created_by', auth()->guard('master')->user()->id)
+            ->firstOrFail();  // Use firstOrFail instead of findOrFail for custom conditions
         $customer->kv = Status::KYC_VERIFIED;
         $customer->save();
 
@@ -139,7 +146,9 @@ class ManageCustomersController extends Controller
         $request->validate([
             'reason' => 'required'
         ]);
-        $customer = User::findOrFail($id)->where('created_by', auth()->guard('master')->user()->id);
+        $customer = User::where('id', $id)
+            ->where('created_by', auth()->guard('master')->user()->id)
+            ->firstOrFail();  // Use firstOrFail instead of findOrFail for custom conditions
         $customer->kv = Status::KYC_UNVERIFIED;
         $customer->kyc_rejection_reason = $request->reason;
         $customer->save();
@@ -155,7 +164,9 @@ class ManageCustomersController extends Controller
 
     public function update(Request $request, $id)
     {
-        $customer = User::findOrFail($id)->where('created_by', auth()->guard('master')->user()->id);
+        $customer = User::where('id', $id)
+            ->where('created_by', auth()->guard('master')->user()->id)
+            ->firstOrFail();  // Use firstOrFail instead of findOrFail for custom conditions
         $countryData = json_decode(file_get_contents(resource_path('views/partials/country.json')));
         $countryArray   = (array)$countryData;
         $countries      = implode(',', array_keys($countryArray));
@@ -223,7 +234,9 @@ class ManageCustomersController extends Controller
             'remark' => 'required|string|max:255',
         ]);
 
-        $customer = User::findOrFail($id)->where('created_by', auth()->guard('master')->user()->id);
+        $customer = User::where('id', $id)
+            ->where('created_by', auth()->guard('master')->user()->id)
+            ->firstOrFail();  // Use firstOrFail instead of findOrFail for custom conditions
         $amount = $request->amount;
         $trx = getTrx();
 
@@ -284,7 +297,9 @@ class ManageCustomersController extends Controller
             'password' => ['required', 'confirmed', $passwordValidation]
         ]);
 
-        $customer = User::findOrFail($id)->where('created_by', auth()->guard('master')->user()->id);
+        $customer = User::where('id', $id)
+            ->where('created_by', auth()->guard('master')->user()->id)
+            ->firstOrFail();  // Use firstOrFail instead of findOrFail for custom conditions
         $password = Hash::make($request->password);
         $customer->password = $password;
         $customer->save();
@@ -300,7 +315,9 @@ class ManageCustomersController extends Controller
 
     public function status(Request $request, $id)
     {
-        $customer = User::findOrFail($id)->where('created_by', auth()->guard('master')->user()->id);
+        $customer = User::where('id', $id)
+            ->where('created_by', auth()->guard('master')->user()->id)
+            ->firstOrFail();  // Use firstOrFail instead of findOrFail for custom conditions
         if ($customer->status == Status::USER_ACTIVE) {
             $request->validate([
                 'reason' => 'required|string|max:255'
