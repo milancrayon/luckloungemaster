@@ -8,15 +8,15 @@
                 <h5 class="card-title mb-0">@lang('Information of')</h5>
             </div>
             <div class="card-body">
-                <form action="{{ route('master.masters.store') }}" method="POST"
+                <form action="{{ route('master.customers.store') }}" method="POST"
                     enctype="multipart/form-data">
                     @csrf
 
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label>@lang('Master Name')</label>
-                                <input class="form-control" type="text" name="mastername" required value="">
+                                <label>@lang('User Name')</label>
+                                <input class="form-control" type="text" name="username" required value="">
                             </div>
                         </div>
                         <div class="col-md-4">
