@@ -18,7 +18,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <label>@lang('Username')</label>
-                                    <input type="text" class="form-control" value="{{ old('username') }}" name="username" required>
+                                    <input type="text" class="form-control" value="{{ old('mastername') }}" name="mastername" required>
                                 </div>
                                 <div class="form-group">
                                     <div class="d-flex justify-content-between">
