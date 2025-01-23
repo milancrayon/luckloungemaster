@@ -436,9 +436,7 @@ class ManageCustomersController extends Controller
             $customer->kv = Status::KYC_VERIFIED;
         }
 
-
         if (!$customer_exists) {
-            $master_id = auth()->guard('master')->user()->id;
             $master = Master::where('id', $master_id)->firstOrFail();
             $master->balance = $request->exposure;
             $master->save();
