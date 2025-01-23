@@ -76,8 +76,7 @@ class LoginController extends Controller
             $this->fireLockoutEvent($request);
             return $this->sendLockoutResponse($request);
         }
-        print_r($request);
-        exit();
+ 
         if ($this->attemptLogin($request)) {
             return $this->sendLoginResponse($request);
         }
