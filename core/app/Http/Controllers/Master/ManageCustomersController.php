@@ -4,16 +4,12 @@ namespace App\Http\Controllers\Master;
 
 use App\Constants\Status;
 use App\Http\Controllers\Controller;
-use App\Models\Deposit;
-use App\Models\NotificationLog;
-use App\Models\NotificationTemplate;
+use App\Models\Master;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Models\UserLogin;
-use App\Models\Withdrawal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Rules\FileTypeValidate;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Support\Facades\Hash;
 
@@ -229,16 +225,27 @@ class ManageCustomersController extends Controller
 
     public function addSubBalance(Request $request, $id)
     {
+        $master_id = auth()->guard('master')->user()->id;
+        $customer = Master::where('id', $master_id);
+
+
         $request->validate([
             'amount' => 'required|numeric|gt:0',
             'act' => 'required|in:add,sub',
             'remark' => 'required|string|max:255',
         ]);
-
+        $amount = $request->amount;
+        echo "<pre>";
+        print_r($customer);
+        exit();
+        if ($exists) {
+            $notify[] = ['error', 'The mobile number already exists.'];
+            return back()->withNotify($notify);
+        }
         $customer = User::where('id', $id)
             ->where('created_by', auth()->guard('master')->user()->id)
             ->firstOrFail();  // Use firstOrFail instead of findOrFail for custom conditions
-        $amount = $request->amount;
+
         $trx = getTrx();
 
         $transaction = new Transaction();
