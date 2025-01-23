@@ -12,7 +12,7 @@
                     title="Balance"
                     icon="las la-money-bill-wave-alt"
                     value="{{ showAmount($customer->balance) }}"
-                    bg="indigo" 
+                    bg="indigo"
                     type="2" />
             </div>
             <div class="col-xxl-3 col-sm-6">
@@ -43,7 +43,7 @@
             </div>
 
             <div class="flex-fill">
-                <a class="btn btn--primary btn--shadow w-100 btn-lg">
+                <a href="{{ route('master.customers.login.history') }}?search={{ $user->username }}" class="btn btn--primary btn--shadow w-100 btn-lg">
                     <i class="las la-list-alt"></i>@lang('Logins')
                 </a>
             </div>
