@@ -27,7 +27,7 @@ $routesData[] = $routeData;
                 icon="las la-money-bill-wave-alt"
                 value="{{ showAmount(auth()->guard('master')->user()->balance) }}"
                 bg="indigo"
-                type="2" />
+                type="2" /> 
         </div>
     </div>
     <div class="navbar__right">
