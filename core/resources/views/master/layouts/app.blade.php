@@ -1,7 +1,7 @@
 @extends('master.layouts.master')
 @section('content')
     @php
-        $sidenav = file_get_contents(resource_path('views/master/partials/sidenav.json'));
+        $sidenav = file_get_contents(resource_path('views/admin/partials/sidenav.json'));
     @endphp
     <!-- page-wrapper start -->
     <div class="page-wrapper default-version">

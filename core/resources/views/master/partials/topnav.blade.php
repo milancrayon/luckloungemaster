@@ -1,7 +1,7 @@
 @php
     $sidenav = json_decode($sidenav);
 
-    $settings = file_get_contents(resource_path('views/master/setting/settings.json'));
+    $settings = file_get_contents(resource_path('views/admin/setting/settings.json'));
     $settings = json_decode($settings);
 
     $routesData = [];
