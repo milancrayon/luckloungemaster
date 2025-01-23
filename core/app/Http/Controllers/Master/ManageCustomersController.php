@@ -536,13 +536,13 @@ class ManageCustomersController extends Controller
         $request->validate([
             'firstname' => 'required|string|max:40',
             'lastname' => 'required|string|max:40',
-            'email' => 'required|email|string|max:40|unique:user,email',  // Ensure email is unique for new records
+            'email' => 'required|email|string|max:40|unique:users,email',  // Ensure email is unique for new records
             'mobile' => 'required|string|max:40',
             'country' => 'required|in:' . $countries,
             'amount' => 'required|numeric|gt:0',
             'password' => ['required', 'confirmed', $passwordValidation]
         ]);
-        $amount = $request->amount;
+        $master_id = auth()->guard('master')->user()->id;
         // Check if the mobile number already exists for other records
         $exists = User::where('mobile', $request->mobile)
             ->where('dial_code', $dialCode)
@@ -572,8 +572,8 @@ class ManageCustomersController extends Controller
         $customer->ev = $request->ev ? Status::VERIFIED : Status::UNVERIFIED;
         $customer->sv = $request->sv ? Status::VERIFIED : Status::UNVERIFIED;
         $customer->ts = $request->ts ? Status::ENABLE : Status::DISABLE;
-        $customer->created_by = auth()->guard('master')->user()->id;
-        $customer->updated_by = auth()->guard('master')->user()->id;
+        $customer->created_by = $master_id;
+        $customer->updated_by = $master_id;
 
         // Handle KYC status
         if (!$request->kv) {
