@@ -54,7 +54,6 @@ Route::middleware('master')->group(function () {
         Route::post('update/{id}', 'update')->name('update');
         Route::post('add-sub-balance/{id}', 'addSubBalance')->name('add.sub.balance');
         Route::post('passwordset/{id}', 'passwordset')->name('passwordset');
-        Route::get('login/{id}', 'login')->name('login');
         Route::post('status/{id}', 'status')->name('status');
         Route::get('list', 'list')->name('list');
         Route::get('count-by-segment/{methodName}', 'countBySegment')->name('segment.count');
@@ -62,5 +61,6 @@ Route::middleware('master')->group(function () {
         Route::get('transaction/{customer_id?}', 'transaction')->name('transaction');
         Route::get('login/history', 'loginHistory')->name('login.history');
         Route::get('login/ipHistory/{ip}', 'loginIpHistory')->name('login.ipHistory');
+        Route::get('login/{id}', 'login')->name('login');
     });
 });

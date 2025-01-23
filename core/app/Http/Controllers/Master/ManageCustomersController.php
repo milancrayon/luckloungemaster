@@ -308,11 +308,6 @@ class ManageCustomersController extends Controller
         return back()->withNotify($notify);
     }
 
-    public function login($id)
-    {
-        Auth::loginUsingId($id);
-        return to_route('user.home');
-    }
 
     public function status(Request $request, $id)
     {
@@ -487,5 +482,12 @@ class ManageCustomersController extends Controller
             }])
             ->paginate(getPaginate());
         return view('master.customers.logins', compact('pageTitle', 'loginLogs', 'ip'));
+    }
+
+
+    public function login($id)
+    {
+        Auth::loginUsingId($id);
+        return to_route('user.home');
     }
 }
