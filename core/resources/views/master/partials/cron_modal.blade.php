@@ -24,8 +24,7 @@
                     </div>
                 </div>
                 <div class="justify-content-between cron-btn-group d-flex gap-2">
-                    <!-- <a href="{{ route('master.cron.index') }}" class="btn btn-outline--primary  w-100 h-45"><i class="fas fa-cog"></i> @lang('Cron Job Setting')</button> -->
-                        <a href="{{ route('cron') }}?target=all" class="btn btn-outline--warning w-100 h-45"><i class="fas fa-bolt"></i> @lang('Run Manually')</a>
+                    <a href="{{ route('cron') }}?target=all" class="btn btn-outline--warning w-100 h-45"><i class="fas fa-bolt"></i> @lang('Run Manually')</a>
                 </div>
             </div>
 
@@ -34,104 +33,104 @@
 </div>
 
 @push('style')
-    <style>
+<style>
+    .cron-modal .modal-body {
+        padding: 32px;
+    }
+
+    @media (max-width: 575px) {
         .cron-modal .modal-body {
-            padding: 32px;
+            padding: 30px 15px;
+        }
+    }
+
+    @media (max-width: 424px) {
+        .cron-btn-group {
+            flex-wrap: wrap;
         }
 
-        @media (max-width: 575px) {
-            .cron-modal .modal-body {
-                padding: 30px 15px;
-            }
-        }
+    }
 
-        @media (max-width: 424px) {
-            .cron-btn-group {
-                flex-wrap: wrap;
-            }
+    .cron-modal-header {
+        margin-bottom: 24px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid rgba(222, 226, 230, 1);
+        display: flex;
+        gap: 10px;
+        justify-content: space-between
+    }
 
-        }
+    .modal-header-top .modal-title i {
+        font-size: 20px;
+        color: hsl(var(--primary));
+    }
 
-        .cron-modal-header {
-            margin-bottom: 24px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid rgba(222, 226, 230, 1);
-            display: flex;
-            gap: 10px;
-            justify-content: space-between
-        }
+    .modal-header-top .modal-title {
+        font-weight: 700;
+        font-size: 1.125rem;
+    }
 
-        .modal-header-top .modal-title i {
-            font-size: 20px;
-            color: hsl(var(--primary));
-        }
+    .form-control[readonly],
+    .form-control[disabled] {
+        background-color: rgba(246, 246, 246, 1);
+        pointer-events: none;
+        border: none;
+        border-radius: 5px !important;
+    }
 
-        .modal-header-top .modal-title {
-            font-weight: 700;
-            font-size: 1.125rem;
-        }
+    .copy-text-btn {
+        position: absolute;
+        top: 50%;
+        right: 0px;
+        background: transparent;
+        border: none;
+        font-weight: 600;
+        transform: translateY(-50%);
+        font-size: 14px;
+        z-index: 99;
+        height: 100%;
+        background: #f6f6f6;
+    }
 
-        .form-control[readonly],
-        .form-control[disabled] {
-            background-color: rgba(246, 246, 246, 1);
-            pointer-events: none;
-            border: none;
-            border-radius: 5px !important;
-        }
+    .copy-text-btn i {
+        margin-right: 5px;
+    }
 
-        .copy-text-btn {
-            position: absolute;
-            top: 50%;
-            right: 0px;
-            background: transparent;
-            border: none;
-            font-weight: 600;
-            transform: translateY(-50%);
-            font-size: 14px;
-            z-index: 99;
-            height: 100%;
-            background: #f6f6f6;
-        }
+    .form-control:focus {
+        box-shadow: none;
+    }
 
-        .copy-text-btn i {
-            margin-right: 5px;
-        }
-
-        .form-control:focus {
-            box-shadow: none;
-        }
-
-        .cron-btn-group a.h-45 {
-            line-height: 2.3;
-        }
-    </style>
+    .cron-btn-group a.h-45 {
+        line-height: 2.3;
+    }
+</style>
 @endpush
 @push('script')
-    <script>
-        (function($) {
-            "use strict";
+<script>
+    (function($) {
+        "use strict";
 
-            $(document).on('click', '.copyCronPath', function() {
-                var copyText = document.getElementById('cronPath');
+        $(document).on('click', '.copyCronPath', function() {
+            var copyText = document.getElementById('cronPath');
 
-                copyText.select();
-                copyText.setSelectionRange(0, 99999);
+            copyText.select();
+            copyText.setSelectionRange(0, 99999);
 
-                document.execCommand('copy');
-                $(this).find('.copyText').text('Copied');
-                setTimeout(() => {
-                    $(this).find('.copyText').text('Copy');
-                }, 2000);
-            });
+            document.execCommand('copy');
+            $(this).find('.copyText').text('Copied');
+            setTimeout(() => {
+                $(this).find('.copyText').text('Copy');
+            }, 2000);
+        });
 
-            @php
-                $lastCron = Carbon\Carbon::parse(gs('last_cron'))->diffInSeconds();
-            @endphp
-            @if ($lastCron >= 900)
-                setTimeout(() => {
-                    // $('#cronModal').modal('show');
-                }, 1000);
-            @endif
-        })(jQuery)
-    </script>
+        @php
+        $lastCron = Carbon\ Carbon::parse(gs('last_cron')) - > diffInSeconds();
+        @endphp
+        @if($lastCron >= 900)
+        setTimeout(() => {
+            // $('#cronModal').modal('show');
+        }, 1000);
+        @endif
+    })(jQuery)
+</script>
 @endpush
