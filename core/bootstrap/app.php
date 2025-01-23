@@ -33,6 +33,11 @@ return Application::configure(basePath: dirname(__DIR__))
                     ->name('admin.')
                     ->group(base_path('routes/admin.php'));
 
+                Route::middleware(['web'])
+                    ->namespace('Master')
+                    ->prefix('master')
+                    ->name('master.')
+                    ->group(base_path('routes/master.php'));
                 Route::middleware(['web', 'maintenance'])
                     ->namespace('Gateway')
                     ->prefix('ipn')
