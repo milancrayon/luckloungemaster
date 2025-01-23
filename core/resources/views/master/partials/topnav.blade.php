@@ -36,22 +36,8 @@
                 </button>
             </li>
             <li class="dropdown">
-                <button type="button" class="primary--layer notification-bell" data-bs-toggle="dropdown" data-display="static"
-                        aria-haspopup="true" aria-expanded="false">
-                    <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="@lang('Unread Notifications')">
-                        <i class="las la-bell @if ($masterNotificationCount > 0) icon-left-right @endif"></i>
-                    </span>
-                    @if ($masterNotificationCount > 0)
-                        <span class="notification-count">{{ $masterNotificationCount <= 9 ? $masterNotificationCount : '9+' }}</span>
-                    @endif
-                </button>
                 <div class="dropdown-menu dropdown-menu--md p-0 border-0 box--shadow1 dropdown-menu-right">
-                    <div class="dropdown-menu__header">
-                        <span class="caption">@lang('Notification')</span>
-                        @if ($masterNotificationCount > 0)
-                            <p>@lang('You have') {{ $masterNotificationCount }} @lang('unread notification')</p>
-                        @endif
-                    </div>
+                  
                     <div class="dropdown-menu__body @if (blank($masterNotifications)) d-flex justify-content-center align-items-center @endif">
                         @forelse($masterNotifications as $notification)
                             <a href="{{ route('master.notification.read', $notification->id) }}"
