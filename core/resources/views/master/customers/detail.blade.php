@@ -321,7 +321,9 @@
 @endsection
 
 @push('breadcrumb-plugins')
+@if(auth()->guard('master')->user()->status == 1)
 <a href="{{ route('master.customers.login', $customer->id) }}" target="_blank" class="btn btn-sm btn-outline--primary"><i class="las la-sign-in-alt"></i>@lang('Login as Customer')</a>
+@endif
 @endpush
 
 @push('script')
