@@ -9,6 +9,7 @@ use App\Models\NotificationLog;
 use App\Models\NotificationTemplate;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Models\UserLogin;
 use App\Models\Withdrawal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
