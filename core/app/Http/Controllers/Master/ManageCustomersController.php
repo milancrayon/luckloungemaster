@@ -254,7 +254,7 @@ class ManageCustomersController extends Controller
             $master->balance -= $amount;
             $transaction->trx_type = '+';
             $transaction->remark = 'balance_add';
-            $master_transaction->trx_type = '+';
+            $master_transaction->trx_type = '-';
             $master_transaction->remark = 'balance_subtract';
             $master_transaction->details = 'The balance has been added to the customer and master accounts.';
             $notifyTemplate = 'BAL_ADD';
@@ -270,8 +270,7 @@ class ManageCustomersController extends Controller
             $master->balance -= $amount;
             $transaction->trx_type = '-';
             $transaction->remark = 'balance_subtract';
-
-            $master_transaction->trx_type = '-';
+            $master_transaction->trx_type = '+';
             $master_transaction->remark = 'balance_add';
             $master_transaction->details = 'The balance has been subtracted to the customer and master accounts.';
             $notifyTemplate = 'BAL_SUB';
