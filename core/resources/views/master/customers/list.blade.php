@@ -74,5 +74,5 @@
 
 @push('breadcrumb-plugins')
 <x-search-form placeholder="Username / Email" />
-<a href="{{ route('masters.customer.add') }}" class="btn btn--primary btn--shadow w-max custom_add_button btn-lg">Add Customer</a>
+<a href="{{ route('master.customers.add') }}" class="btn btn--primary btn--shadow w-max custom_add_button btn-lg">Add Customer</a>
 @endpush
