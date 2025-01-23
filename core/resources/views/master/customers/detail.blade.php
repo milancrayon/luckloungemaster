@@ -8,7 +8,7 @@
             <div class="col-xxl-3 col-sm-6">
                 <x-widget
                     style="7"
-   
+
                     title="Balance"
                     icon="las la-money-bill-wave-alt"
                     value="{{ showAmount($customer->balance) }}"
@@ -18,7 +18,7 @@
             <div class="col-xxl-3 col-sm-6">
                 <x-widget
                     style="7"
-                   
+
                     title="Transactions"
                     icon="las la-exchange-alt"
                     value="{{ $totalTransaction }}"
@@ -43,7 +43,7 @@
             </div>
 
             <div class="flex-fill">
-                <a  class="btn btn--primary btn--shadow w-100 btn-lg">
+                <a class="btn btn--primary btn--shadow w-100 btn-lg">
                     <i class="las la-list-alt"></i>@lang('Logins')
                 </a>
             </div>
@@ -53,15 +53,10 @@
                     <i class="las la-plus-circle"></i> @lang('Password Reset')
                 </button>
             </div>
-            <div class="flex-fill">
-                <a href="{{ route('master.users.notification.log', $customer->id) }}" class="btn btn--secondary btn--shadow w-100 btn-lg">
-                    <i class="las la-bell"></i>@lang('Notifications')
-                </a>
-            </div>
 
             @if ($customer->kyc_data)
             <div class="flex-fill">
-                <a href="{{ route('master.users.kyc.details', $customer->id) }}" target="_blank" class="btn btn--dark btn--shadow w-100 btn-lg">
+                <a href="{{ route('master.customers.kyc.details', $customer->id) }}" target="_blank" class="btn btn--dark btn--shadow w-100 btn-lg">
                     <i class="las la-user-check"></i>@lang('KYC Data')
                 </a>
             </div>
