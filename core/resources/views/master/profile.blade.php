@@ -14,25 +14,31 @@
                 <ul class="list-group">
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         @lang('First Name')
-                        <span class="fw-bold">{{__($master->firsname)}}</span>
+                        <span class="fw-bold">{{ $master->firstname }}</span>
                     </li>
-
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         @lang('Last Name')
                         <span class="fw-bold">{{__($master->lastname)}}</span>
                     </li>
-
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         @lang('Email')
                         <span class="fw-bold">{{$master->email}}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         @lang('Mobile Number')
-                        <span class="fw-bold">{{$master->email}}</span>
+                        <span class="fw-bold">+{{ $master->dial_code }} {{ $master->mobile }}</span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         @lang('Address')
-                        <span class="fw-bold">{{$master->email}}</span>
+                        <span class="fw-bold">
+                            {{ @$master->address }}, {{ @$master->city }} {{ @$master->state }} {{ @$master->zip }},
+
+                            @foreach ($countries as $key => $country)
+                            @if ($master->country_code == $key)
+                            {{ __($country->country) }}
+                            @endif
+                            @endforeach
+                        </span>
                     </li>
 
                 </ul>
@@ -136,4 +142,17 @@
         border-top-right-radius: unset;
     }
 </style>
+@endpush
+@push('script')
+<script>
+    (function($) {
+        "use strict"
+
+        let mobileElement = $('.mobile-code');
+        $('select[name=country]').on('change', function() {
+            mobileElement.text(`+${$('select[name=country] :selected').data('mobile_code')}`);
+        });
+
+    })(jQuery);
+</script>
 @endpush
