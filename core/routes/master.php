@@ -32,5 +32,6 @@ Route::middleware('master')->group(function () {
         Route::post('profile', 'profileUpdate')->name('profile.update');
         Route::get('password', 'password')->name('password');
         Route::post('password', 'passwordUpdate')->name('password.update');
+        Route::get('transactions', 'transaction')->name('transaction');
     });
 });

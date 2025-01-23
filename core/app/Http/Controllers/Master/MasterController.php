@@ -133,4 +133,20 @@ class MasterController extends Controller
         $notify[] = ['success', 'Password changed successfully.'];
         return to_route('master.password')->withNotify($notify);
     }
+
+    public function transaction()
+    {
+        $pageTitle = 'Transaction Logs';
+
+        $remarks = MastersTransaction::distinct('remark')->orderBy('remark')->get('remark');
+        $user = auth('master')->user();
+        $masterId = $user->id;
+        $transactions = MastersTransaction::searchable(['trx', 'master:mastername'])->filter(['trx_type', 'remark'])->dateFilter()->orderBy('id', 'desc')->with('master');
+        if ($masterId) {
+            $transactions = $transactions->where('master_id', $masterId);
+        }
+        $transactions = $transactions->paginate(getPaginate());
+
+        return view('masters.transactions', compact('pageTitle', 'transactions', 'remarks'));
+    }
 }
