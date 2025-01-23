@@ -99,7 +99,8 @@ class ManageCustomersController extends Controller
             $customers = User::$scope();
         } else {
             $customers = User::query();
-        }
+        };
+        $customers->where('created_by', auth()->guard('master')->user()->id);
         return $customers->searchable(['customername', 'email'])->orderBy('id', 'desc')->paginate(getPaginate());
     }
 
