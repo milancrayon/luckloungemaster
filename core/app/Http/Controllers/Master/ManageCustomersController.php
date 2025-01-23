@@ -267,7 +267,7 @@ class ManageCustomersController extends Controller
             }
 
             $customer->balance -= $amount;
-            $master->balance -= $amount;
+            $master->balance += $amount;
             $transaction->trx_type = '-';
             $transaction->remark = 'balance_subtract';
             $master_transaction->trx_type = '+';
