@@ -66,11 +66,11 @@
             <div class="flex-fill">
                 @if ($customer->status == Status::USER_ACTIVE)
                 <button type="button" class="btn btn--warning btn--gradi btn--shadow w-100 btn-lg userStatus" data-bs-toggle="modal" data-bs-target="#userStatusModal">
-                    <i class="las la-ban"></i>@lang('Ban User')
+                    <i class="las la-ban"></i>@lang('Ban Customer')
                 </button>
                 @else
                 <button type="button" class="btn btn--success btn--gradi btn--shadow w-100 btn-lg userStatus" data-bs-toggle="modal" data-bs-target="#userStatusModal">
-                    <i class="las la-undo"></i>@lang('Unban User')
+                    <i class="las la-undo"></i>@lang('Unban Customer')
                 </button>
                 @endif
             </div>
