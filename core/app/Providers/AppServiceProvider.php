@@ -70,16 +70,26 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer('master.partials.sidenav', function ($view) {
             $view->with([
-                'bannedCustomersCount'           => User::banned()->count(),
-                'emailUnverifiedCustomersCount'  => User::emailUnverified()->count(),
-                'mobileUnverifiedCustomersCount' => User::mobileUnverified()->count(),
-                'kycUnverifiedCustomersCount'    => User::kycUnverified()->count(),
-                'kycPendingCustomersCount'       => User::kycPending()->count(),
-                'pendingTicketCount'         => SupportTicket::whereIN('status', [Status::TICKET_OPEN, Status::TICKET_REPLY])->count(),
-                'pendingDepositsCount'       => Deposit::pending()->count(),
-                'pendingWithdrawCount'       => Withdrawal::pending()->count(),
-                'pendingBetCount'            => Bet::pending()->count(),
-                'bannedCustomersCount'           => Master::banned()->count(),
+                'bannedCustomersCount' => User::banned()
+                    ->where('created_by', auth()->guard('master')->user()->id)
+                    ->count(),
+
+                'emailUnverifiedCustomersCount' => User::emailUnverified()
+                    ->where('created_by', auth()->guard('master')->user()->id)
+                    ->count(),
+
+                'mobileUnverifiedCustomersCount' => User::mobileUnverified()
+                    ->where('created_by', auth()->guard('master')->user()->id)
+                    ->count(),
+
+                'kycUnverifiedCustomersCount' => User::kycUnverified()
+                    ->where('created_by', auth()->guard('master')->user()->id)
+                    ->count(),
+
+                'kycPendingCustomersCount' => User::kycPending()
+                    ->where('created_by', auth()->guard('master')->user()->id)
+                    ->count(),
+
             ]);
         });
 
