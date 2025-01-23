@@ -427,20 +427,20 @@ class ManageCustomersController extends Controller
         }
         $transactions = $transactions->paginate(getPaginate());
 
-        return view('admin.reports.transactions', compact('pageTitle', 'transactions', 'remarks'));
+        return view('master.customers.transactions', compact('pageTitle', 'transactions', 'remarks'));
     }
 
     public function loginHistory(Request $request)
     {
         $pageTitle = 'User Login History';
         $loginLogs = UserLogin::orderBy('id', 'desc')->searchable(['user:username'])->dateFilter()->with('user')->paginate(getPaginate());
-        return view('admin.reports.logins', compact('pageTitle', 'loginLogs'));
+        return view('master.customers.logins', compact('pageTitle', 'loginLogs'));
     }
 
     public function loginIpHistory($ip)
     {
         $pageTitle = 'Login by - ' . $ip;
         $loginLogs = UserLogin::where('user_ip', $ip)->orderBy('id', 'desc')->with('user')->paginate(getPaginate());
-        return view('admin.reports.logins', compact('pageTitle', 'loginLogs', 'ip'));
+        return view('master.customers.logins', compact('pageTitle', 'loginLogs', 'ip'));
     }
 }
