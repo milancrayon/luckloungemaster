@@ -6,7 +6,7 @@
         "menu_active": "master.transaction"
     },
     "manage_users": {
-        "title": "Manage Users",
+        "title": "Manage Customer",
         "icon": "las la-users",
         "counters": [
             "bannedUsersCount",
@@ -15,111 +15,111 @@
             "kycUnverifiedUsersCount",
             "kycPendingUsersCount"
         ],
-        "menu_active": "admin.users*",
+        "menu_active": "master.users*",
         "submenu": [
             {
                 "keyword": [
                     "active users",
-                    "Manage Users",
+                    "Manage Customer",
                     "User management",
                     "User control",
                     "User status",
                     "User activity",
                     "User analytics"
                 ],
-                "title": "Active Users",
-                "route_name": "admin.users.active",
-                "menu_active": "admin.users.active"
+                "title": "Active Customer",
+                "route_name": "master.users.active",
+                "menu_active": "master.users.active"
             },
             {
                 "keyword": [
                     "banned users",
-                    "Manage Users",
+                    "Manage Customer",
                     "User management",
                     "Account bans",
                     "User activity"
                 ],
-                "title": "Banned Users",
-                "route_name": "admin.users.banned",
-                "menu_active": "admin.users.banned",
+                "title": "Banned Customer",
+                "route_name": "master.users.banned",
+                "menu_active": "master.users.banned",
                 "counter": "bannedUsersCount"
             },
             {
                 "keyword": [
                     "email unverified users",
-                    "Manage Users",
+                    "Manage Customer",
                     "User verification",
                     "User authentication",
                     "User management"
                 ],
                 "title": "Email Unverified",
-                "route_name": "admin.users.email.unverified",
-                "menu_active": "admin.users.email.unverified",
+                "route_name": "master.users.email.unverified",
+                "menu_active": "master.users.email.unverified",
                 "counter": "emailUnverifiedUsersCount"
             },
             {
                 "keyword": [
                     "mobile unverified users",
-                    "Manage Users",
+                    "Manage Customer",
                     "User verification",
                     "User authentication",
                     "User management"
                 ],
                 "title": "Mobile Unverified",
-                "route_name": "admin.users.mobile.unverified",
-                "menu_active": "admin.users.mobile.unverified",
+                "route_name": "master.users.mobile.unverified",
+                "menu_active": "master.users.mobile.unverified",
                 "counter": "mobileUnverifiedUsersCount"
             },
             {
                 "keyword": [
                     "kyc unverified users",
-                    "Manage Users",
+                    "Manage Customer",
                     "User verification",
                     "User authentication",
                     "User management"
                 ],
                 "title": "KYC Unverified",
-                "route_name": "admin.users.kyc.unverified",
-                "menu_active": "admin.users.kyc.unverified",
+                "route_name": "master.users.kyc.unverified",
+                "menu_active": "master.users.kyc.unverified",
                 "counter": "kycUnverifiedUsersCount"
             },
             {
                 "keyword": [
                     "kyc pending users",
-                    "Manage Users",
+                    "Manage Customer",
                     "User verification",
                     "User authentication",
                     "User management"
                 ],
                 "title": "KYC Pending",
-                "route_name": "admin.users.kyc.pending",
-                "menu_active": "admin.users.kyc.pending",
+                "route_name": "master.users.kyc.pending",
+                "menu_active": "master.users.kyc.pending",
                 "counter": "kycPendingUsersCount"
             },
             {
                 "keyword": [
                     "with balance users",
-                    "Manage Users",
+                    "Manage Customer",
                     "User management",
                     "User activity",
                     "Account management"
                 ],
                 "title": "With Balance",
-                "route_name": "admin.users.with.balance",
-                "menu_active": "admin.users.with.balance"
+                "route_name": "master.users.with.balance",
+                "menu_active": "master.users.with.balance"
             },
             {
                 "keyword": [
                     "all users users",
-                    "Manage Users",
+                    "Manage Customer",
                     "User management",
                     "User control",
                     "User activity",
                     "User analytics"
                 ],
                 "title": "All Users",
-                "route_name": "admin.users.all",
-                "menu_active": "admin.users.all"
+                "route_name": "master.users.all",
+                "menu_active": "master.users.all"
             },
         ]
     }
