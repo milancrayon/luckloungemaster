@@ -107,7 +107,7 @@ class ManageCustomersController extends Controller
 
     public function detail($id)
     {
-        $customer = User::findOrFail($id);
+        $customer = User::findOrFail($id)->where('created_by', auth()->guard('master')->user()->id);
         $pageTitle = 'Customer Detail - ' . $customer->username;
         $totalTransaction = Transaction::where('user_id', $customer->id)->count();
         $countries = json_decode(file_get_contents(resource_path('views/partials/country.json')));
@@ -118,13 +118,13 @@ class ManageCustomersController extends Controller
     public function kycDetails($id)
     {
         $pageTitle = 'KYC Details';
-        $customer = User::findOrFail($id);
+        $customer = User::findOrFail($id)->where('created_by', auth()->guard('master')->user()->id);
         return view('master.customers.kyc_detail', compact('pageTitle', 'customer'));
     }
 
     public function kycApprove($id)
     {
-        $customer = User::findOrFail($id);
+        $customer = User::findOrFail($id)->where('created_by', auth()->guard('master')->user()->id);
         $customer->kv = Status::KYC_VERIFIED;
         $customer->save();
 
@@ -139,7 +139,7 @@ class ManageCustomersController extends Controller
         $request->validate([
             'reason' => 'required'
         ]);
-        $customer = User::findOrFail($id);
+        $customer = User::findOrFail($id)->where('created_by', auth()->guard('master')->user()->id);
         $customer->kv = Status::KYC_UNVERIFIED;
         $customer->kyc_rejection_reason = $request->reason;
         $customer->save();
@@ -155,7 +155,7 @@ class ManageCustomersController extends Controller
 
     public function update(Request $request, $id)
     {
-        $customer = User::findOrFail($id);
+        $customer = User::findOrFail($id)->where('created_by', auth()->guard('master')->user()->id);
         $countryData = json_decode(file_get_contents(resource_path('views/partials/country.json')));
         $countryArray   = (array)$countryData;
         $countries      = implode(',', array_keys($countryArray));
@@ -223,7 +223,7 @@ class ManageCustomersController extends Controller
             'remark' => 'required|string|max:255',
         ]);
 
-        $customer = User::findOrFail($id);
+        $customer = User::findOrFail($id)->where('created_by', auth()->guard('master')->user()->id);
         $amount = $request->amount;
         $trx = getTrx();
 
@@ -284,7 +284,7 @@ class ManageCustomersController extends Controller
             'password' => ['required', 'confirmed', $passwordValidation]
         ]);
 
-        $customer = User::findOrFail($id);
+        $customer = User::findOrFail($id)->where('created_by', auth()->guard('master')->user()->id);
         $password = Hash::make($request->password);
         $customer->password = $password;
         $customer->save();
@@ -300,7 +300,7 @@ class ManageCustomersController extends Controller
 
     public function status(Request $request, $id)
     {
-        $customer = User::findOrFail($id);
+        $customer = User::findOrFail($id)->where('created_by', auth()->guard('master')->user()->id);
         if ($customer->status == Status::USER_ACTIVE) {
             $request->validate([
                 'reason' => 'required|string|max:255'
@@ -315,177 +315,6 @@ class ManageCustomersController extends Controller
         }
         $customer->save();
         return back()->withNotify($notify);
-    }
-
-
-    public function showNotificationSingleForm($id)
-    {
-        $customer = User::findOrFail($id);
-        if (!gs('en') && !gs('sn') && !gs('pn')) {
-            $notify[] = ['warning', 'Notification options are disabled currently'];
-            return to_route('master.customers.detail', $customer->id)->withNotify($notify);
-        }
-        $pageTitle = 'Send Notification to ' . $customer->username;
-        return view('master.customers.notification_single', compact('pageTitle', 'customer'));
-    }
-
-    public function sendNotificationSingle(Request $request, $id)
-    {
-        $request->validate([
-            'message' => 'required',
-            'via'     => 'required|in:email,sms,push',
-            'subject' => 'required_if:via,email,push',
-            'image'   => ['nullable', 'image', new FileTypeValidate(['jpg', 'jpeg', 'png'])],
-        ]);
-
-        if (!gs('en') && !gs('sn') && !gs('pn')) {
-            $notify[] = ['warning', 'Notification options are disabled currently'];
-            return to_route('master.dashboard')->withNotify($notify);
-        }
-
-        $imageUrl = null;
-        if ($request->via == 'push' && $request->hasFile('image')) {
-            $imageUrl = fileUploader($request->image, getFilePath('push'));
-        }
-
-        $template = NotificationTemplate::where('act', 'DEFAULT')->where($request->via . '_status', Status::ENABLE)->exists();
-        if (!$template) {
-            $notify[] = ['warning', 'Default notification template is not enabled'];
-            return back()->withNotify($notify);
-        }
-
-        $customer = User::findOrFail($id);
-        notify($customer, 'DEFAULT', [
-            'subject' => $request->subject,
-            'message' => $request->message,
-        ], [$request->via], pushImage: $imageUrl);
-        $notify[] = ['success', 'Notification sent successfully'];
-        return back()->withNotify($notify);
-    }
-
-    public function showNotificationAllForm()
-    {
-        if (!gs('en') && !gs('sn') && !gs('pn')) {
-            $notify[] = ['warning', 'Notification options are disabled currently'];
-            return to_route('master.dashboard')->withNotify($notify);
-        }
-
-        $notifyToCustomer = User::notifyToCustomer();
-        $customers        = User::active()->count();
-        $pageTitle    = 'Notification to Verified Customers';
-
-        if (session()->has('SEND_NOTIFICATION') && !request()->email_sent) {
-            session()->forget('SEND_NOTIFICATION');
-        }
-
-        return view('master.customers.notification_all', compact('pageTitle', 'customers', 'notifyToCustomer'));
-    }
-
-    public function sendNotificationAll(Request $request)
-    {
-        $request->validate([
-            'via'                          => 'required|in:email,sms,push',
-            'message'                      => 'required',
-            'subject'                      => 'required_if:via,email,push',
-            'start'                        => 'required|integer|gte:1',
-            'batch'                        => 'required|integer|gte:1',
-            'being_sent_to'                => 'required',
-            'cooling_time'                 => 'required|integer|gte:1',
-            'number_of_top_deposited_customer' => 'required_if:being_sent_to,topDepositedCustomers|integer|gte:0',
-            'number_of_days'               => 'required_if:being_sent_to,notLoginCustomers|integer|gte:0',
-            'image'                        => ["nullable", 'image', new FileTypeValidate(['jpg', 'jpeg', 'png'])],
-        ], [
-            'number_of_days.required_if'               => "Number of days field is required",
-            'number_of_top_deposited_customer.required_if' => "Number of top deposited customer field is required",
-        ]);
-
-        if (!gs('en') && !gs('sn') && !gs('pn')) {
-            $notify[] = ['warning', 'Notification options are disabled currently'];
-            return to_route('master.dashboard')->withNotify($notify);
-        }
-
-
-        $template = NotificationTemplate::where('act', 'DEFAULT')->where($request->via . '_status', Status::ENABLE)->exists();
-        if (!$template) {
-            $notify[] = ['warning', 'Default notification template is not enabled'];
-            return back()->withNotify($notify);
-        }
-
-        if ($request->being_sent_to == 'selectedCustomers') {
-            if (session()->has("SEND_NOTIFICATION")) {
-                $request->merge(['customer' => session()->get('SEND_NOTIFICATION')['customer']]);
-            } else {
-                if (!$request->customer || !is_array($request->customer) || empty($request->customer)) {
-                    $notify[] = ['error', "Ensure that the customer field is populated when sending an email to the designated customer group"];
-                    return back()->withNotify($notify);
-                }
-            }
-        }
-
-        $scope          = $request->being_sent_to;
-        $customerQuery      = User::oldest()->active()->$scope();
-
-        if (session()->has("SEND_NOTIFICATION")) {
-            $totalCustomerCount = session('SEND_NOTIFICATION')['total_customer'];
-        } else {
-            $totalCustomerCount = (clone $customerQuery)->count() - ($request->start - 1);
-        }
-
-
-        if ($totalCustomerCount <= 0) {
-            $notify[] = ['error', "Notification recipients were not found among the selected customer base."];
-            return back()->withNotify($notify);
-        }
-
-
-        $imageUrl = null;
-
-        if ($request->via == 'push' && $request->hasFile('image')) {
-            if (session()->has("SEND_NOTIFICATION")) {
-                $request->merge(['image' => session()->get('SEND_NOTIFICATION')['image']]);
-            }
-            if ($request->hasFile("image")) {
-                $imageUrl = fileUploader($request->image, getFilePath('push'));
-            }
-        }
-
-        $customers = (clone $customerQuery)->skip($request->start - 1)->limit($request->batch)->get();
-
-        foreach ($customers as $customer) {
-            notify($customer, 'DEFAULT', [
-                'subject' => $request->subject,
-                'message' => $request->message,
-            ], [$request->via], pushImage: $imageUrl);
-        }
-
-        return $this->sessionForNotification($totalCustomerCount, $request);
-    }
-
-
-    private function sessionForNotification($totalCustomerCount, $request)
-    {
-        if (session()->has('SEND_NOTIFICATION')) {
-            $sessionData                = session("SEND_NOTIFICATION");
-            $sessionData['total_sent'] += $sessionData['batch'];
-        } else {
-            $sessionData               = $request->except('_token');
-            $sessionData['total_sent'] = $request->batch;
-            $sessionData['total_customer'] = $totalCustomerCount;
-        }
-
-        $sessionData['start'] = $sessionData['total_sent'] + 1;
-
-        if ($sessionData['total_sent'] >= $totalCustomerCount) {
-            session()->forget("SEND_NOTIFICATION");
-            $message = ucfirst($request->via) . " notifications were sent successfully";
-            $url     = route("master.customers.notification.all");
-        } else {
-            session()->put('SEND_NOTIFICATION', $sessionData);
-            $message = $sessionData['total_sent'] . " " . $sessionData['via'] . "  notifications were sent successfully";
-            $url     = route("master.customers.notification.all") . "?email_sent=yes";
-        }
-        $notify[] = ['success', $message];
-        return redirect($url)->withNotify($notify);
     }
 
     public function countBySegment($methodName)
@@ -508,14 +337,6 @@ class ManageCustomersController extends Controller
             'customers'   => $customers,
             'more'    => $customers->hasMorePages()
         ]);
-    }
-
-    public function notificationLog($id)
-    {
-        $customer = User::findOrFail($id);
-        $pageTitle = 'Notifications Sent to ' . $customer->username;
-        $logs = NotificationLog::where('user_id', $id)->with('customer')->orderBy('id', 'desc')->paginate(getPaginate());
-        return view('master.reports.notification_history', compact('pageTitle', 'logs', 'customer'));
     }
 
     public function store(Request $request)
