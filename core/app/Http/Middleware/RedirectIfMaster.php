@@ -17,7 +17,7 @@ class RedirectIfMaster
     public function handle($request, Closure $next, $guard = 'master')
     {
         if (Auth::guard($guard)->check()) {
-            return to_route('master.dashboard');
+            return to_route('master.customers');
         }
         return $next($request);
     }
