@@ -147,6 +147,6 @@ class MasterController extends Controller
         }
         $transactions = $transactions->paginate(getPaginate());
 
-        return view('masters.transactions', compact('pageTitle', 'transactions', 'remarks'));
+        return view('master.transactions', compact('pageTitle', 'transactions', 'remarks'));
     }
 }
