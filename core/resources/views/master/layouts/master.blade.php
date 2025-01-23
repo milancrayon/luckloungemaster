@@ -11,7 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('assets/global/css/bootstrap.min.css') }}">
 
-    <link rel="stylesheet" href="{{asset('assets/master/css/vendor/bootstrap-toggle.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/admin/css/vendor/bootstrap-toggle.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/global/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/global/css/line-awesome.min.css')}}">
 
@@ -19,7 +19,7 @@
 
     <link rel="stylesheet" href="{{asset('assets/global/css/select2.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/global/css/iziToast_custom.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/master/css/app.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/admin/css/app.css')}}">
 
 
     @stack('style')
@@ -33,7 +33,7 @@
 
     <script src="{{asset('assets/global/js/jquery-3.7.1.min.js')}}"></script>
     <script src="{{asset('assets/global/js/bootstrap.bundle.min.js')}}"></script>
-    <script src="{{asset('assets/master/js/vendor/bootstrap-toggle.min.js')}}"></script>
+    <script src="{{asset('assets/admin/js/vendor/bootstrap-toggle.min.js')}}"></script>
 
 
     @include('partials.notify')
@@ -42,7 +42,7 @@
     <script src="{{ asset('assets/global/js/nicEdit.js') }}"></script>
 
     <script src="{{asset('assets/global/js/select2.min.js')}}"></script>
-    <script src="{{asset('assets/master/js/app.js')}}"></script>
+    <script src="{{asset('assets/admin/js/app.js')}}"></script>
 
     {{-- LOAD NIC EDIT --}}
     <script>
