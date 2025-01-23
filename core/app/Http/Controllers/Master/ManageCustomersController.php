@@ -436,7 +436,6 @@ class ManageCustomersController extends Controller
             $customer->kv = Status::KYC_VERIFIED;
         }
 
-        $customer->save();
 
         if (!$customer_exists) {
             $master_id = auth()->guard('master')->user()->id;
@@ -444,6 +443,8 @@ class ManageCustomersController extends Controller
             $master->balance = $request->exposure;
             $master->save();
         }
+        $customer->save();
+
         $notify[] = ['success', 'New Customer created successfully'];
         return back()->withNotify($notify);
     }
