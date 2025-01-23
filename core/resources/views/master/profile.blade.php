@@ -31,8 +31,8 @@
                     <li class="list-group-item d-flex justify-content-between align-items-center">
                         <span> @lang('Address')</span>
                         <span class="fw-bold">
-                            {{ @$master->address }}, {{ @$master->city }} {{ @$master->state }} {{ @$master->zip }},
-
+                            {{ @$master->address }}, 
+                            {{ @$master->city }} {{ @$master->state }} {{ @$master->zip }},
                             @foreach ($countries as $key => $country)
                             @if ($master->country_code == $key)
                             {{ __($country->country) }}
