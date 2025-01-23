@@ -442,10 +442,18 @@ class ManageCustomersController extends Controller
         $transactions = Transaction::with(['user' => function ($query) {
             // Apply the condition to the 'user' relationship
             $query->where('created_by', auth()->guard('master')->user()->id);
-        }])->searchable(['trx', 'user:username'])->filter(['trx_type', 'remark'])->dateFilter()->orderBy('id', 'desc')->with('user');
+        }])
+            ->searchable(['trx', 'user:username'])  // Assuming you have a custom searchable scope
+            ->filter(['trx_type', 'remark'])  // Assuming you have a custom filter scope
+            ->dateFilter()  // Assuming you have a custom date filter scope
+            ->orderBy('id', 'desc');  // Ordering the transactions
+
+        // If a $userId is provided, filter transactions by user_id
         if ($userId) {
             $transactions = $transactions->where('user_id', $userId);
         }
+
+        // Paginate the results with the pagination helper function
         $transactions = $transactions->paginate(getPaginate());
 
         return view('master.customers.transactions', compact('pageTitle', 'transactions', 'remarks'));
