@@ -447,6 +447,7 @@ class ManageCustomersController extends Controller
         $customer->ts = $request->ts ? Status::ENABLE : Status::DISABLE;
         $customer->created_by = $master_id;
         $customer->updated_by = $master_id;
+        $customer->profile_complete = 1;
 
         // Handle KYC status
         if (!$request->kv) {
