@@ -559,9 +559,7 @@ class ManageCustomersController extends Controller
         $customer->lastname = $request->lastname;
         $customer->username = $request->username;
         $customer->email = $request->email;
-        $customer->exposure = 0;
-        $customer->balance = $amount;
-
+        $customer->exposure = $request->exposure;
         $customer->address = $request->address;
         $customer->city = $request->city;
         $customer->state = $request->state;
