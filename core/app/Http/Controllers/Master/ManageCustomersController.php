@@ -437,15 +437,10 @@ class ManageCustomersController extends Controller
         $customer_exists = User::where('created_by', $master_id)->exists();
 
         if (!$customer_exists) {
-            // If no customer exists, update the master's balance with the exposure value
             $master = Master::findOrFail($master_id);
-
-            $master->balance = $request->exposure;
+            $master->exposure = $request->exposure;
             $master->save();
-            var_dump($master->balance);
-            exit();
         }
-        exit();
         $customer->save();
 
         $notify[] = ['success', 'New Customer created successfully'];
