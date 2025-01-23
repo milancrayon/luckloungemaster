@@ -163,7 +163,7 @@ class ManageCustomersController extends Controller
         $countryCode    = $request->country;
         $country        = $countryData->$countryCode->country;
         $dialCode       = $countryData->$countryCode->dial_code;
-
+        $master_id = auth()->guard('master')->user()->id;
         $request->validate([
             'firstname' => 'required|string|max:40',
             'lastname' => 'required|string|max:40',
@@ -177,7 +177,7 @@ class ManageCustomersController extends Controller
             $notify[] = ['error', 'The mobile number already exists.'];
             return back()->withNotify($notify);
         }
-        $master_id = auth()->guard('master')->user()->id;
+
         $customer->mobile = $request->mobile;
         $customer->firstname = $request->firstname;
         $customer->lastname = $request->lastname;
