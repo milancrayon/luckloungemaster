@@ -8,10 +8,10 @@
         "route_name": "master.dashboard",
         "menu_active": "master.dashboard"
     },
-    "transactions": {
+    "transaction": {
         "title": "Transaction History",
         "icon": "la la-list",
-        "route_name": "master.transactions",
+        "route_name": "master.transaction",
         "menu_active": "master.transaction"
     }
 }
