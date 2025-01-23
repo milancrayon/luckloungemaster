@@ -109,9 +109,6 @@ class ManageCustomersController extends Controller
     {
         $customer = User::findOrFail($id);
         $pageTitle = 'Customer Detail - ' . $customer->username;
-
-        $totalDeposit = Deposit::where('customer_id', $customer->id)->successful()->sum('amount');
-        $totalWithdrawals = Withdrawal::where('customer_id', $customer->id)->approved()->sum('amount');
         $totalTransaction = Transaction::where('customer_id', $customer->id)->count();
         $countries = json_decode(file_get_contents(resource_path('views/partials/country.json')));
         return view('master.customers.detail', compact('pageTitle', 'customer', 'totalDeposit', 'totalWithdrawals', 'totalTransaction', 'countries'));
