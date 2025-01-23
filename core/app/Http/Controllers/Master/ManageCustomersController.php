@@ -110,8 +110,7 @@ class ManageCustomersController extends Controller
         $customer = User::where('id', $id)
             ->where('created_by', auth()->guard('master')->user()->id)
             ->firstOrFail();  // Use firstOrFail instead of findOrFail for custom conditions
-        print_r($customer);
-        exit();
+
         $pageTitle = 'Customer Detail - ' . $customer->username;
         $totalTransaction = Transaction::where('user_id', $customer->id)->count();
         $countries = json_decode(file_get_contents(resource_path('views/partials/country.json')));
