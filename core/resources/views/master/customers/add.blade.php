@@ -88,24 +88,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-md-6">
-                            <div class="form-group">
-                                <label>@lang('Amount')</label>
-                                <div class="input-group">
-                                    <input type="number" step="any" name="amount" class="form-control" placeholder="@lang('Please provide positive amount')" required>
-                                    <div class="input-group-text">{{ __(gs('cur_text')) }}</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-md-6">
-                            <div class="form-group">
-                                <label>@lang('Exposure')</label>
-                                <div class="input-group">
-                                    <input type="number" step="any" name="exposure" class="form-control" placeholder="@lang('Please provide positive exposure')" disabled value="0">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-3 col-md-6">
+                        <div class="col-xl-3 col-md-5">
                             <div class="form-group">
                                 <label>@lang('Password')</label>
                                 <div class="input-group">
@@ -113,11 +96,19 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xl-3 col-md-6">
+                        <div class="col-xl-3 col-md-5">
                             <div class="form-group">
                                 <label>@lang('Password Confirm')</label>
                                 <div class="input-group">
                                     <input type="password" name="password_confirmation" class="form-control" placeholder="@lang('Confirmed Password')" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-2">
+                            <div class="form-group">
+                                <label>@lang('Exposure')</label>
+                                <div class="input-group">
+                                    <input type="number" step="any" name="exposure" class="form-control" placeholder="@lang('Please provide positive exposure')" value="0">
                                 </div>
                             </div>
                         </div>
