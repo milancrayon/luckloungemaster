@@ -177,7 +177,7 @@ class ManageCustomersController extends Controller
             $notify[] = ['error', 'The mobile number already exists.'];
             return back()->withNotify($notify);
         }
-
+        $master_id = auth()->guard('master')->user()->id;
         $customer->mobile = $request->mobile;
         $customer->firstname = $request->firstname;
         $customer->lastname = $request->lastname;
@@ -194,6 +194,8 @@ class ManageCustomersController extends Controller
         $customer->ev = $request->ev ? Status::VERIFIED : Status::UNVERIFIED;
         $customer->sv = $request->sv ? Status::VERIFIED : Status::UNVERIFIED;
         $customer->ts = $request->ts ? Status::ENABLE : Status::DISABLE;
+        $customer->updated_by = $master_id;
+        $customer->exposure = $request->exposure;
         if (!$request->kv) {
             $customer->kv = Status::KYC_UNVERIFIED;
             if ($customer->kyc_data) {
