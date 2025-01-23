@@ -120,7 +120,7 @@
                 "title": "All Users",
                 "route_name": "master.customers.all",
                 "menu_active": "master.customers.all"
-            },
+            }
         ]
     }
 }
