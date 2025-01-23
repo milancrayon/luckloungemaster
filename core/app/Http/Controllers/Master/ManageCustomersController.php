@@ -457,7 +457,7 @@ class ManageCustomersController extends Controller
 
     public function loginHistory(Request $request)
     {
-        $pageTitle = 'User Login History';
+        $pageTitle = 'Customer Login History';
         $loginLogs = UserLogin::select('user_logins.*', 'users.username')  // Select fields from both tables
             ->join('users', 'users.id', '=', 'user_logins.user_id')  // Join with the 'users' table based on the user_id
             ->where('users.created_by', auth()->guard('master')->user()->id)  // Filter users by 'created_by'
