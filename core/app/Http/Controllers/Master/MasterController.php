@@ -68,25 +68,40 @@ class MasterController extends Controller
 
     public function profileUpdate(Request $request)
     {
-        $request->validate([
-            'name'  => 'required',
-            'email' => 'required|email',
-            'image' => ['nullable', 'image', new FileTypeValidate(['jpg', 'jpeg', 'png'])],
-        ]);
         $user = auth('master')->user();
+        $countryData = json_decode(file_get_contents(resource_path('views/partials/country.json')));
+        $countryArray   = (array)$countryData;
+        $countries      = implode(',', array_keys($countryArray));
 
-        if ($request->hasFile('image')) {
-            try {
-                $old         = $user->image;
-                $user->image = fileUploader($request->image, getFilePath('masterProfile'), getFileSize('masterProfile'), $old);
-            } catch (\Exception $exp) {
-                $notify[] = ['error', 'Couldn\'t upload your image'];
-                return back()->withNotify($notify);
-            }
+        $countryCode    = $request->country;
+        $country        = $countryData->$countryCode->country;
+        $dialCode       = $countryData->$countryCode->dial_code;
+        $request->validate([
+            'firstname' => 'required|string|max:40',
+            'lastname' => 'required|string|max:40',
+            'email' => 'required|email|string|max:40|unique:users,email,' . $user->id,
+            'mobile' => 'required|string|max:40',
+            'country' => 'required|in:' . $countries,
+        ]);
+
+        $exists = User::where('mobile', $request->mobile)->where('dial_code', $dialCode)->where('id', '!=', $user->id)->exists();
+        if ($exists) {
+            $notify[] = ['error', 'The mobile number already exists.'];
+            return back()->withNotify($notify);
         }
 
-        $user->name  = $request->name;
+        $user->mobile = $request->mobile;
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
         $user->email = $request->email;
+
+        $user->address = $request->address;
+        $user->city = $request->city;
+        $user->state = $request->state;
+        $user->zip = $request->zip;
+        $user->country_name = @$country;
+        $user->dial_code = $dialCode;
+        $user->country_code = $countryCode;
         $user->save();
         $notify[] = ['success', 'Profile updated successfully'];
         return to_route('master.profile')->withNotify($notify);
