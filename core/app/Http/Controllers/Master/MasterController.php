@@ -55,6 +55,6 @@ class MasterController extends Controller
         $withdrawals['total_withdraw_rejected'] = Withdrawal::rejected()->count();
         $withdrawals['total_withdraw_charge']   = Withdrawal::approved()->sum('charge');
 
-        return view('admin.dashboard', compact('pageTitle', 'widget', 'chart', 'deposit', 'withdrawals'));
+        return view('master.dashboard', compact('pageTitle', 'widget', 'chart', 'deposit', 'withdrawals'));
     }
 }
