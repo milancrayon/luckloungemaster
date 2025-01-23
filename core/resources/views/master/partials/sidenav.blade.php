@@ -16,7 +16,14 @@
                             <a href="javascript:void(0)" class="{{ menuActive(@$data->menu_active, 3) }}">
                                 <i class="menu-icon {{ @$data->icon }}"></i>
                                 <span class="menu-title">{{ __(@$data->title) }}</span>
-                                
+                                @foreach (@$data->counters ?? [] as $counter)
+                                    @if ($$counter > 0)
+                                        <span class="menu-badge menu-badge-level-one bg--warning ms-auto">
+                                            <i class="fas fa-exclamation"></i>
+                                        </span>
+                                    @break
+                                @endif
+                            @endforeach
                         </a>
                         <div class="sidebar-submenu {{ menuActive(@$data->menu_active, 2) }} ">
                             <ul>
@@ -34,7 +41,9 @@
                                             <i class="menu-icon las la-dot-circle"></i>
                                             <span class="menu-title">{{ __($menu->title) }}</span>
                                             @php $counter = @$menu->counter; @endphp
-                                            
+                                            @if (@$$counter)
+                                                <span class="menu-badge bg--info ms-auto">{{ @$$counter }}</span>
+                                            @endif
                                         </a>
                                     </li>
                                 @endforeach
@@ -55,7 +64,9 @@
                             <i class="menu-icon {{ $data->icon }}"></i>
                             <span class="menu-title">{{ __(@$data->title) }}</span>
                             @php $counter = @$data->counter; @endphp
-                            
+                            @if (@$$counter)
+                                <span class="menu-badge bg--info ms-auto">{{ @$$counter }}</span>
+                            @endif
                         </a>
                     </li>
                 @endif
