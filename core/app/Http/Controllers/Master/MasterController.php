@@ -111,7 +111,8 @@ class MasterController extends Controller
     {
         $pageTitle = 'Password Setting';
         $master     = auth('master')->user();
-        return view('master.password', compact('pageTitle', 'master'));
+        $countries = json_decode(file_get_contents(resource_path('views/partials/country.json')));
+        return view('master.password', compact('pageTitle', 'master', 'countries'));
     }
 
     public function passwordUpdate(Request $request)
