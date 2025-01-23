@@ -123,14 +123,6 @@
             }, 2000);
         });
 
-        @php
-        $lastCron = Carbon\ Carbon::parse(gs('last_cron')) - > diffInSeconds();
-        @endphp
-        @if($lastCron >= 900)
-        setTimeout(() => {
-            // $('#cronModal').modal('show');
-        }, 1000);
-        @endif
     })(jQuery)
 </script>
 @endpush
