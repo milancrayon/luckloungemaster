@@ -281,6 +281,13 @@ class ManageCustomersController extends Controller
         $customer->save();
         $master->save();
 
+        $master_transaction->master_id = $master->id;
+        $master_transaction->amount = $amount;
+        $master_transaction->post_balance = $master->balance;
+        $master_transaction->charge = 0;
+        $master_transaction->trx =  $trx;
+        $master_transaction->save();
+
         $transaction->user_id = $customer->id;
         $transaction->amount = $amount;
         $transaction->post_balance = $customer->balance;
@@ -288,13 +295,6 @@ class ManageCustomersController extends Controller
         $transaction->trx =  $trx;
         $transaction->details = $request->remark;
         $transaction->save();
-
-        $master_transaction->master_id = $master->id;
-        $master_transaction->amount = $amount;
-        $master_transaction->post_balance = $master->balance;
-        $master_transaction->charge = 0;
-        $master_transaction->trx =  $trx;
-        $master_transaction->save();
 
         notify($customer, $notifyTemplate, [
             'trx' => $trx,
