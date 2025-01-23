@@ -7,5 +7,17 @@
         "icon": "las la-home",
         "route_name": "master.dashboard",
         "menu_active": "master.dashboard"
+    },
+    "transactions": {
+        "keyword": [
+            "Customer management"
+        ],
+        "title": "Transaction History",
+        "icon": "las la-home",
+        "route_name": "master.transactions",
+        "menu_active": [
+            "admin.masters.transaction",
+            "admin.masters.transaction.search"
+        ]
     }
 }
