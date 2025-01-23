@@ -58,5 +58,6 @@ Route::middleware('master')->group(function () {
         Route::post('status/{id}', 'status')->name('status');
         Route::get('list', 'list')->name('list');
         Route::get('count-by-segment/{methodName}', 'countBySegment')->name('segment.count');
+        Route::post('store', 'store')->name('store');
     });
 });
