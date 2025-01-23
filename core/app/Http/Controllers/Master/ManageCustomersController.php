@@ -226,7 +226,7 @@ class ManageCustomersController extends Controller
     public function addSubBalance(Request $request, $id)
     {
         $master_id = auth()->guard('master')->user()->id;
-        $customer = Master::where('id', $master_id)->firstOrFail();  // Use firstOrFail instead of findOrFail for custom conditions
+        $master = Master::where('id', $master_id)->firstOrFail();  // Use firstOrFail instead of findOrFail for custom conditions
 
 
         $request->validate([
@@ -235,12 +235,11 @@ class ManageCustomersController extends Controller
             'remark' => 'required|string|max:255',
         ]);
         $amount = $request->amount;
-        print_r($customer->balance);
-        exit();
-        if ($exists) {
-            $notify[] = ['error', 'The mobile number already exists.'];
+        if ($amount > $master->balance) {
+            $notify[] = ['error', $master->username . ' doesn\'t have sufficient balance.'];
             return back()->withNotify($notify);
         }
+
         $customer = User::where('id', $id)
             ->where('created_by', auth()->guard('master')->user()->id)
             ->firstOrFail();  // Use firstOrFail instead of findOrFail for custom conditions
