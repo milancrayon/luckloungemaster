@@ -120,7 +120,7 @@ class ManageUsersController extends Controller
     protected function masterData()
     {
         $masters = Master::query();
-        return $masters->orderBy('id', 'desc');
+        return $masters->orderBy('id', 'desc')->get();
     }
 
 
