@@ -4,7 +4,7 @@
             @php $layer++ @endphp
         @endif
         <li>{{ $under->fullname }} ( {{ $under->username }} )
-            @if ($under->allReferrals->count() > 0 && $layer < $maxLevel)
+            @if ($under->allReferrals->count() > 0 )
                 @include($activeTemplate . 'partials.under_tree', ['user' => $under, 'layer' => $layer, 'isFirst' => false])
             @endif
         </li>
