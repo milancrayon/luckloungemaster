@@ -114,7 +114,7 @@ class GameController extends Controller
             ->paginate(getPaginate());
 
         $searchTerm = request('search'); // Get search term from the request
-        $logs = GameLog::where('status', Status::ENABLE)
+        $logs = GameLog::where('game_logs.status', Status::ENABLE)
             ->join('users', 'game_logs.user_id', '=', 'users.id')
             ->join('games', 'game_logs.game_id', '=', 'games.id')
             ->where(function ($query) use ($searchTerm) {
