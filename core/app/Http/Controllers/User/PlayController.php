@@ -1125,7 +1125,7 @@ class PlayController extends Controller
 
     public function invest($user, $request, $game, $result, $win, $winAmount = 0)
     {
-        $master = Master::findOrFail($user->id);
+        $master = Master::findOrFail($user->created_by);
         echo "<pre>";
         print_r($master);
         exit();
