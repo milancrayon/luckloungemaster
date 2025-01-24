@@ -41,9 +41,11 @@ Route::middleware('auth')->name('user.')->group(function () {
     Route::get('user-data', 'User\UserController@userData')->name('data');
     Route::post('user-data-submit', 'User\UserController@userDataSubmit')->name('data.submit');
 
-
-    Route::middleware(['check.status'])->group(function () {
+    Route::namespace('User')->controller('AuthorizationController')->group(function () {
         Route::get('authorization', 'authorizeForm')->name('authorization');
+    });
+    Route::middleware(['check.status'])->group(function () {
+
         Route::namespace('User')->group(function () {
 
             Route::controller('UserController')->group(function () {
