@@ -62,6 +62,17 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 mb-30">
+                    <div class="d-widget dashbaord-widget-card d-widget-withdraw">
+                        <div class="d-widget-icon">
+                            <i class="las la-hand-holding-usd"></i>
+                        </div>
+                        <div class="d-widget-content">
+                            <p>@lang('Total Withdraw')</p>
+                            <h2 class="title">{{ showAmount($widget['total_withdrawn']) }}</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-30">
                     <div class="d-widget dashbaord-widget-card d-widget-invest">
                         <div class="d-widget-icon">
                             <i class="las la-cash-register"></i>

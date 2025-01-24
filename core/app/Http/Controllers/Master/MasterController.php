@@ -9,6 +9,7 @@ use App\Models\GameLog;
 use App\Models\MastersTransaction;
 use App\Models\User;
 use App\Models\UserLogin;
+use App\Models\Withdrawal;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -50,7 +51,13 @@ class MasterController extends Controller
         $deposit['total_deposit_pending']  = Deposit::pending()->count();
         $deposit['total_deposit_rejected'] = Deposit::rejected()->count();
         $deposit['total_deposit_charge']   = Deposit::successful()->sum('charge');
-        return view('master.dashboard', compact('pageTitle', 'widget', 'chart', 'deposit'));
+
+        $withdrawals['total_withdraw_amount']   = Withdrawal::approved()->sum('amount');
+        $withdrawals['total_withdraw_pending']  = Withdrawal::pending()->count();
+        $withdrawals['total_withdraw_rejected'] = Withdrawal::rejected()->count();
+        $withdrawals['total_withdraw_charge']   = Withdrawal::approved()->sum('charge');
+
+        return view('master.dashboard', compact('pageTitle', 'widget', 'chart', 'deposit', 'withdrawals'));
     }
 
     public function profile()

@@ -11,6 +11,12 @@ Route::namespace('User\Auth')->name('user.')->group(function () {
             Route::get('logout', 'logout')->middleware('auth')->withoutMiddleware('guest')->name('logout');
         });
 
+        Route::controller('RegisterController')->middleware(['guest'])->group(function () {
+            Route::get('register', 'showRegistrationForm')->name('register');
+            Route::post('register', 'register');
+            Route::post('check-user', 'checkUser')->name('checkUser')->withoutMiddleware('guest');
+        });
+
         Route::controller('ForgotPasswordController')->prefix('password')->name('password.')->group(function () {
             Route::get('reset', 'showLinkRequestForm')->name('request');
             Route::post('email', 'sendResetCodeEmail')->name('email');
@@ -28,6 +34,7 @@ Route::namespace('User\Auth')->name('user.')->group(function () {
             Route::get('social-login/callback/{provider}', 'callback')->name('social.login.callback');
         });
     });
+
 });
 
 Route::middleware('auth')->name('user.')->group(function () {
@@ -86,10 +93,20 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::post('change-password', 'submitPassword');
             });
 
-        
+            // Withdraw
+            Route::controller('WithdrawController')->prefix('withdraw')->name('withdraw')->group(function () {
+                Route::middleware('kyc')->group(function () {
+                    Route::get('/', 'withdrawMoney');
+                    Route::post('/', 'withdrawStore')->name('.money');
+                    Route::any('view/{id}', 'view')->name('.view');
+                    Route::get('preview', 'withdrawPreview')->name('.preview');
+                    Route::post('preview', 'withdrawSubmit')->name('.submit');
+                });
+                Route::get('history', 'withdrawLog')->name('.history');
+            });
 
             Route::controller('PlayController')->prefix('play')->name('play.')->group(function () {
-
+                
                 Route::post('aviatorbets', 'aviatorbets')->name('aviatorbets');
                 Route::post('aviatergenerate', 'aviatergenerate')->name('aviatergenerate');
                 Route::post('aviatorincreamentor', 'aviatorincreamentor')->name('aviatorincreamentor');
@@ -97,10 +114,10 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::post('aviatorgameover', 'aviatorgameover')->name('aviatorgameover');
                 Route::post('aviatorbetadd', 'aviatorbetadd')->name('aviatorbetadd');
                 Route::post('aviatorcashout', 'aviatorcashout')->name('aviatorcashout');
-
+                
                 Route::post('roulettebet', 'roulettebet')->name('roulettebet');
                 Route::post('roulettebetupdate', 'roulettebetupdate')->name('roulettebetupdate');
-
+                
                 Route::get('game/{alias}', 'playGame')->name('game');
                 Route::post('game/invest/{alias}', 'investGame')->name('game.invest');
                 Route::post('game/end/{alias}', 'gameEnd')->name('game.end');

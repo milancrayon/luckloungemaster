@@ -28,6 +28,7 @@ Route::namespace('Auth')->group(function () {
 Route::middleware('admin')->group(function () {
     Route::controller('AdminController')->group(function () {
         Route::get('dashboard', 'dashboard')->name('dashboard');
+        Route::get('chart/deposit-withdraw', 'depositAndWithdrawReport')->name('chart.deposit.withdraw');
         Route::get('chart/transaction', 'transactionReport')->name('chart.transaction');
         Route::get('profile', 'profile')->name('profile');
         Route::post('profile', 'profileUpdate')->name('profile.update');
@@ -156,6 +157,30 @@ Route::middleware('admin')->group(function () {
         Route::get('create/{user_id?}', 'create')->name('create');
         Route::post('store', 'store')->name('store');
         Route::post('validateidentifier', 'validateidentifier')->name('validateidentifier');
+    });
+
+    // WITHDRAW SYSTEM
+    Route::name('withdraw.')->prefix('withdraw')->group(function () {
+
+        Route::controller('WithdrawalController')->name('data.')->group(function () {
+            Route::get('pending/{user_id?}', 'pending')->name('pending');
+            Route::get('approved/{user_id?}', 'approved')->name('approved');
+            Route::get('rejected/{user_id?}', 'rejected')->name('rejected');
+            Route::get('all/{user_id?}', 'all')->name('all');
+            Route::get('details/{id}', 'details')->name('details');
+            Route::post('approve', 'approve')->name('approve');
+            Route::post('reject', 'reject')->name('reject');
+        });
+
+        // Withdraw Method
+        Route::controller('WithdrawMethodController')->prefix('method')->name('method.')->group(function () {
+            Route::get('/', 'methods')->name('index');
+            Route::get('create', 'create')->name('create');
+            Route::post('create', 'store')->name('store');
+            Route::get('edit/{id}', 'edit')->name('edit');
+            Route::post('edit/{id}', 'update')->name('update');
+            Route::post('status/{id}', 'status')->name('status');
+        });
     });
 
     // Report

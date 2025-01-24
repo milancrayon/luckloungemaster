@@ -9,6 +9,7 @@ use App\Models\Deposit;
 use App\Models\Frontend;
 use App\Models\SupportTicket;
 use App\Models\User;
+use App\Models\Withdrawal;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\View;
@@ -61,6 +62,7 @@ class AppServiceProvider extends ServiceProvider
                 'kycPendingUsersCount'       => User::kycPending()->count(),
                 'pendingTicketCount'         => SupportTicket::whereIN('status', [Status::TICKET_OPEN, Status::TICKET_REPLY])->count(),
                 'pendingDepositsCount'       => Deposit::pending()->count(),
+                'pendingWithdrawCount'       => Withdrawal::pending()->count(),
                 'pendingBetCount'            => Bet::pending()->count(),
                 'bannedMastersCount'           => Master::banned()->count(),
             ]);

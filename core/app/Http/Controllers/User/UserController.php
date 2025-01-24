@@ -15,6 +15,7 @@ use App\Models\GameLog;
 use App\Models\Referral;
 use App\Models\Transaction;
 use App\Models\User;
+use App\Models\Withdrawal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
@@ -26,6 +27,8 @@ class UserController extends Controller {
         $user                      = auth()->user();
         $widget['total_balance']   = $user->balance;
         $widget['total_deposit']   = Deposit::successful()->where('user_id', $user->id)->sum('amount');
+        $widget['total_withdrawn'] = Withdrawal::approved()->where('user_id', $user->id)->sum('amount');
+
         $widget['total_invest'] = GameLog::where('user_id', $user->id)->sum('invest');
         $widget['total_win']    = GameLog::win()->where('user_id', $user->id)->sum('invest');
         $widget['total_loss']   = GameLog::loss()->where('user_id', $user->id)->sum('invest');

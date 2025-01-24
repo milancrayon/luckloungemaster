@@ -29,6 +29,7 @@ Route::namespace('Api')->name('api.')->group(function () {
             Route::post('check-token', 'checkToken');
             Route::post('social-login', 'socialLogin');
         });
+        Route::post('register', 'RegisterController@register');
         Route::controller('ForgotPasswordController')->group(function () {
             Route::post('password/email', 'sendResetCodeEmail');
             Route::post('password/verify-code', 'verifyCode');
@@ -80,6 +81,17 @@ Route::namespace('Api')->name('api.')->group(function () {
 
                     Route::get('user/referral', 'referrals');
                     Route::get('user/game/log', 'gameLog');
+
+                });
+
+                // Withdraw
+                Route::controller('WithdrawController')->group(function () {
+                    Route::middleware('kyc')->group(function () {
+                        Route::get('withdraw-method', 'withdrawMethod');
+                        Route::post('withdraw-request', 'withdrawStore');
+                        Route::post('withdraw-request/confirm', 'withdrawSubmit');
+                    });
+                    Route::get('withdraw/history', 'withdrawLog');
                 });
 
                 // Payment
@@ -123,6 +135,7 @@ Route::namespace('Api')->name('api.')->group(function () {
                     Route::post('poker/call', 'pokerCall');
                     Route::post('poker/fold', 'pokerFold');
                 });
+
             });
         });
 

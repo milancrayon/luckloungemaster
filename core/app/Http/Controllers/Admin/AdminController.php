@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Constants\Status;
 use App\Http\Controllers\Controller;
+use App\Lib\CurlRequest;
 use App\Models\AdminNotification;
 use App\Models\Deposit;
 use App\Models\Game;
@@ -11,16 +12,15 @@ use App\Models\GameLog;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Models\UserLogin;
+use App\Models\Withdrawal;
 use App\Rules\FileTypeValidate;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class AdminController extends Controller
-{
+class AdminController extends Controller {
 
-    public function dashboard()
-    {
+    public function dashboard() {
         $pageTitle = 'Dashboard';
 
         // User Info
@@ -54,12 +54,74 @@ class AdminController extends Controller
         $deposit['total_deposit_rejected'] = Deposit::rejected()->count();
         $deposit['total_deposit_charge']   = Deposit::successful()->sum('charge');
 
-        return view('admin.dashboard', compact('pageTitle', 'widget', 'chart', 'deposit'));
+        $withdrawals['total_withdraw_amount']   = Withdrawal::approved()->sum('amount');
+        $withdrawals['total_withdraw_pending']  = Withdrawal::pending()->count();
+        $withdrawals['total_withdraw_rejected'] = Withdrawal::rejected()->count();
+        $withdrawals['total_withdraw_charge']   = Withdrawal::approved()->sum('charge');
+
+        return view('admin.dashboard', compact('pageTitle', 'widget', 'chart', 'deposit', 'withdrawals'));
     }
 
+    public function depositAndWithdrawReport(Request $request) {
 
-    public function transactionReport(Request $request)
-    {
+        $diffInDays = Carbon::parse($request->start_date)->diffInDays(Carbon::parse($request->end_date));
+
+        $groupBy = $diffInDays > 30 ? 'months' : 'days';
+        $format  = $diffInDays > 30 ? '%M-%Y' : '%d-%M-%Y';
+
+        if ($groupBy == 'days') {
+            $dates = $this->getAllDates($request->start_date, $request->end_date);
+        } else {
+            $dates = $this->getAllMonths($request->start_date, $request->end_date);
+        }
+
+        $deposits = Deposit::successful()
+            ->whereDate('created_at', '>=', $request->start_date)
+            ->whereDate('created_at', '<=', $request->end_date)
+            ->selectRaw('SUM(amount) AS amount')
+            ->selectRaw("DATE_FORMAT(created_at, '{$format}') as created_on")
+            ->latest()
+            ->groupBy('created_on')
+            ->get();
+
+        $withdrawals = Withdrawal::approved()
+            ->whereDate('created_at', '>=', $request->start_date)
+            ->whereDate('created_at', '<=', $request->end_date)
+            ->selectRaw('SUM(amount) AS amount')
+            ->selectRaw("DATE_FORMAT(created_at, '{$format}') as created_on")
+            ->latest()
+            ->groupBy('created_on')
+            ->get();
+
+        $data = [];
+
+        foreach ($dates as $date) {
+            $data[] = [
+                'created_on'  => $date,
+                'deposits'    => getAmount($deposits->where('created_on', $date)->first()?->amount ?? 0),
+                'withdrawals' => getAmount($withdrawals->where('created_on', $date)->first()?->amount ?? 0),
+            ];
+        }
+
+        $data = collect($data);
+
+        // Monthly Deposit & Withdraw Report Graph
+        $report['created_on'] = $data->pluck('created_on');
+        $report['data']       = [
+            [
+                'name' => 'Deposited',
+                'data' => $data->pluck('deposits'),
+            ],
+            [
+                'name' => 'Withdrawn',
+                'data' => $data->pluck('withdrawals'),
+            ],
+        ];
+
+        return response()->json($report);
+    }
+
+    public function transactionReport(Request $request) {
 
         $diffInDays = Carbon::parse($request->start_date)->diffInDays(Carbon::parse($request->end_date));
 
@@ -118,8 +180,7 @@ class AdminController extends Controller
         return response()->json($report);
     }
 
-    private function getAllDates($startDate, $endDate)
-    {
+    private function getAllDates($startDate, $endDate) {
         $dates       = [];
         $currentDate = new \DateTime($startDate);
         $endDate     = new \DateTime($endDate);
@@ -132,8 +193,7 @@ class AdminController extends Controller
         return $dates;
     }
 
-    private function getAllMonths($startDate, $endDate)
-    {
+    private function getAllMonths($startDate, $endDate) {
         if ($endDate > now()) {
             $endDate = now()->format('Y-m-d');
         }
@@ -151,15 +211,13 @@ class AdminController extends Controller
         return $months;
     }
 
-    public function profile()
-    {
+    public function profile() {
         $pageTitle = 'Profile';
         $admin     = auth('admin')->user();
         return view('admin.profile', compact('pageTitle', 'admin'));
     }
 
-    public function profileUpdate(Request $request)
-    {
+    public function profileUpdate(Request $request) {
         $request->validate([
             'name'  => 'required',
             'email' => 'required|email',
@@ -184,15 +242,13 @@ class AdminController extends Controller
         return to_route('admin.profile')->withNotify($notify);
     }
 
-    public function password()
-    {
+    public function password() {
         $pageTitle = 'Password Setting';
         $admin     = auth('admin')->user();
         return view('admin.password', compact('pageTitle', 'admin'));
     }
 
-    public function passwordUpdate(Request $request)
-    {
+    public function passwordUpdate(Request $request) {
         $request->validate([
             'old_password' => 'required',
             'password'     => 'required|min:5|confirmed',
@@ -209,8 +265,7 @@ class AdminController extends Controller
         return to_route('admin.password')->withNotify($notify);
     }
 
-    public function notifications()
-    {
+    public function notifications() {
         $notifications   = AdminNotification::orderBy('id', 'desc')->with('user')->paginate(getPaginate());
         $hasUnread       = AdminNotification::where('is_read', Status::NO)->exists();
         $hasNotification = AdminNotification::exists();
@@ -218,8 +273,7 @@ class AdminController extends Controller
         return view('admin.notifications', compact('pageTitle', 'notifications', 'hasUnread', 'hasNotification'));
     }
 
-    public function notificationRead($id)
-    {
+    public function notificationRead($id) {
         $notification          = AdminNotification::findOrFail($id);
         $notification->is_read = Status::YES;
         $notification->save();
@@ -229,10 +283,9 @@ class AdminController extends Controller
         }
         return redirect($url);
     }
+  
 
-
-    public function readAllNotification()
-    {
+    public function readAllNotification() {
         AdminNotification::where('is_read', Status::NO)->update([
             'is_read' => Status::YES,
         ]);
@@ -240,22 +293,19 @@ class AdminController extends Controller
         return back()->withNotify($notify);
     }
 
-    public function deleteAllNotification()
-    {
+    public function deleteAllNotification() {
         AdminNotification::truncate();
         $notify[] = ['success', 'Notifications deleted successfully'];
         return back()->withNotify($notify);
     }
 
-    public function deleteSingleNotification($id)
-    {
+    public function deleteSingleNotification($id) {
         AdminNotification::where('id', $id)->delete();
         $notify[] = ['success', 'Notification deleted successfully'];
         return back()->withNotify($notify);
     }
 
-    public function downloadAttachment($fileHash)
-    {
+    public function downloadAttachment($fileHash) {
         $filePath  = decrypt($fileHash);
         $extension = pathinfo($filePath, PATHINFO_EXTENSION);
         $title     = slug(gs('site_name')) . '- attachments.' . $extension;
@@ -269,4 +319,7 @@ class AdminController extends Controller
         header("Content-Type: " . $mimetype);
         return readfile($filePath);
     }
+
+    
+
 }
