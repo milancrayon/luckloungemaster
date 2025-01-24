@@ -29,7 +29,6 @@ Route::namespace('User\Auth')->name('user.')->group(function () {
             Route::get('social-login/callback/{provider}', 'callback')->name('social.login.callback');
         });
     });
-
 });
 
 Route::middleware('auth')->name('user.')->group(function () {
@@ -37,14 +36,6 @@ Route::middleware('auth')->name('user.')->group(function () {
     Route::get('user-data', 'User\UserController@userData')->name('data');
     Route::post('user-data-submit', 'User\UserController@userDataSubmit')->name('data.submit');
 
-    //authorization
-    Route::middleware('registration.complete')->namespace('User')->controller('AuthorizationController')->group(function () {
-        Route::get('authorization', 'authorizeForm')->name('authorization');
-        Route::get('resend-verify/{type}', 'sendVerifyCode')->name('send.verify.code');
-        Route::post('verify-email', 'emailVerification')->name('verify.email');
-        Route::post('verify-mobile', 'mobileVerification')->name('verify.mobile');
-        Route::post('verify-g2fa', 'g2faVerification')->name('2fa.verify');
-    });
 
     Route::middleware(['check.status', 'registration.complete'])->group(function () {
 
@@ -101,7 +92,7 @@ Route::middleware('auth')->name('user.')->group(function () {
             });
 
             Route::controller('PlayController')->prefix('play')->name('play.')->group(function () {
-                
+
                 Route::post('aviatorbets', 'aviatorbets')->name('aviatorbets');
                 Route::post('aviatergenerate', 'aviatergenerate')->name('aviatergenerate');
                 Route::post('aviatorincreamentor', 'aviatorincreamentor')->name('aviatorincreamentor');
@@ -109,10 +100,10 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::post('aviatorgameover', 'aviatorgameover')->name('aviatorgameover');
                 Route::post('aviatorbetadd', 'aviatorbetadd')->name('aviatorbetadd');
                 Route::post('aviatorcashout', 'aviatorcashout')->name('aviatorcashout');
-                
+
                 Route::post('roulettebet', 'roulettebet')->name('roulettebet');
                 Route::post('roulettebetupdate', 'roulettebetupdate')->name('roulettebetupdate');
-                
+
                 Route::get('game/{alias}', 'playGame')->name('game');
                 Route::post('game/invest/{alias}', 'investGame')->name('game.invest');
                 Route::post('game/end/{alias}', 'gameEnd')->name('game.end');
