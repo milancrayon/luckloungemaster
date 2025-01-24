@@ -47,13 +47,13 @@
                                 title="@lang('Login')"></i> 
                                 <span>@lang('Login')</span>
                             </a>
-                            @if (gs('registration'))
+                            <!-- @if (gs('registration'))
                                 <a href="{{ route('user.register') }}">
                                     <i class="las la-user-plus" data-bs-toggle="tooltip"
                                     title="@lang('Register')"></i> 
                                     <span>@lang('Register')</span>
                                 </a>
-                            @endif
+                            @endif -->
                         @endauth
 
                         @include($activeTemplate . 'partials.search')

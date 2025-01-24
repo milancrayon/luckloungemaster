@@ -46,11 +46,11 @@
                     <button type="submit" id="recaptcha" class="cmn-btn rounded-0 w-100">@lang('Login Now')</button>
                 </form>
                 @include($activeTemplate . 'partials.social_login')
-                @if (gs('registration'))
+                <!-- @if (gs('registration'))
                     <div class="text-center mt-4">
                         <p>@lang("Haven't an account?") <a href="{{ route('user.register') }}" class="text--base">@lang('Create an account')</a></p>
                     </div>
-                @endif
+                @endif -->
             </div>
         </div>
     </section>
