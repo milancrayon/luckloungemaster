@@ -11,9 +11,9 @@ use App\Lib\Intended;
 
 class AuthorizationController extends Controller
 {
-    protected function checkCodeValidity($user, $addMin = 2)
+    protected function checkCodeValidity($user,$addMin = 2)
     {
-        if (!$user->ver_code_send_at) {
+        if (!$user->ver_code_send_at){
             return false;
         }
         if ($user->ver_code_send_at->addMinutes($addMin) < Carbon::now()) {
@@ -28,15 +28,19 @@ class AuthorizationController extends Controller
         if (!$user->status) {
             $pageTitle = 'Banned';
             $type = 'ban';
-        } elseif (!$user->ev) {
+        }elseif(!$user->ev) {
             $type = 'email';
             $pageTitle = 'Verify Email';
             $notifyTemplate = 'EVER_CODE';
-        } elseif (!$user->sv) {
+        }elseif (!$user->sv) {
             $type = 'sms';
             $pageTitle = 'Verify Mobile Number';
             $notifyTemplate = 'SVER_CODE';
-        } else {
+        }elseif (!$user->tv) {
+            $pageTitle = '2FA Verification';
+            $type = '2fa';
+        }
+        else{
             return to_route('user.home');
         }
 
@@ -46,10 +50,11 @@ class AuthorizationController extends Controller
             $user->save();
             notify($user, $notifyTemplate, [
                 'code' => $user->ver_code
-            ], [$type]);
+            ],[$type]);
         }
 
-        return view('Template::user.auth.authorization.' . $type, compact('user', 'pageTitle'));
+        return view('Template::user.auth.authorization.'.$type, compact('user', 'pageTitle'));
+
     }
 
     public function sendVerifyCode($type)
@@ -76,7 +81,7 @@ class AuthorizationController extends Controller
 
         notify($user, $notifyTemplate, [
             'code' => $user->ver_code
-        ], [$type]);
+        ],[$type]);
 
         $notify[] = ['success', 'Verification code sent successfully'];
         return back()->withNotify($notify);
@@ -85,7 +90,7 @@ class AuthorizationController extends Controller
     public function emailVerification(Request $request)
     {
         $request->validate([
-            'code' => 'required'
+            'code'=>'required'
         ]);
 
         $user = auth()->user();
@@ -127,12 +132,12 @@ class AuthorizationController extends Controller
         $request->validate([
             'code' => 'required',
         ]);
-        $response = verifyG2fa($user, $request->code);
+        $response = verifyG2fa($user,$request->code);
         if ($response) {
             $redirection = Intended::getRedirection();
             return $redirection ? $redirection : to_route('user.home');
-        } else {
-            $notify[] = ['error', 'Wrong verification code'];
+        }else{
+            $notify[] = ['error','Wrong verification code'];
             return back()->withNotify($notify);
         }
     }
