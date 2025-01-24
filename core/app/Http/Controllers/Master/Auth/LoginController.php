@@ -28,6 +28,12 @@ class LoginController extends Controller
      */
     public $redirectTo = 'master';
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->mastername = $this->findUsername();
+    }
+
     /**
      * Show the application's login form.
      *
@@ -76,7 +82,7 @@ class LoginController extends Controller
             $this->fireLockoutEvent($request);
             return $this->sendLockoutResponse($request);
         }
- 
+
         if ($this->attemptLogin($request)) {
             return $this->sendLoginResponse($request);
         }
@@ -94,5 +100,15 @@ class LoginController extends Controller
         $this->guard('master')->logout();
         $request->session()->invalidate();
         return $this->loggedOut($request) ?: redirect($this->redirectTo);
+    }
+
+
+    public function findUsername()
+    {
+        $login = request()->input('mastername');
+
+        $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'mastername';
+        request()->merge([$fieldType => $login]);
+        return $fieldType;
     }
 }
