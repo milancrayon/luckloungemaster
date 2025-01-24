@@ -43,7 +43,7 @@ Route::middleware('auth')->name('user.')->group(function () {
 
 
     Route::middleware(['check.status'])->group(function () {
-
+        Route::get('authorization', 'authorizeForm')->name('authorization');
         Route::namespace('User')->group(function () {
 
             Route::controller('UserController')->group(function () {
@@ -83,7 +83,7 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::post('change-password', 'submitPassword');
             });
 
-    
+
             Route::controller('PlayController')->prefix('play')->name('play.')->group(function () {
 
                 Route::post('aviatorbets', 'aviatorbets')->name('aviatorbets');
@@ -121,6 +121,5 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::post('poker/fold', 'pokerFold')->name('game.poker.fold');
             });
         });
-
     });
 });

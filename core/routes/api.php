@@ -43,7 +43,7 @@ Route::namespace('Api')->name('api.')->group(function () {
 
 
         Route::middleware(['check.status'])->group(function () {
-
+            Route::get('authorization', 'authorizeForm')->name('authorization');
             Route::controller('UserController')->group(function () {
                 Route::get('user/dashboard', 'dashboard');
                 Route::post('profile-setting', 'submitProfile');
