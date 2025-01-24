@@ -1140,7 +1140,7 @@ class PlayController extends Controller
             $post_balance += $transaction->post_balance;
         }
         if ($post_balance > $exposure) {
-            return response()->json(['errors' => 'Your place order amount exceeds the allowed balance for today.']);
+            return ['errors' => 'Your place order amount exceeds the allowed balance for today.'];
         }
 
         $user->balance -= $request->invest;
@@ -1565,6 +1565,9 @@ class PlayController extends Controller
         }
 
         $invest = $this->invest($user, $request, $game, $result, $win);
+        if ($invest['error']) {
+            return response()->json($invest);
+        }
         $gameLog = $invest['game_log'];
         $gameLog->mine_available = $availableMine;
         $gameLog->save();
