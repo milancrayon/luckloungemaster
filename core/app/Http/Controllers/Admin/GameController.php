@@ -126,9 +126,10 @@ class GameController extends Controller
             })
             ->filter(['win_status']) // Apply win_status filter
             ->with('user', 'game') // Eager load relationships
-            ->latest('id')
+            ->latest('game_logs.id')
             ->paginate(getPaginate());
-      
+        // $sql = $logs->toSql();
+        // dd($sql);
         return view('admin.game.log', compact('pageTitle', 'logs'));
     }
 
