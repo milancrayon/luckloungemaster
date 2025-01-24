@@ -111,7 +111,23 @@ class GameController extends Controller
         $pageTitle = "Game Logs";
 
         $logs      = GameLog::where('status', Status::ENABLE)->searchable(['user:username,firstname,lastname,email', 'game:name'])->filter(['win_status'])->with('user', 'game')->latest('id')
-        ->paginate(getPaginate());
+            ->paginate(getPaginate());
+
+        $searchTerm = request('search'); // Get search term from the request
+        $logs = GameLog::where('status', Status::ENABLE)
+            ->join('users', 'game_logs.user_id', '=', 'users.id')
+            ->join('games', 'game_logs.game_id', '=', 'games.id')
+            ->where(function ($query) use ($searchTerm) {
+                $query->where('users.username', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('users.firstname', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('users.lastname', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('users.email', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('games.name', 'like', '%' . $searchTerm . '%');
+            })
+            ->filter(['win_status']) // Apply win_status filter
+            ->with('user', 'game') // Eager load relationships
+            ->latest('id')
+            ->paginate(getPaginate());
         // $sql = $logs->toSql();
         // dd($sql);
         return view('admin.game.log', compact('pageTitle', 'logs'));
