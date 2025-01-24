@@ -91,10 +91,10 @@
 <x-search-form placeholder="Username / Email" />
 <form>
     <div class="input-group w-auto">
-        <select name="created_by" class="form-control select2" required>
+        <select name="master_id" class="form-control select2" required>
             <option value="">@lang('Select One')</option>
             @foreach ($masters as $master)
-            <option value="{{ $master->id }}" @selected(request()->created_by == $master->id)>{{ __($master->mastername) }}</option>
+            <option value="{{ $master->id }}" @selected(request()->master_id == $master->id)>{{ __($master->mastername) }}</option>
             @endforeach
         </select>
         <button class="btn btn--primary input-group-text" type="submit"><i class="fa fa-search"></i></button>
