@@ -10,7 +10,6 @@ use App\Http\Middleware\RedirectIfAuthenticated;
 use App\Http\Middleware\RedirectIfMaster;
 use App\Http\Middleware\RedirectIfNotAdmin;
 use App\Http\Middleware\RedirectIfNotMaster;
-use App\Http\Middleware\RegistrationStep;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -80,7 +79,6 @@ return Application::configure(basePath: dirname(__DIR__))
             'check.status' => CheckStatus::class,
             'demo' => Demo::class,
             'kyc' => KycMiddleware::class,
-            'registration.complete' => RegistrationStep::class,
             'maintenance' => MaintenanceMode::class,
         ]);
 
