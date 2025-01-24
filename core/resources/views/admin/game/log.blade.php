@@ -101,7 +101,7 @@
     </div>
 </form>
 @endpush
-
+ 
 @push('style')
 <style>
     .win-status {
