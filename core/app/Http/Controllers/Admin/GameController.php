@@ -114,26 +114,32 @@ class GameController extends Controller
         $searchTerm = request('search'); // Get search term from the request
         $winStatus = request('win_status'); // Get win_status from the request if needed
 
+        // Split the search term into two parts: first name and last name
+        $searchParts = explode(' ', $searchTerm);
+        $firstname = $searchParts[0] ?? ''; // First part is considered firstname
+        $lastname = $searchParts[1] ?? ''; // Second part is considered lastname
+
         $logs = GameLog::where('status', Status::ENABLE) // Start by filtering for status
-            ->where(function ($query) use ($searchTerm) {
+            ->where(function ($query) use ($firstname, $lastname) {
                 // Search in 'user' fields
-                $query->whereHas('user', function ($q) use ($searchTerm) {
+                $query->whereHas('user', function ($q) use ($firstname, $lastname) {
                     // Search firstname and lastname in any order
-                    $q->where(function ($q1) use ($searchTerm) {
-                        $q1->where('firstname', 'like', '%' . $searchTerm . '%')
-                            ->where('lastname', 'like', '%' . $searchTerm . '%');
+                    $q->where(function ($q1) use ($firstname, $lastname) {
+                        $q1->where('firstname', 'like', '%' . $firstname . '%')
+                            ->where('lastname', 'like', '%' . $lastname . '%');
                     })
-                        ->orWhere(function ($q2) use ($searchTerm) {
-                            $q2->where('lastname', 'like', '%' . $searchTerm . '%')
-                                ->where('firstname', 'like', '%' . $searchTerm . '%');
+                        ->orWhere(function ($q2) use ($firstname, $lastname) {
+                            $q2->where('lastname', 'like', '%' . $firstname . '%')
+                                ->where('firstname', 'like', '%' . $lastname . '%');
                         })
                         // Also search for username and email
-                        ->orWhere('username', 'like', '%' . $searchTerm . '%')
-                        ->orWhere('email', 'like', '%' . $searchTerm . '%');
+                        ->orWhere('username', 'like', '%' . $firstname . '%')
+                        ->orWhere('email', 'like', '%' . $firstname . '%');
                 })
                     // Search in 'game' name field
-                    ->orWhereHas('game', function ($q) use ($searchTerm) {
-                        $q->where('name', 'like', '%' . $searchTerm . '%');
+                    ->orWhereHas('game', function ($q) use ($firstname, $lastname) {
+                        $q->where('name', 'like', '%' . $firstname . '%')
+                            ->orWhere('name', 'like', '%' . $lastname . '%');
                     });
             });
 
