@@ -137,8 +137,10 @@ class GameController extends Controller
         $logs->with('user', 'game') // Eager load 'user' and 'game' relationships
             ->latest('id'); // Order by the latest 'id'
 
-        print_r($logs);
-        exit();
+        // Print the SQL query
+        $sql = $logs->toSql();
+        dd($sql); // Use dd() (dump and die) to print the SQL query and stop execution
+
         // ->paginate(getPaginate()); // Paginate the results
 
 
