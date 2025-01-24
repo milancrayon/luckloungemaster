@@ -23,49 +23,55 @@ class ManageUsersController extends Controller
     {
         $pageTitle = 'All Users';
         $users = $this->userData();
-        return view('admin.users.list', compact('pageTitle', 'users'));
+        $masters = $this->masterData();
+        return view('admin.users.list', compact('pageTitle', 'users', 'masters'));
     }
 
     public function activeUsers()
     {
         $pageTitle = 'Active Users';
         $users = $this->userData('active');
-        return view('admin.users.list', compact('pageTitle', 'users'));
+        $masters = $this->masterData();
+        return view('admin.users.list', compact('pageTitle', 'users', 'masters'));
     }
 
     public function bannedUsers()
     {
         $pageTitle = 'Banned Users';
         $users = $this->userData('banned');
-        return view('admin.users.list', compact('pageTitle', 'users'));
+        $masters = $this->masterData();
+        return view('admin.users.list', compact('pageTitle', 'users', 'masters'));
     }
 
     public function emailUnverifiedUsers()
     {
         $pageTitle = 'Email Unverified Users';
         $users = $this->userData('emailUnverified');
-        return view('admin.users.list', compact('pageTitle', 'users'));
+        $masters = $this->masterData();
+        return view('admin.users.list', compact('pageTitle', 'users', 'masters'));
     }
 
     public function kycUnverifiedUsers()
     {
         $pageTitle = 'KYC Unverified Users';
         $users = $this->userData('kycUnverified');
-        return view('admin.users.list', compact('pageTitle', 'users'));
+        return view('admin.users.list', compact('pageTitle', 'users', 'masters'));
     }
 
     public function kycPendingUsers()
     {
         $pageTitle = 'KYC Unverified Users';
         $users = $this->userData('kycPending');
-        return view('admin.users.list', compact('pageTitle', 'users'));
+        $masters = $this->masterData();
+        return view('admin.users.list', compact('pageTitle', 'users', 'masters'));
     }
 
     public function emailVerifiedUsers()
     {
         $pageTitle = 'Email Verified Users';
         $users = $this->userData('emailVerified');
-        return view('admin.users.list', compact('pageTitle', 'users'));
+        $masters = $this->masterData();
+        return view('admin.users.list', compact('pageTitle', 'users', 'masters'));
     }
 
 
@@ -73,7 +79,8 @@ class ManageUsersController extends Controller
     {
         $pageTitle = 'Mobile Unverified Users';
         $users = $this->userData('mobileUnverified');
-        return view('admin.users.list', compact('pageTitle', 'users'));
+        $masters = $this->masterData();
+        return view('admin.users.list', compact('pageTitle', 'users', 'masters'));
     }
 
 
@@ -81,7 +88,8 @@ class ManageUsersController extends Controller
     {
         $pageTitle = 'Mobile Verified Users';
         $users = $this->userData('mobileVerified');
-        return view('admin.users.list', compact('pageTitle', 'users'));
+        $masters = $this->masterData();
+        return view('admin.users.list', compact('pageTitle', 'users', 'masters'));
     }
 
 
@@ -89,7 +97,8 @@ class ManageUsersController extends Controller
     {
         $pageTitle = 'Users with Balance';
         $users = $this->userData('withBalance');
-        return view('admin.users.list', compact('pageTitle', 'users'));
+        $masters = $this->masterData();
+        return view('admin.users.list', compact('pageTitle', 'users', 'masters'));
     }
 
 
@@ -101,6 +110,12 @@ class ManageUsersController extends Controller
             $users = User::query();
         }
         return $users->searchable(['username', 'email'])->orderBy('id', 'desc')->paginate(getPaginate());
+    }
+
+    protected function masterData()
+    {
+        $masters = Master::query();
+        return $masters->searchable(['username', 'email'])->orderBy('id', 'desc')->paginate(getPaginate());
     }
 
 
@@ -240,7 +255,7 @@ class ManageUsersController extends Controller
             $transaction->remark = 'balance_add';
             $master_transaction->trx_type = '-';
             $master_transaction->remark = 'balance_subtract';
-            $master_transaction->details = 'The balance has been added to the customer ' . $user->username . 'By Admin';
+            $master_transaction->details = 'The balance has been added to the customer ' . $user->username . ' By Admin';
             $notifyTemplate = 'BAL_ADD';
 
             $notify[] = ['success', 'Balance added successfully'];
