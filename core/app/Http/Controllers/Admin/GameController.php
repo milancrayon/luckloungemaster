@@ -110,7 +110,41 @@ class GameController extends Controller
     {
         $pageTitle = "Game Logs";
 
-        $logs      = GameLog::where('status', Status::ENABLE)->searchable(['user:username', 'user:firstname', 'user:lastname', 'user:email', 'game:name'])->filter(['win_status'])->with('user', 'game')->latest('id')->paginate(getPaginate());
+        // $logs      = GameLog::where('status', Status::ENABLE)->searchable(['user:username', 'user:firstname', 'user:lastname', 'user:email', 'game:name'])->filter(['win_status'])->with('user', 'game')->latest('id')->paginate(getPaginate());
+        $searchTerm = request('search'); // Get search term from the request
+        $winStatus = request('win_status'); // Get win_status from the request if needed
+
+        $logs = GameLog::where('status', Status::ENABLE) // Start by filtering for status
+            ->where(function ($query) use ($searchTerm) {
+                // Search in 'user' fields
+                $query->whereHas('user', function ($q) use ($searchTerm) {
+                    // Search firstname and lastname in any order
+                    $q->where(function ($q1) use ($searchTerm) {
+                        $q1->where('firstname', 'like', '%' . $searchTerm . '%')
+                            ->where('lastname', 'like', '%' . $searchTerm . '%');
+                    })
+                        ->orWhere(function ($q2) use ($searchTerm) {
+                            $q2->where('lastname', 'like', '%' . $searchTerm . '%')
+                                ->where('firstname', 'like', '%' . $searchTerm . '%');
+                        })
+                        // Also search for username and email
+                        ->orWhere('username', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('email', 'like', '%' . $searchTerm . '%');
+                })
+                    // Search in 'game' name field
+                    ->orWhereHas('game', function ($q) use ($searchTerm) {
+                        $q->where('name', 'like', '%' . $searchTerm . '%');
+                    });
+            });
+
+        if ($winStatus !== null) {
+            $logs->where('win_status', $winStatus); // Apply win_status filter if provided
+        }
+
+        $logs = $logs->with('user', 'game') // Eager load 'user' and 'game' relationships
+            ->latest('id') // Order by latest 'id'
+            ->paginate(getPaginate()); // Paginate the results
+
 
         return view('admin.game.log', compact('pageTitle', 'logs'));
     }
