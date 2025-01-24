@@ -42,7 +42,7 @@
         </div><!-- dashboard-w1 end -->
     </div><!-- row end-->
 
-    <div class="row mt-2 gy-4">
+    <!-- <div class="row mt-2 gy-4">
         <div class="col-xxl-6">
             <div class="card box-shadow3 h-100">
                 <div class="card-body">
@@ -190,7 +190,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
 
     <div class="row gy-4 mt-2">
@@ -210,7 +210,7 @@
 
 
     <div class="row mb-none-30 mt-30">
-        <div class="col-xl-6 mb-30">
+        <!-- <div class="col-xl-6 mb-30">
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex flex-wrap justify-content-between">
@@ -224,7 +224,7 @@
                     <div id="dwChartArea"> </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="col-xl-6 mb-30">
             <div class="card">
                 <div class="card-body">
