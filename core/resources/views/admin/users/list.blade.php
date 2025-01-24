@@ -104,8 +104,9 @@
 
 @push('style')
 <style>
-    .master_id {
-        width: 217px !important;
+    .master_id .select2-selection__rendered {
+        padding-left: 20px;
+        padding-right: 36px;
     }
 </style>
 @endpush
