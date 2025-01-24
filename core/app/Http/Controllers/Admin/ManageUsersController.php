@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Constants\Status;
 use App\Http\Controllers\Controller;
+use App\Models\Master;
 use App\Models\NotificationLog;
 use App\Models\NotificationTemplate;
 use App\Models\Transaction;
@@ -220,17 +221,25 @@ class ManageUsersController extends Controller
         ]);
 
         $user = User::findOrFail($id);
+        $master_id = $user->created_by;
+        $master = Master::where('id', $master_id)->firstOrFail();  // Fetch master based on authenticated user's ID
         $amount = $request->amount;
         $trx = getTrx();
-
+        $amount = $request->amount;
+        if ($amount > $master->balance) {
+            $notify[] = ['error', $master->username . ' doesn\'t have sufficient balance.'];
+            return back()->withNotify($notify);
+        }
         $transaction = new Transaction();
-
+        $master_transaction = new MastersTransaction();
         if ($request->act == 'add') {
             $user->balance += $amount;
-
+            $master->balance -= $amount;
             $transaction->trx_type = '+';
             $transaction->remark = 'balance_add';
-
+            $master_transaction->trx_type = '-';
+            $master_transaction->remark = 'balance_subtract';
+            $master_transaction->details = 'The balance has been added to the customer ' . $user->username . 'By Admin';
             $notifyTemplate = 'BAL_ADD';
 
             $notify[] = ['success', 'Balance added successfully'];
@@ -241,15 +250,25 @@ class ManageUsersController extends Controller
             }
 
             $user->balance -= $amount;
-
+            $master->balance += $amount;
             $transaction->trx_type = '-';
             $transaction->remark = 'balance_subtract';
-
+            $master_transaction->trx_type = '+';
+            $master_transaction->remark = 'balance_add';
+            $master_transaction->details = 'The balance has been subtracted to the customer ' . $user->username . 'By Admin';
             $notifyTemplate = 'BAL_SUB';
             $notify[] = ['success', 'Balance subtracted successfully'];
         }
 
         $user->save();
+        $master->save();
+
+        $master_transaction->master_id = $master->id;
+        $master_transaction->amount = $amount;
+        $master_transaction->post_balance = $master->balance;
+        $master_transaction->charge = 0;
+        $master_transaction->trx =  $trx;
+        $master_transaction->save();
 
         $transaction->user_id = $user->id;
         $transaction->amount = $amount;
