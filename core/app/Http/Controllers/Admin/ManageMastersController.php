@@ -105,7 +105,7 @@ class ManageMastersController extends Controller
         $totalTransaction = MastersTransaction::where('master_id', $master->id)->count();
 
         $countries = json_decode(file_get_contents(resource_path('views/partials/country.json')));
-        return view('admin.masters.detail', compact('pageTitle', 'master', 'countries'));
+        return view('admin.masters.detail', compact('pageTitle', 'master', 'totalTransaction', 'countries'));
     }
 
     public function addMasters()
@@ -464,7 +464,7 @@ class ManageMastersController extends Controller
         return view('admin.masters.notification_all', compact('pageTitle', 'masters', 'notifyToMaster'));
     }
 
-  
+
     public function countBySegment($methodName)
     {
         return Master::active()->$methodName()->count();
