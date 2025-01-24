@@ -110,7 +110,7 @@ class GameController extends Controller
     {
         $pageTitle = "Game Logs";
         // $logs      = GameLog::where('status', Status::ENABLE)->searchable(['user:username', 'user:email', 'user:lastname', 'user:firstname', 'game:name'])->filter(['win_status'])->with('user', 'game')->latest('id')->paginate(getPaginate());
-        $logsQuery = GameLog::where('status', Status::ENABLE)
+        $logs = GameLog::where('status', Status::ENABLE)
             ->searchable(['user:username', 'user:email', 'user:lastname', 'user:firstname', 'game:name'])
             ->filter(['win_status'])
             ->with('user', 'game')
