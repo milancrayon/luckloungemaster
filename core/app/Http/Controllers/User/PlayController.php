@@ -1128,7 +1128,7 @@ class PlayController extends Controller
         $master = Master::findOrFail($user->id);
         echo "<pre>";
         print_r($master);
-
+        exit();
         $transactions = Transaction::where('user_id', $user->id)
             ->where('remark', 'invest')
             ->whereDate('created_at', now()->toDateString())  // filters for today's date
