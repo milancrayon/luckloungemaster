@@ -40,93 +40,93 @@ Route::namespace('Api')->name('api.')->group(function () {
 
         Route::post('user-data-submit', 'UserController@userDataSubmit');
 
-  
+
         Route::middleware(['check.status'])->group(function () {
 
-            Route::middleware('registration.complete')->group(function () {
 
-                Route::controller('UserController')->group(function () {
-                    Route::get('user/dashboard', 'dashboard');
-                    Route::post('profile-setting', 'submitProfile');
-                    Route::post('change-password', 'submitPassword');
 
-                    Route::get('user-info', 'userInfo');
-                    //KYC
-                    Route::get('kyc-form', 'kycForm');
-                    Route::post('kyc-submit', 'kycSubmit');
+            Route::controller('UserController')->group(function () {
+                Route::get('user/dashboard', 'dashboard');
+                Route::post('profile-setting', 'submitProfile');
+                Route::post('change-password', 'submitPassword');
 
-                    //Report
-                    Route::any('deposit/history', 'depositHistory');
-                    Route::get('transactions', 'transactions');
+                Route::get('user-info', 'userInfo');
+                //KYC
+                Route::get('kyc-form', 'kycForm');
+                Route::post('kyc-submit', 'kycSubmit');
 
-                    Route::post('add-device-token', 'addDeviceToken');
-                    Route::get('push-notifications', 'pushNotifications');
-                    Route::post('push-notifications/read/{id}', 'pushNotificationsRead');
+                //Report
+                Route::any('deposit/history', 'depositHistory');
+                Route::get('transactions', 'transactions');
 
-                    //2FA
-                    Route::get('twofactor', 'show2faForm');
-                    Route::post('twofactor/enable', 'create2fa');
-                    Route::post('twofactor/disable', 'disable2fa');
+                Route::post('add-device-token', 'addDeviceToken');
+                Route::get('push-notifications', 'pushNotifications');
+                Route::post('push-notifications/read/{id}', 'pushNotificationsRead');
 
-                    Route::post('delete-account', 'deleteAccount');
+                //2FA
+                Route::get('twofactor', 'show2faForm');
+                Route::post('twofactor/enable', 'create2fa');
+                Route::post('twofactor/disable', 'disable2fa');
 
-                    Route::get('user/referral', 'referrals');
-                    Route::get('user/game/log', 'gameLog');
+                Route::post('delete-account', 'deleteAccount');
+
+                Route::get('user/referral', 'referrals');
+                Route::get('user/game/log', 'gameLog');
+            });
+
+            // Withdraw
+            Route::controller('WithdrawController')->group(function () {
+                Route::middleware('kyc')->group(function () {
+                    Route::get('withdraw-method', 'withdrawMethod');
+                    Route::post('withdraw-request', 'withdrawStore');
+                    Route::post('withdraw-request/confirm', 'withdrawSubmit');
                 });
+                Route::get('withdraw/history', 'withdrawLog');
+            });
 
-                // Withdraw
-                Route::controller('WithdrawController')->group(function () {
-                    Route::middleware('kyc')->group(function () {
-                        Route::get('withdraw-method', 'withdrawMethod');
-                        Route::post('withdraw-request', 'withdrawStore');
-                        Route::post('withdraw-request/confirm', 'withdrawSubmit');
-                    });
-                    Route::get('withdraw/history', 'withdrawLog');
-                });
+            // Payment
+            Route::controller('PaymentController')->group(function () {
+                Route::get('deposit/methods', 'methods');
+                Route::post('deposit/insert', 'depositInsert');
+                Route::post('app/payment/confirm', 'appPaymentConfirm');
+            });
 
-                // Payment
-                Route::controller('PaymentController')->group(function () {
-                    Route::get('deposit/methods', 'methods');
-                    Route::post('deposit/insert', 'depositInsert');
-                    Route::post('app/payment/confirm', 'appPaymentConfirm');
-                });
+            Route::controller('TicketController')->prefix('ticket')->group(function () {
+                Route::get('/', 'supportTicket');
+                Route::post('create', 'storeSupportTicket');
+                Route::get('view/{ticket}', 'viewTicket');
+                Route::post('reply/{id}', 'replyTicket');
+                Route::post('close/{id}', 'closeTicket');
+                Route::get('download/{attachment_id}', 'ticketDownload');
+            });
 
-                Route::controller('TicketController')->prefix('ticket')->group(function () {
-                    Route::get('/', 'supportTicket');
-                    Route::post('create', 'storeSupportTicket');
-                    Route::get('view/{ticket}', 'viewTicket');
-                    Route::post('reply/{id}', 'replyTicket');
-                    Route::post('close/{id}', 'closeTicket');
-                    Route::get('download/{attachment_id}', 'ticketDownload');
-                });
+            Route::controller('PlayController')->prefix('play')->name('play.')->group(function () {
+                Route::get('game/{alias}', 'playGame');
+                Route::post('game/{alias}', 'playGame');
+                Route::post('game/invest/{alias}', 'investGame');
+                Route::post('game/end/{alias}', 'gameEnd');
 
-                Route::controller('PlayController')->prefix('play')->name('play.')->group(function () {
-                    Route::get('game/{alias}', 'playGame');
-                    Route::post('game/{alias}', 'playGame');
-                    Route::post('game/invest/{alias}', 'investGame');
-                    Route::post('game/end/{alias}', 'gameEnd');
+                Route::post('roulette/submit', 'rouletteSubmit');
+                Route::post('roulette/result', 'rouletteResult');
 
-                    Route::post('roulette/submit', 'rouletteSubmit');
-                    Route::post('roulette/result', 'rouletteResult');
+                Route::post('keno/submit', 'kenoSubmit');
+                Route::post('keno/update', 'kenoUpdate');
 
-                    Route::post('keno/submit', 'kenoSubmit');
-                    Route::post('keno/update', 'kenoUpdate');
+                Route::post('blackjack/hit', 'blackjackHit');
+                Route::post('blackjack/stay', 'blackjackStay');
+                Route::post('blackjack/again/{id}', 'blackjackAgain');
 
-                    Route::post('blackjack/hit', 'blackjackHit');
-                    Route::post('blackjack/stay', 'blackjackStay');
-                    Route::post('blackjack/again/{id}', 'blackjackAgain');
+                Route::post('mine/cashout', 'mineCashout');
 
-                    Route::post('mine/cashout', 'mineCashout');
+                Route::post('dice/submit', 'diceSubmit');
+                Route::post('dice/result', 'diceResult');
 
-                    Route::post('dice/submit', 'diceSubmit');
-                    Route::post('dice/result', 'diceResult');
-
-                    Route::post('poker/deal', 'pokerDeal');
-                    Route::post('poker/call', 'pokerCall');
-                    Route::post('poker/fold', 'pokerFold');
-                });
+                Route::post('poker/deal', 'pokerDeal');
+                Route::post('poker/call', 'pokerCall');
+                Route::post('poker/fold', 'pokerFold');
             });
         });
+
 
         Route::get('logout', 'Auth\LoginController@logout');
     });
