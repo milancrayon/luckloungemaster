@@ -114,7 +114,7 @@ class GameController extends Controller
         $winStatus = request('win_status'); // Get win_status from the request if needed
 
         $logs = GameLog::where('status', Status::ENABLE);
-        if ($winStatus !== null) {
+        if ($searchTerm !== null) {
             $logs->where('user.username', 'like', '%' . $searchTerm . '%');
             $logs->orWhere('user.email', 'like', '%' . $searchTerm . '%');
             $logs->orWhere('user.lastname', 'like', '%' . $searchTerm . '%');
