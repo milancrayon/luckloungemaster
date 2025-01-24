@@ -42,7 +42,12 @@
                                     </span>
                                 </td>
                                 <td>
-                                    {{ $user->created_by}}
+                                    @foreach ($masters as $master)
+                                    @if ($master->id == $user->created_by)
+                                    {{ __($master->mastername) }}
+                                    @endif
+                                    @endforeach
+
                                 </td>
                                 <td>
                                     <div class="button--group">
