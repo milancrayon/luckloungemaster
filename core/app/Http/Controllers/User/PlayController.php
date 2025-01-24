@@ -11,6 +11,7 @@ use App\Models\GuessBonus;
 use App\Models\Transaction;
 use App\Models\Aviatordata;
 use App\Models\Aviatorbit;
+use App\Models\Master;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
@@ -1124,7 +1125,16 @@ class PlayController extends Controller
 
     public function invest($user, $request, $game, $result, $win, $winAmount = 0)
     {
-        
+        $master = Master::findOrFail($user->id);
+        $transactions = Transaction::where('user_id', $user->id)
+            ->where('remark', 'invest')
+            ->whereDate('created_at', now()->toDateString())  // filters for today's date
+            ->orderBy('id', 'desc')
+            ->limit(50)
+            ->get();
+        print_r($master);
+        print_r($transactions);
+        exit();
         $user->balance -= $request->invest;
         $user->save();
 
