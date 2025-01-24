@@ -13,6 +13,7 @@
                                 <th>@lang('Country')</th>
                                 <th>@lang('Joined At')</th>
                                 <th>@lang('Balance')</th>
+                                <th>@lang('Exposure')</th>
                                 <th>@lang('Action')</th>
                             </tr>
                         </thead>
@@ -26,27 +27,23 @@
                                         <a href="{{ route('admin.users.detail', $user->id) }}"><span>@</span>{{ $user->username }}</a>
                                     </span>
                                 </td>
-
-
                                 <td>
                                     {{ $user->email }}<br>{{ $user->mobileNumber }}
                                 </td>
                                 <td>
                                     <span class="fw-bold" title="{{ @$user->country_name }}">{{ $user->country_code }}</span>
                                 </td>
-
-
-
                                 <td>
                                     {{ showDateTime($user->created_at) }} <br> {{ diffForHumans($user->created_at) }}
                                 </td>
-
-
                                 <td>
                                     <span class="fw-bold">
 
                                         {{ showAmount($user->balance) }}
                                     </span>
+                                </td>
+                                <td>
+                                    {{ showAmount($user->exposure) }}
                                 </td>
 
                                 <td>
@@ -61,7 +58,6 @@
                                         @endif
                                     </div>
                                 </td>
-
                             </tr>
                             @empty
                             <tr>
