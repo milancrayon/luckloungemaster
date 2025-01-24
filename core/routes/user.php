@@ -11,11 +11,11 @@ Route::namespace('User\Auth')->name('user.')->group(function () {
             Route::get('logout', 'logout')->middleware('auth')->withoutMiddleware('guest')->name('logout');
         });
 
-        Route::controller('RegisterController')->middleware(['guest'])->group(function () {
-            Route::get('register', 'showRegistrationForm')->name('register');
-            Route::post('register', 'register');
-            Route::post('check-user', 'checkUser')->name('checkUser')->withoutMiddleware('guest');
-        });
+        // Route::controller('RegisterController')->middleware(['guest'])->group(function () {
+        //     Route::get('register', 'showRegistrationForm')->name('register');
+        //     Route::post('register', 'register');
+        //     Route::post('check-user', 'checkUser')->name('checkUser')->withoutMiddleware('guest');
+        // });
 
         Route::controller('ForgotPasswordController')->prefix('password')->name('password.')->group(function () {
             Route::get('reset', 'showLinkRequestForm')->name('request');
