@@ -21,6 +21,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Category;
+
 class SiteController extends Controller
 {
     public function index()
@@ -38,7 +39,7 @@ class SiteController extends Controller
         $seoContents = $sections->seo_content;
 
         $seoImage = @$seoContents->image ? getImage(getFilePath('seo') . '/' . @$seoContents->image, getFileSize('seo')) : null;
-        return view('Template::home', compact('pageTitle', 'sections', 'seoContents', 'seoImage', 'totalUsers', 'totalWin'))
+        return view('Template::home', compact('pageTitle', 'sections', 'seoContents', 'seoImage', 'totalUsers', 'totalWin'));
     }
 
     public function pages($slug)
@@ -86,14 +87,14 @@ class SiteController extends Controller
         return response()->json(['games' => $games]);
     }
     public function upload(Request $request)
-    { 
+    {
         if (sizeof($request->files)) {
             foreach ($request->files as $file) {
-                try { 
-                    $path = 'assets/upload';  
-                    $filename = fileUploader($file, $path, filename: $file->getClientOriginalName()); 
-                    return response()->json(['data' => "/".$path."/".$filename]);
-                } catch (\Exception $exp) { 
+                try {
+                    $path = 'assets/upload';
+                    $filename = fileUploader($file, $path, filename: $file->getClientOriginalName());
+                    return response()->json(['data' => "/" . $path . "/" . $filename]);
+                } catch (\Exception $exp) {
                     $notify[] = ['errors', 'Image could not be uploaded'];
                     return response()->json($notify);
                 }
@@ -394,6 +395,4 @@ class SiteController extends Controller
     {
         return $this->bet(categorySlug: $slug);
     }
-
-
 }
