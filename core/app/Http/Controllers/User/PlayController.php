@@ -1160,11 +1160,11 @@ class PlayController extends Controller
             ->limit(50)
             ->get();
         $exposure = $master->exposure;
-        $post_balance = 0;
+        $amount = 0;
         foreach ($transactions as $transaction) {
-            $post_balance += $transaction->post_balance;
+            $amount += $transaction->amount;
         }
-        if ($post_balance > $exposure) {
+        if ($amount > $exposure) {
             return ['errors' => 'Your place order amount exceeds the allowed balance for today.'];
         }
 
