@@ -138,7 +138,7 @@ class GameController extends Controller
             ->latest('id') // Order by the latest 'id'
             ->paginate(getPaginate());
         // Print the SQL query
-        // $sql = $logs->toSql();
+        $sql = $logs->toSql();
         dd($sql); // Use dd() (dump and die) to print the SQL query and stop execution
 
         // ->paginate(getPaginate()); // Paginate the results
