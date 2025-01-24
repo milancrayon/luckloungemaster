@@ -12,6 +12,7 @@ use App\Models\Transaction;
 use App\Models\Aviatordata;
 use App\Models\Aviatorbit;
 use App\Models\Master;
+use App\Notify\Textmagic\Services\Models\Numbers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
@@ -1126,19 +1127,22 @@ class PlayController extends Controller
     public function invest($user, $request, $game, $result, $win, $winAmount = 0)
     {
         $master = Master::findOrFail($user->created_by);
-        $exposure = $master->exposure;
+
         $transactions = Transaction::where('user_id', $user->id)
             ->where('remark', 'invest')
             ->whereDate('created_at', now()->toDateString())  // filters for today's date
             ->orderBy('id', 'desc')
             ->limit(50)
             ->get();
+        $exposure = $master->exposure;
         $post_balance = 0;
         foreach ($transactions as $transaction) {
-            $post_balance = $post_balance + $transaction->post_balance;
+            $post_balance = Numbers($post_balance) + $transaction->post_balance;
         }
-        print_r($post_balance);
-        exit();
+        if ($post_balance > $exposure) {
+            return response()->json(['errors' => 'Your place order amount exceeds the allowed balance for today.']);
+        }
+
         $user->balance -= $request->invest;
         $user->save();
 
