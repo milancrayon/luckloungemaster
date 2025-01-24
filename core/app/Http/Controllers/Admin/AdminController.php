@@ -15,9 +15,11 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
-class AdminController extends Controller {
+class AdminController extends Controller
+{
 
-    public function dashboard() {
+    public function dashboard()
+    {
         $pageTitle = 'Dashboard';
 
         // User Info
@@ -46,10 +48,11 @@ class AdminController extends Controller {
             return collect($item)->count();
         })->sort()->reverse()->take(5);
 
-        return view('admin.dashboard', compact('pageTitle', 'widget', 'chart');
+        return view('admin.dashboard', compact('pageTitle', 'widget', 'chart'));
     }
 
-    public function transactionReport(Request $request) {
+    public function transactionReport(Request $request)
+    {
 
         $diffInDays = Carbon::parse($request->start_date)->diffInDays(Carbon::parse($request->end_date));
 
@@ -107,7 +110,8 @@ class AdminController extends Controller {
         return response()->json($report);
     }
 
-    private function getAllDates($startDate, $endDate) {
+    private function getAllDates($startDate, $endDate)
+    {
         $dates       = [];
         $currentDate = new \DateTime($startDate);
         $endDate     = new \DateTime($endDate);
@@ -120,7 +124,8 @@ class AdminController extends Controller {
         return $dates;
     }
 
-    private function getAllMonths($startDate, $endDate) {
+    private function getAllMonths($startDate, $endDate)
+    {
         if ($endDate > now()) {
             $endDate = now()->format('Y-m-d');
         }
@@ -138,13 +143,15 @@ class AdminController extends Controller {
         return $months;
     }
 
-    public function profile() {
+    public function profile()
+    {
         $pageTitle = 'Profile';
         $admin     = auth('admin')->user();
         return view('admin.profile', compact('pageTitle', 'admin'));
     }
 
-    public function profileUpdate(Request $request) {
+    public function profileUpdate(Request $request)
+    {
         $request->validate([
             'name'  => 'required',
             'email' => 'required|email',
@@ -169,13 +176,15 @@ class AdminController extends Controller {
         return to_route('admin.profile')->withNotify($notify);
     }
 
-    public function password() {
+    public function password()
+    {
         $pageTitle = 'Password Setting';
         $admin     = auth('admin')->user();
         return view('admin.password', compact('pageTitle', 'admin'));
     }
 
-    public function passwordUpdate(Request $request) {
+    public function passwordUpdate(Request $request)
+    {
         $request->validate([
             'old_password' => 'required',
             'password'     => 'required|min:5|confirmed',
@@ -192,7 +201,8 @@ class AdminController extends Controller {
         return to_route('admin.password')->withNotify($notify);
     }
 
-    public function notifications() {
+    public function notifications()
+    {
         $notifications   = AdminNotification::orderBy('id', 'desc')->with('user')->paginate(getPaginate());
         $hasUnread       = AdminNotification::where('is_read', Status::NO)->exists();
         $hasNotification = AdminNotification::exists();
@@ -200,7 +210,8 @@ class AdminController extends Controller {
         return view('admin.notifications', compact('pageTitle', 'notifications', 'hasUnread', 'hasNotification'));
     }
 
-    public function notificationRead($id) {
+    public function notificationRead($id)
+    {
         $notification          = AdminNotification::findOrFail($id);
         $notification->is_read = Status::YES;
         $notification->save();
@@ -210,9 +221,10 @@ class AdminController extends Controller {
         }
         return redirect($url);
     }
-  
 
-    public function readAllNotification() {
+
+    public function readAllNotification()
+    {
         AdminNotification::where('is_read', Status::NO)->update([
             'is_read' => Status::YES,
         ]);
@@ -220,19 +232,22 @@ class AdminController extends Controller {
         return back()->withNotify($notify);
     }
 
-    public function deleteAllNotification() {
+    public function deleteAllNotification()
+    {
         AdminNotification::truncate();
         $notify[] = ['success', 'Notifications deleted successfully'];
         return back()->withNotify($notify);
     }
 
-    public function deleteSingleNotification($id) {
+    public function deleteSingleNotification($id)
+    {
         AdminNotification::where('id', $id)->delete();
         $notify[] = ['success', 'Notification deleted successfully'];
         return back()->withNotify($notify);
     }
 
-    public function downloadAttachment($fileHash) {
+    public function downloadAttachment($fileHash)
+    {
         $filePath  = decrypt($fileHash);
         $extension = pathinfo($filePath, PATHINFO_EXTENSION);
         $title     = slug(gs('site_name')) . '- attachments.' . $extension;
@@ -246,7 +261,4 @@ class AdminController extends Controller {
         header("Content-Type: " . $mimetype);
         return readfile($filePath);
     }
-
-    
-
 }
