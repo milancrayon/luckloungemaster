@@ -127,13 +127,6 @@ class GameController extends Controller
             ->latest('id')
             ->paginate(getPaginate());
 
-        // Print the query
-        $sql = $logs->toSql();
-        $bindings = $logs->getBindings();
-        $fullQuery = vsprintf(str_replace('?', '%s', $sql), $bindings);
-
-        // Print the full query with bindings
-        dd($fullQuery);
 
         return view('admin.game.log', compact('pageTitle', 'logs'));
     }
