@@ -69,7 +69,6 @@ class MasterController extends Controller
         $request->validate([
             'firstname' => 'required|string|max:40',
             'lastname' => 'required|string|max:40',
-            'email' => 'required|email|string|max:40|unique:users,email,' . $user->id,
             'mobile' => 'required|string|max:40',
             'country' => 'required|in:' . $countries,
         ]);
