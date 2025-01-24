@@ -109,8 +109,11 @@ class ManageUsersController extends Controller
         } else {
             $users = User::query();
         }
-        $master_id = request()->input('master_id');
-        $users->where('created_by', $master_id);
+        if (isset(request()->input('master_id'))) {
+            $master_id = request()->input('master_id');
+
+            $users->where('created_by', $master_id);
+        }
         return $users->searchable(['username', 'email'])->orderBy('id', 'desc')->paginate(getPaginate());
     }
 
