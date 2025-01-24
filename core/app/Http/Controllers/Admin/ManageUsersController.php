@@ -228,7 +228,7 @@ class ManageUsersController extends Controller
         $trx = getTrx();
         $amount = $request->amount;
         if ($amount > $master->balance) {
-            $notify[] = ['error', $master->username . ' doesn\'t have sufficient balance.'];
+            $notify[] = ['error', $master->mastername . ' doesn\'t have sufficient balance.'];
             return back()->withNotify($notify);
         }
         $transaction = new Transaction();
