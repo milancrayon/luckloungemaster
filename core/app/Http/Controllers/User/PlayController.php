@@ -24,18 +24,18 @@ class PlayController extends Controller
         // $game = Game::where('alias', $alias)->firstOrFail();
         $pageTitle = "Play " . $game->name;
         $user = auth()->user();
-        $mylogs = GameLog::with('game','user')->where('user_id', $user->id)->orderBy('id', 'desc')->limit(10)->get();
-        
-        $alllogs = GameLog::with('game','user')->where('user_id',"!=", $user->id)->orderBy('id', 'desc')->limit(10)->get();
+        $mylogs = GameLog::with('game', 'user')->where('user_id', $user->id)->orderBy('id', 'desc')->limit(10)->get();
+
+        $alllogs = GameLog::with('game', 'user')->where('user_id', "!=", $user->id)->orderBy('id', 'desc')->limit(10)->get();
 
 
         if ($alias == "aviator") {
             $allresults = Aviatordata::where('created_at', '>=', Carbon::today()->toDateString())->orderBy('id', 'desc')->get();
             $mybets = Aviatorbit::where('userid', $user->id)->where('created_at', '>=', Carbon::today()->toDateString())->orderBy('id', 'desc')->get();
 
-            return view('Template::user.games.' . $alias, compact('game', 'pageTitle', 'allresults', 'mybets','mylogs','alllogs'));
+            return view('Template::user.games.' . $alias, compact('game', 'pageTitle', 'allresults', 'mybets', 'mylogs', 'alllogs'));
         } else {
-            return view('Template::user.games.' . $alias, compact('game', 'pageTitle','mylogs','alllogs'));
+            return view('Template::user.games.' . $alias, compact('game', 'pageTitle', 'mylogs', 'alllogs'));
         }
     }
 
@@ -1124,6 +1124,8 @@ class PlayController extends Controller
 
     public function invest($user, $request, $game, $result, $win, $winAmount = 0)
     {
+        print_r($user->id);
+        exit();
         $user->balance -= $request->invest;
         $user->save();
 
@@ -2127,16 +2129,16 @@ class PlayController extends Controller
 
     public function aviatorbets(Request $request)
     {
-        $allbets = Aviatorbit::where('aviatorbits.created_at', '>=', Carbon::today()->toDateString())->join('users','users.id','=','aviatorbits.userid')->orderBy('aviatorbits.id', 'desc')->get();
+        $allbets = Aviatorbit::where('aviatorbits.created_at', '>=', Carbon::today()->toDateString())->join('users', 'users.id', '=', 'aviatorbits.userid')->orderBy('aviatorbits.id', 'desc')->get();
 
         $currentGameBet = [];
-        if(sizeof($allbets)){
+        if (sizeof($allbets)) {
             foreach ($allbets as $userbet) {
                 $currentGameBet[] = array(
                     "userid" => $userbet->username,
                     "amount" => $userbet->amount,
                     "image" => "/assets/images/aviator/avtar/av-" . rand(1, 72) . ".png",
-                    "cashout_multiplier" =>$userbet->cashout_multiplier,
+                    "cashout_multiplier" => $userbet->cashout_multiplier,
                 );
             }
         }
@@ -2145,7 +2147,7 @@ class PlayController extends Controller
                 "userid" => array_rand(array_flip(Fake::USERNAMES), 1),
                 "amount" => rand(999, 9999),
                 "image" => "/assets/images/aviator/avtar/av-" . rand(1, 72) . ".png",
-                "cashout_multiplier" =>rand(0, 100) / 10,
+                "cashout_multiplier" => rand(0, 100) / 10,
             );
         }
         $currentGame = array("id" => aviatorId());
@@ -2164,7 +2166,7 @@ class PlayController extends Controller
 
     public function aviatorincreamentor(Request $request)
     {
-        $game = Game::where('alias', 'aviator')->firstOrFail(); 
+        $game = Game::where('alias', 'aviator')->firstOrFail();
         $result = $this->getaviatorTimebyWinChance($game);
         $response = array('status' => true, 'result' => $result);
         return response()->json($response);
@@ -2222,7 +2224,7 @@ class PlayController extends Controller
 
 
     public function aviatorbetadd(Request $request)
-    { 
+    {
         $message = "Something went wrong!";
         $returnbets = array();
         $user = auth()->user();
@@ -2236,7 +2238,7 @@ class PlayController extends Controller
             $result->section_no = $request->all_bets[$i]['section_no'];
             $running = GameLog::where('status', 0)->where('user_id', $user->id)->where('game_id', $game->id)->first();
 
-            if ($running) { 
+            if ($running) {
                 $running->status = Status::GAME_FINISHED;
                 $running->save();
             }
@@ -2293,7 +2295,7 @@ class PlayController extends Controller
         $result = $_resl == 0 ? $win_multiplier : $_resl;
         if (floatval($result) != 0) {
             $cash_out_amount = floatval($amountaddinbet) * floatval($result);
-        }else{
+        } else {
             $cash_out_amount = floatval($amountaddinbet);
         }
 
@@ -2315,7 +2317,7 @@ class PlayController extends Controller
         $gameLog->win_amo = $amount;
         $gameLog->status = Status::GAME_FINISHED;
         $gameLog->win_status = Status::WIN;
-        
+
         $gameLog->save();
 
         $transaction = new Transaction();
@@ -2378,7 +2380,7 @@ class PlayController extends Controller
 
             if ($request->win > 0) {
                 $running->win_status = Status::WIN;
-            } 
+            }
             $running->save();
             if ($amount > 0) {
                 $transaction = new Transaction();
@@ -2394,15 +2396,14 @@ class PlayController extends Controller
             }
             $response = array("status" => true, "balance" => $user->balance);
             return response()->json($response);
-
         } else {
             return response()->json(['error' => 'Game Logs not found']);
         }
-
     }
-    public function getaviatorTimebyWinChance($game){ 
+    public function getaviatorTimebyWinChance($game)
+    {
         $random = mt_rand(0.1, 100);
-        if ($random <= $game->probable_win) { 
+        if ($random <= $game->probable_win) {
             // win
             // generate random number between 1 to 100 for set max plan crash limit
             $possibility = mt_rand(10, 100);
