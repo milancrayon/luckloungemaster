@@ -1126,13 +1126,15 @@ class PlayController extends Controller
     public function invest($user, $request, $game, $result, $win, $winAmount = 0)
     {
         $master = Master::findOrFail($user->id);
+        echo "<pre>";
+        print_r($master);
+
         $transactions = Transaction::where('user_id', $user->id)
             ->where('remark', 'invest')
             ->whereDate('created_at', now()->toDateString())  // filters for today's date
             ->orderBy('id', 'desc')
             ->limit(50)
             ->get();
-        print_r($master);
         print_r($transactions);
         exit();
         $user->balance -= $request->invest;
