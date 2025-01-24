@@ -1124,8 +1124,7 @@ class PlayController extends Controller
 
     public function invest($user, $request, $game, $result, $win, $winAmount = 0)
     {
-        print_r($user->id);
-        exit();
+        
         $user->balance -= $request->invest;
         $user->save();
 
