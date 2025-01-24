@@ -109,41 +109,10 @@ class GameController extends Controller
     public function gameLog(Request $request)
     {
         $pageTitle = "Game Logs";
-        // $logs      = GameLog::where('status', Status::ENABLE)->searchable(['user:username', 'user:email', 'user:lastname', 'user:firstname', 'game:name'])->filter(['win_status'])->with('user', 'game')->latest('id')->paginate(getPaginate());
-        $searchTerm = request('search'); // Get search term from the request
-        $winStatus = request('win_status'); // Get win_status from the request if needed
 
-        $logs = GameLog::where('status', Status::ENABLE); // Start by filtering for status
-
-        if ($searchTerm !== null) {
-            // Group the search conditions for 'user' and 'game' into their respective 'whereHas'
-            $logs->where(function ($query) use ($searchTerm) {
-                $query->whereHas('user', function ($query) use ($searchTerm) {
-                    $query->where('username', 'like', '%' . $searchTerm . '%')
-                        ->orWhere('email', 'like', '%' . $searchTerm . '%')
-                        ->orWhere('lastname', 'like', '%' . $searchTerm . '%')
-                        ->orWhere('firstname', 'like', '%' . $searchTerm . '%');
-                })
-                    ->orWhereHas('game', function ($query) use ($searchTerm) {
-                        $query->where('name', 'like', '%' . $searchTerm . '%');
-                    });
-            });
-        }
-
-        if ($winStatus !== null) {
-            $logs->where('win_status', $winStatus); // Apply win_status filter if provided
-        }
-
-        $logs->with('user', 'game') // Eager load 'user' and 'game' relationships
-            ->latest('id') // Order by the latest 'id'
-            ->paginate(getPaginate());
-        // Print the SQL query
+        $logs      = GameLog::where('status', Status::ENABLE)->searchable(['user:username'])->filter(['win_status'])->with('user', 'game')->latest('id')->paginate(getPaginate());
         $sql = $logs->toSql();
-        dd($sql); // Use dd() (dump and die) to print the SQL query and stop execution
-
-        // ->paginate(getPaginate()); // Paginate the results
-
-
+        dd($sql);
         return view('admin.game.log', compact('pageTitle', 'logs'));
     }
 
