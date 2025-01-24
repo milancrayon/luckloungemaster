@@ -113,14 +113,18 @@ class GameController extends Controller
         $searchTerm = request('search'); // Get search term from the request
         $winStatus = request('win_status'); // Get win_status from the request if needed
 
-        $logs = GameLog::where('status', Status::ENABLE)
-            ->orWhere('user.username', 'like', '%' . $searchTerm . '%')
-            ->orWhere('user.email', 'like', '%' . $searchTerm . '%')
-            ->orWhere('user.lastname', 'like', '%' . $searchTerm . '%')
-            ->orWhere('user.firstname', 'like', '%' . $searchTerm . '%')
-            ->orWhere('game.name', 'like', '%' . $searchTerm . '%')
-            ->orWhere('win_status', $winStatus)
-            ->with('user', 'game') // Eager load relationships
+        $logs = GameLog::where('status', Status::ENABLE);
+        if ($winStatus !== null) {
+            $logs->where('user.username', 'like', '%' . $searchTerm . '%');
+            $logs->orWhere('user.email', 'like', '%' . $searchTerm . '%');
+            $logs->orWhere('user.lastname', 'like', '%' . $searchTerm . '%');
+            $logs->orWhere('user.firstname', 'like', '%' . $searchTerm . '%');
+            $logs->orWhere('game.name', 'like', '%' . $searchTerm . '%');
+        }
+        if ($winStatus !== null) {
+            $logs->where('win_status', $winStatus);
+        }
+        $logs->with('user', 'game') // Eager load relationships
             ->latest('id') // Order by latest ID
             ->paginate(getPaginate()); // Paginate the results
 
