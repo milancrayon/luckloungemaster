@@ -27,8 +27,6 @@ class UserController extends Controller {
         $user                      = auth()->user();
         $widget['total_balance']   = $user->balance;
         $widget['total_deposit']   = Deposit::successful()->where('user_id', $user->id)->sum('amount');
-        $widget['total_withdrawn'] = Withdrawal::approved()->where('user_id', $user->id)->sum('amount');
-
         $widget['total_invest'] = GameLog::where('user_id', $user->id)->sum('invest');
         $widget['total_win']    = GameLog::win()->where('user_id', $user->id)->sum('invest');
         $widget['total_loss']   = GameLog::loss()->where('user_id', $user->id)->sum('invest');

@@ -31,17 +31,6 @@
                 <div class="col-xxl-3 col-sm-6">
                     <x-widget
                               style="7"
-                              link="{{ route('admin.withdraw.data.all', $user->id) }}"
-                              title="Withdrawals"
-                              icon="la la-bank"
-                              value="{{ showAmount($totalWithdrawals) }}"
-                              bg="6"
-                              type="2" />
-                </div>
-
-                <div class="col-xxl-3 col-sm-6">
-                    <x-widget
-                              style="7"
                               link="{{ route('admin.report.transaction', $user->id) }}"
                               title="Transactions"
                               icon="las la-exchange-alt"

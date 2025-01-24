@@ -86,17 +86,7 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::post('change-password', 'submitPassword');
             });
 
-            // Withdraw
-            Route::controller('WithdrawController')->prefix('withdraw')->name('withdraw')->group(function () {
-                Route::middleware('kyc')->group(function () {
-                    Route::get('/', 'withdrawMoney');
-                    Route::post('/', 'withdrawStore')->name('.money');
-                    Route::any('view/{id}', 'view')->name('.view');
-                    Route::get('preview', 'withdrawPreview')->name('.preview');
-                    Route::post('preview', 'withdrawSubmit')->name('.submit');
-                });
-                Route::get('history', 'withdrawLog')->name('.history');
-            });
+        
 
             Route::controller('PlayController')->prefix('play')->name('play.')->group(function () {
 
