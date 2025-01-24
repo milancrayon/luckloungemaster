@@ -91,7 +91,7 @@
 <x-search-form placeholder="Username / Email" />
 <form>
     <div class="input-group w-auto">
-        <select name="master_id" class="form-control select2" required>
+        <select name="master_id" class="form-control win-status">
             <option value="">@lang('Select One')</option>
             @foreach ($masters as $master)
             <option value="{{ $master->id }}" @selected(request()->master_id == $master->id)>{{ __($master->mastername) }}</option>
@@ -100,4 +100,12 @@
         <button class="btn btn--primary input-group-text" type="submit"><i class="fa fa-search"></i></button>
     </div>
 </form>
+@endpush
+
+@push('style')
+<style>
+    .win-status {
+        width: 217px !important;
+    }
+</style>
 @endpush
