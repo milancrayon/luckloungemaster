@@ -1161,9 +1161,12 @@ class PlayController extends Controller
             ->get();
         $exposure = $master->exposure;
         $amount = 0;
+        $amount +=  $request->invest;
         foreach ($transactions as $transaction) {
             $amount += $transaction->amount;
         }
+
+
         if ($amount > $exposure) {
             return ['errors' => 'Your place order amount exceeds the allowed balance for today.'];
         }
