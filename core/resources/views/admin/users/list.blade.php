@@ -13,7 +13,7 @@
                                 <th>@lang('Country')</th>
                                 <th>@lang('Joined At')</th>
                                 <th>@lang('Balance')</th>
-                                <th>@lang('Exposure')</th>
+                                <th>@lang('Master')</th>
                                 <th>@lang('Action')</th>
                             </tr>
                         </thead>
@@ -38,14 +38,12 @@
                                 </td>
                                 <td>
                                     <span class="fw-bold">
-
                                         {{ showAmount($user->balance) }}
                                     </span>
                                 </td>
                                 <td>
-                                    {{ showAmount($user->exposure) }}
+                                    {{ $user->created_by}}
                                 </td>
-
                                 <td>
                                     <div class="button--group">
                                         <a href="{{ route('admin.users.detail', $user->id) }}" class="btn btn-sm btn-outline--primary">
@@ -58,6 +56,7 @@
                                         @endif
                                     </div>
                                 </td>
+
                             </tr>
                             @empty
                             <tr>

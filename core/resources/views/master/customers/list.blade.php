@@ -13,7 +13,6 @@
                                 <th>@lang('Country')</th>
                                 <th>@lang('Joined At')</th>
                                 <th>@lang('Balance')</th>
-                                <th>@lang('Exposure')</th>
                                 <th>@lang('Action')</th>
                             </tr>
                         </thead>
@@ -40,9 +39,6 @@
                                     <span class="fw-bold">
                                         {{ showAmount($customer->balance) }}
                                     </span>
-                                </td>
-                                <td>
-                                    {{ showAmount($user->exposure) }}
                                 </td>
                                 <td>
                                     <div class="button--group">
