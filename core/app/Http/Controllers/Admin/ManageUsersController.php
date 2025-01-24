@@ -109,7 +109,7 @@ class ManageUsersController extends Controller
         } else {
             $users = User::query();
         }
-        if (isset(request()->input('master_id'))) {
+        if (null !== request()->input('master_id')) {
             $master_id = request()->input('master_id');
 
             $users->where('created_by', $master_id);
