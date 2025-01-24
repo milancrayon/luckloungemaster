@@ -135,8 +135,11 @@ class GameController extends Controller
         }
 
         $logs->with('user', 'game') // Eager load 'user' and 'game' relationships
-            ->latest('id') // Order by the latest 'id'
-            ->paginate(getPaginate()); // Paginate the results
+            ->latest('id'); // Order by the latest 'id'
+
+        print_r($logs);
+        exit();
+        // ->paginate(getPaginate()); // Paginate the results
 
 
         return view('admin.game.log', compact('pageTitle', 'logs'));
