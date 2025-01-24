@@ -21,9 +21,6 @@ trait UserNotify
             'pendingDepositedUsers'   => 'Pending Deposited Users',
             'rejectedDepositedUsers'  => 'Rejected Deposited Users',
             'topDepositedUsers'     => 'Top Deposited Users',
-            'hasWithdrawUsers'      => 'Withdraw Users',
-            'pendingWithdrawUsers'  => 'Pending Withdraw Users',
-            'rejectedWithdrawUsers' => 'Rejected Withdraw Users',
             'pendingTicketUser'     => 'Pending Ticket Users',
             'answerTicketUser'      => 'Answer Ticket Users',
             'closedTicketUser'      => 'Closed Ticket Users',
@@ -91,27 +88,6 @@ trait UserNotify
         })->withSum(['deposits'=>function($q){
             $q->successful();
         }], 'amount')->orderBy('deposits_sum_amount', 'desc')->take(request()->number_of_top_deposited_user ?? 10);
-    }
-
-    public function scopeHasWithdrawUsers($query)
-    {
-        return $query->whereHas('withdrawals', function ($q) {
-            $q->approved();
-        });
-    }
-
-    public function scopePendingWithdrawUsers($query)
-    {
-        return $query->whereHas('withdrawals', function ($q) {
-            $q->pending();
-        });
-    }
-
-    public function scopeRejectedWithdrawUsers($query)
-    {
-        return $query->whereHas('withdrawals', function ($q) {
-            $q->rejected();
-        });
     }
 
     public function scopePendingTicketUser($query)

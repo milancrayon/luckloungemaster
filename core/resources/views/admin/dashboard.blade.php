@@ -42,156 +42,6 @@
         </div><!-- dashboard-w1 end -->
     </div><!-- row end-->
 
-    <!-- <div class="row mt-2 gy-4">
-        <div class="col-xxl-6">
-            <div class="card box-shadow3 h-100">
-                <div class="card-body">
-                    <h5 class="card-title">@lang('Deposits')</h5>
-                    <div class="widget-card-wrapper">
-
-                        <div class="widget-card bg--success">
-                            <a href="{{ route('admin.deposit.list') }}" class="widget-card-link"></a>
-                            <div class="widget-card-left">
-                                <div class="widget-card-icon">
-                                    <i class="fas fa-hand-holding-usd"></i>
-                                </div>
-                                <div class="widget-card-content">
-                                    <h6 class="widget-card-amount">{{ showAmount($deposit['total_deposit_amount']) }}</h6>
-                                    <p class="widget-card-title">@lang('Total Deposited')</p>
-                                </div>
-                            </div>
-                            <span class="widget-card-arrow">
-                                <i class="las la-angle-right"></i>
-                            </span>
-                        </div>
-
-                        <div class="widget-card bg--warning">
-                            <a href="{{ route('admin.deposit.pending') }}" class="widget-card-link"></a>
-                            <div class="widget-card-left">
-                                <div class="widget-card-icon">
-                                    <i class="fas fa-spinner"></i>
-                                </div>
-                                <div class="widget-card-content">
-                                    <h6 class="widget-card-amount">{{ $deposit['total_deposit_pending'] }}</h6>
-                                    <p class="widget-card-title">@lang('Pending Deposits')</p>
-                                </div>
-                            </div>
-                            <span class="widget-card-arrow">
-                                <i class="las la-angle-right"></i>
-                            </span>
-                        </div>
-
-                        <div class="widget-card bg--danger">
-                            <a href="{{ route('admin.deposit.rejected') }}" class="widget-card-link"></a>
-                            <div class="widget-card-left">
-                                <div class="widget-card-icon">
-                                    <i class="fas fa-ban"></i>
-                                </div>
-                                <div class="widget-card-content">
-                                    <h6 class="widget-card-amount">{{ $deposit['total_deposit_rejected'] }}</h6>
-                                    <p class="widget-card-title">@lang('Rejected Deposits')</p>
-                                </div>
-                            </div>
-                            <span class="widget-card-arrow">
-                                <i class="las la-angle-right"></i>
-                            </span>
-                        </div>
-
-                        <div class="widget-card bg--primary">
-                            <a href="{{ route('admin.deposit.list') }}" class="widget-card-link"></a>
-                            <div class="widget-card-left">
-                                <div class="widget-card-icon">
-                                    <i class="fas fa-percentage"></i>
-                                </div>
-                                <div class="widget-card-content">
-                                    <h6 class="widget-card-amount">{{ showAmount($deposit['total_deposit_charge']) }}</h6>
-                                    <p class="widget-card-title">@lang('Deposited Charge')</p>
-                                </div>
-                            </div>
-                            <span class="widget-card-arrow">
-                                <i class="las la-angle-right"></i>
-                            </span>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xxl-6">
-            <div class="card box-shadow3 h-100">
-                <div class="card-body">
-                    <h5 class="card-title">@lang('Withdrawals')</h5>
-                    <div class="widget-card-wrapper">
-                        <div class="widget-card bg--success">
-                            <a href="{{ route('admin.withdraw.data.all') }}" class="widget-card-link"></a>
-                            <div class="widget-card-left">
-                                <div class="widget-card-icon">
-                                    <i class="lar la-credit-card"></i>
-                                </div>
-                                <div class="widget-card-content">
-                                    <h6 class="widget-card-amount">{{ showAmount($withdrawals['total_withdraw_amount']) }}</h6>
-                                    <p class="widget-card-title">@lang('Total Withdrawn')</p>
-                                </div>
-                            </div>
-                            <span class="widget-card-arrow">
-                                <i class="las la-angle-right"></i>
-                            </span>
-                        </div>
-
-                        <div class="widget-card bg--warning">
-                            <a href="{{ route('admin.withdraw.data.pending') }}" class="widget-card-link"></a>
-                            <div class="widget-card-left">
-                                <div class="widget-card-icon">
-                                    <i class="fas fa-spinner"></i>
-                                </div>
-                                <div class="widget-card-content">
-                                    <h6 class="widget-card-amount">{{ $withdrawals['total_withdraw_pending'] }}</h6>
-                                    <p class="widget-card-title">@lang('Pending Withdrawals')</p>
-                                </div>
-                            </div>
-                            <span class="widget-card-arrow">
-                                <i class="las la-angle-right"></i>
-                            </span>
-                        </div>
-
-                        <div class="widget-card bg--danger">
-                            <a href="{{ route('admin.withdraw.data.rejected') }}" class="widget-card-link"></a>
-                            <div class="widget-card-left">
-                                <div class="widget-card-icon">
-                                    <i class="las la-times-circle"></i>
-                                </div>
-                                <div class="widget-card-content">
-                                    <h6 class="widget-card-amount">{{ $withdrawals['total_withdraw_rejected'] }}</h6>
-                                    <p class="widget-card-title">@lang('Rejected Withdrawals')</p>
-                                </div>
-                            </div>
-                            <span class="widget-card-arrow">
-                                <i class="las la-angle-right"></i>
-                            </span>
-                        </div>
-
-                        <div class="widget-card bg--primary">
-                            <a href="{{ route('admin.withdraw.data.all') }}" class="widget-card-link"></a>
-                            <div class="widget-card-left">
-                                <div class="widget-card-icon">
-                                    <i class="las la-percent"></i>
-                                </div>
-                                <div class="widget-card-content">
-                                    <h6 class="widget-card-amount">{{ showAmount($withdrawals['total_withdraw_charge']) }}</h6>
-                                    <p class="widget-card-title">@lang('Withdrawal Charge')</p>
-                                </div>
-                            </div>
-                            <span class="widget-card-arrow">
-                                <i class="las la-angle-right"></i>
-                            </span>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
 
     <div class="row gy-4 mt-2">
         <div class="col-xxl-3 col-sm-6">
@@ -210,22 +60,7 @@
 
 
     <div class="row mb-none-30 mt-30">
-        <!-- <div class="col-xl-6 mb-30">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex flex-wrap justify-content-between">
-                        <h5 class="card-title">@lang('Deposit & Withdraw Report')</h5>
-
-                        <div id="dwDatePicker" class="border p-1 cursor-pointer rounded">
-                            <i class="la la-calendar"></i>&nbsp;
-                            <span></span> <i class="la la-caret-down"></i>
-                        </div>
-                    </div>
-                    <div id="dwChartArea"> </div>
-                </div>
-            </div>
-        </div> -->
-        <div class="col-xl-6 mb-30">
+            <div class="col-xl-6 mb-30">
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex flex-wrap justify-content-between">
@@ -321,21 +156,7 @@
             $(element).html(startDate.format('MMMM D, YYYY') + ' - ' + endDate.format('MMMM D, YYYY'));
         }
 
-        // let dwChart = barChart(
-        //     document.querySelector("#dwChartArea"),
-        //     @json(__(gs('cur_text'))),
-        //     [{
-        //             name: 'Deposited',
-        //             data: []
-        //         },
-        //         {
-        //             name: 'Withdrawn',
-        //             data: []
-        //         }
-        //     ],
-        //     [],
-        // );
-
+      
         let trxChart = lineChart(
             document.querySelector("#transactionChartArea"),
             [{
@@ -350,29 +171,6 @@
             []
         );
 
-
-        // const depositWithdrawChart = (startDate, endDate) => {
-
-        //     const data = {
-        //         start_date: startDate.format('YYYY-MM-DD'),
-        //         end_date: endDate.format('YYYY-MM-DD')
-        //     }
-
-        //     const url = @json(route('admin.chart.deposit.withdraw'));
-
-        //     $.get(url, data,
-        //         function(data, status) {
-        //             if (status == 'success') {
-        //                 dwChart.updateSeries(data.data);
-        //                 dwChart.updateOptions({
-        //                     xaxis: {
-        //                         categories: data.created_on,
-        //                     }
-        //                 });
-        //             }
-        //         }
-        //     );
-        // }
 
         const transactionChart = (startDate, endDate) => {
 
@@ -408,10 +206,9 @@
         changeDatePickerText('#dwDatePicker span', start, end);
         changeDatePickerText('#trxDatePicker span', start, end);
 
-        // depositWithdrawChart(start, end);
         transactionChart(start, end);
 
-        // $('#dwDatePicker').on('apply.daterangepicker', (event, picker) => depositWithdrawChart(picker.startDate, picker.endDate));
+
         $('#trxDatePicker').on('apply.daterangepicker', (event, picker) => transactionChart(picker.startDate, picker.endDate));
 
         piChart(

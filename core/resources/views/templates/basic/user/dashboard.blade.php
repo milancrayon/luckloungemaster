@@ -50,61 +50,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="col-lg-4 col-md-6 mb-30">
-                    <div class="d-widget dashbaord-widget-card d-widget-deposit">
-                        <div class="d-widget-icon">
-                            <i class="las la-wallet"></i>
-                        </div>
-                        <div class="d-widget-content">
-                            <p>@lang('Total Deposit')</p>
-                            <h2 class="title">{{ showAmount($widget['total_deposit']) }}</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-30">
-                    <div class="d-widget dashbaord-widget-card d-widget-withdraw">
-                        <div class="d-widget-icon">
-                            <i class="las la-hand-holding-usd"></i>
-                        </div>
-                        <div class="d-widget-content">
-                            <p>@lang('Total Withdraw')</p>
-                            <h2 class="title">{{ showAmount($widget['total_withdrawn']) }}</h2>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-30">
-                    <div class="d-widget dashbaord-widget-card d-widget-invest">
-                        <div class="d-widget-icon">
-                            <i class="las la-cash-register"></i>
-                        </div>
-                        <div class="d-widget-content">
-                            <p>@lang('Total Invest')</p>
-                            <h2 class="title">{{ showAmount($widget['total_invest']) }}</h2>
-                        </div>
-                    </div>
-                </div> -->
-            <!-- <div class="col-lg-4 col-md-6 mb-30">
-                <div class="d-widget dashbaord-widget-card d-widget-win">
-                    <div class="d-widget-icon">
-                        <i class="las la-trophy"></i>
-                    </div>
-                    <div class="d-widget-content">
-                        <p>@lang('Total Win')</p>
-                        <h2 class="title">{{ showAmount($widget['total_win']) }}</h2>
-                    </div>
-                </div>
-            </div> -->
-            <!-- <div class="col-lg-4 col-md-6 mb-30">
-                    <div class="d-widget dashbaord-widget-card d-widget-loss">
-                        <div class="d-widget-icon">
-                            <i class="las la-money-bill-alt"></i>
-                        </div>
-                        <div class="d-widget-content">
-                            <p>@lang('Total Loss')</p>
-                            <h2 class="title">{{ showAmount($widget['total_loss']) }}</h2>
-                        </div>
-                    </div>
-                </div> -->
         </div>
         <div class="row justify-content-center">
             @forelse($games as $game)

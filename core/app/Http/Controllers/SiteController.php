@@ -16,10 +16,7 @@ use App\Models\SupportMessage;
 use App\Models\SupportTicket;
 use App\Models\Deposit;
 use App\Models\GameLog;
-use App\Models\Transaction;
 use App\Models\User;
-use App\Models\UserLogin;
-use App\Models\Withdrawal;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
@@ -36,7 +33,6 @@ class SiteController extends Controller
 
         $totalUsers = User::count();
         $totalDeposit = Deposit::successful()->count();
-        $totalWithdrawal = Withdrawal::approved()->count();
         $totalWin = GameLog::win()->count();
 
         $pageTitle = 'Home';
@@ -44,7 +40,7 @@ class SiteController extends Controller
         $seoContents = $sections->seo_content;
 
         $seoImage = @$seoContents->image ? getImage(getFilePath('seo') . '/' . @$seoContents->image, getFileSize('seo')) : null;
-        return view('Template::home', compact('pageTitle', 'sections', 'seoContents', 'seoImage', 'totalUsers', 'totalDeposit', 'totalWithdrawal', 'totalWin'));
+        return view('Template::home', compact('pageTitle', 'sections', 'seoContents', 'seoImage', 'totalUsers', 'totalDeposit', 'totalWin'))
     }
 
     public function pages($slug)

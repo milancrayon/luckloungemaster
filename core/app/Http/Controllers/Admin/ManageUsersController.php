@@ -8,7 +8,6 @@ use App\Models\NotificationLog;
 use App\Models\NotificationTemplate;
 use App\Models\Transaction;
 use App\Models\User;
-use App\Models\Withdrawal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Rules\FileTypeValidate;
@@ -108,10 +107,9 @@ class ManageUsersController extends Controller
         $pageTitle = 'User Detail - '.$user->username;
 
         $totalDeposit = Deposit::where('user_id',$user->id)->successful()->sum('amount');
-        $totalWithdrawals = Withdrawal::where('user_id',$user->id)->approved()->sum('amount');
         $totalTransaction = Transaction::where('user_id',$user->id)->count();
         $countries = json_decode(file_get_contents(resource_path('views/partials/country.json')));
-        return view('admin.users.detail', compact('pageTitle', 'user','totalDeposit','totalWithdrawals','totalTransaction','countries'));
+        return view('admin.users.detail', compact('pageTitle', 'user','totalDeposit','totalTransaction','countries'));
     }
 
 

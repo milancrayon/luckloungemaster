@@ -73,16 +73,6 @@ Route::namespace('Api')->name('api.')->group(function () {
                 Route::get('user/game/log', 'gameLog');
             });
 
-            // Withdraw
-            Route::controller('WithdrawController')->group(function () {
-                Route::middleware('kyc')->group(function () {
-                    Route::get('withdraw-method', 'withdrawMethod');
-                    Route::post('withdraw-request', 'withdrawStore');
-                    Route::post('withdraw-request/confirm', 'withdrawSubmit');
-                });
-                Route::get('withdraw/history', 'withdrawLog');
-            });
-
             // Payment
             Route::controller('PaymentController')->group(function () {
                 Route::get('deposit/methods', 'methods');

@@ -39,28 +39,6 @@
                     </div>
                 </div>
             </div>
-            <!-- <div class="col-md-3 col-6 mb-10">
-                <div class="stat-card">
-                    <div class="stat-card__icon wow fadeInLeft" data-wow-duration="0.5s" data-wow-delay="0.3s">
-                        <i class="las la-credit-card"></i>
-                    </div>
-                    <div class="stat-card__content wow fadeInRight" data-wow-duration="0.5s" data-wow-delay="0.5s">
-                        <h6 class="title">Total Deposit</h6>
-                        <span class="numbers">{{ __(@$totalDeposit) }}</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-6 mb-10">
-                <div class="stat-card">
-                    <div class="stat-card__icon wow fadeInLeft" data-wow-duration="0.5s" data-wow-delay="0.3s">
-                        <i class="las la-download"></i>
-                    </div>
-                    <div class="stat-card__content wow fadeInRight" data-wow-duration="0.5s" data-wow-delay="0.5s">
-                        <h6 class="title">Total Withdraw</h6>
-                        <span class="numbers">{{ __(@$totalWin) }}</span>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
 </section>

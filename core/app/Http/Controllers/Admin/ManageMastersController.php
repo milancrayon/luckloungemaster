@@ -4,12 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Constants\Status;
 use App\Http\Controllers\Controller;
-use App\Models\Deposit;
 use App\Models\NotificationLog;
 use App\Models\NotificationTemplate;
 use App\Models\MastersTransaction;
 use App\Models\Master;
-use App\Models\Withdrawal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Rules\FileTypeValidate;
@@ -104,12 +102,10 @@ class ManageMastersController extends Controller
     {
         $master = Master::findOrFail($id);
         $pageTitle = 'Master Detail - ' . $master->mastername;
-        $totalDeposit = 0;
-        $totalWithdrawals = 0;
         $totalTransaction = MastersTransaction::where('master_id', $master->id)->count();
 
         $countries = json_decode(file_get_contents(resource_path('views/partials/country.json')));
-        return view('admin.masters.detail', compact('pageTitle', 'master', 'totalDeposit', 'totalWithdrawals', 'totalTransaction', 'countries'));
+        return view('admin.masters.detail', compact('pageTitle', 'master', 'totalDeposit',   'countries'));
     }
 
     public function addMasters()
