@@ -109,8 +109,8 @@ class ManageUsersController extends Controller
         } else {
             $users = User::query();
         }
-        $inputValue = $scope->input('master_id');
-        print_r($inputValue);
+        $inputValue = request()->input('master_id');
+        print_r($inputValue);  // For debugging purposes, prints the value of 'master_id'
         exit();
         $users->where('created_by', $user->id);
         return $users->searchable(['username', 'email'])->orderBy('id', 'desc')->paginate(getPaginate());
