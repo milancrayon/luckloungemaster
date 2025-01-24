@@ -61,7 +61,6 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::post('kyc-submit', 'kycSubmit')->name('kyc.submit');
 
                 //Report
-                Route::any('deposit/history', 'depositHistory')->name('deposit.history');
                 Route::get('transactions', 'transactions')->name('transactions');
                 Route::get('referral', 'referrals')->name('referrals');
 
@@ -84,18 +83,7 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::post('change-password', 'submitPassword');
             });
 
-            // Withdraw
-            Route::controller('WithdrawController')->prefix('withdraw')->name('withdraw')->group(function () {
-                Route::middleware('kyc')->group(function () {
-                    Route::get('/', 'withdrawMoney');
-                    Route::post('/', 'withdrawStore')->name('.money');
-                    Route::any('view/{id}', 'view')->name('.view');
-                    Route::get('preview', 'withdrawPreview')->name('.preview');
-                    Route::post('preview', 'withdrawSubmit')->name('.submit');
-                });
-                Route::get('history', 'withdrawLog')->name('.history');
-            });
-
+    
             Route::controller('PlayController')->prefix('play')->name('play.')->group(function () {
 
                 Route::post('aviatorbets', 'aviatorbets')->name('aviatorbets');
@@ -134,14 +122,5 @@ Route::middleware('auth')->name('user.')->group(function () {
             });
         });
 
-        // Payment
-        Route::prefix('deposit')->name('deposit.')->controller('Gateway\PaymentController')->group(function () {
-            Route::any('/', 'deposit')->name('index');
-            Route::any('view/{id}', 'view')->name('view');
-            Route::post('insert', 'depositInsert')->name('insert');
-            Route::get('confirm', 'depositConfirm')->name('confirm');
-            Route::get('manual', 'manualDepositConfirm')->name('manual.confirm');
-            Route::post('manual', 'manualDepositUpdate')->name('manual.update');
-        });
     });
 });

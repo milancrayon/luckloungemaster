@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Lib\FormProcessor;
 use App\Lib\GoogleAuthenticator;
 use App\Models\CommissionLog;
-use App\Models\Deposit;
 use App\Models\DeviceToken;
 use App\Models\Form;
 use App\Models\Game;
@@ -25,19 +24,13 @@ class UserController extends Controller {
         $games                     = Game::active()->get();
         $user                      = auth()->user();
         $widget['total_balance']   = $user->balance;
-        $widget['total_deposit']   = Deposit::successful()->where('user_id', $user->id)->sum('amount');
-
+       
         $widget['total_invest'] = GameLog::where('user_id', $user->id)->sum('invest');
         $widget['total_win']    = GameLog::win()->where('user_id', $user->id)->sum('invest');
         $widget['total_loss']   = GameLog::loss()->where('user_id', $user->id)->sum('invest');
         return view('Template::user.dashboard', compact('pageTitle', 'games', 'widget', 'user'));
     }
 
-    public function depositHistory(Request $request) {
-        $pageTitle = 'Deposit History';
-        $deposits  = auth()->user()->deposits()->searchable(['trx'])->with(['gateway'])->orderBy('id', 'desc')->paginate(getPaginate());
-        return view('Template::user.deposit_history', compact('pageTitle', 'deposits'));
-    }
 
     public function show2faForm() {
         $ga        = new GoogleAuthenticator();
@@ -233,8 +226,7 @@ class UserController extends Controller {
     public function referrals() {
         $pageTitle = 'Referrals';
         $user      = User::where('id', auth()->id())->with('allReferrals')->firstOrFail();
-        $maxLevel  = Referral::where('commission_type', 'deposit')->max('level');
-        return view('Template::user.referrals', compact('pageTitle', 'user', 'maxLevel'));
+        return view('Template::user.referrals', compact('pageTitle', 'user'));
     }
 
     public function gameLog() {

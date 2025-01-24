@@ -55,7 +55,6 @@ Route::namespace('Api')->name('api.')->group(function () {
                 Route::post('kyc-submit', 'kycSubmit');
 
                 //Report
-                Route::any('deposit/history', 'depositHistory');
                 Route::get('transactions', 'transactions');
 
                 Route::post('add-device-token', 'addDeviceToken');
@@ -71,13 +70,6 @@ Route::namespace('Api')->name('api.')->group(function () {
 
                 Route::get('user/referral', 'referrals');
                 Route::get('user/game/log', 'gameLog');
-            });
-
-            // Payment
-            Route::controller('PaymentController')->group(function () {
-                Route::get('deposit/methods', 'methods');
-                Route::post('deposit/insert', 'depositInsert');
-                Route::post('app/payment/confirm', 'appPaymentConfirm');
             });
 
             Route::controller('TicketController')->prefix('ticket')->group(function () {

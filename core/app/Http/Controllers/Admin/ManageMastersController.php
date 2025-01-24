@@ -105,7 +105,7 @@ class ManageMastersController extends Controller
         $totalTransaction = MastersTransaction::where('master_id', $master->id)->count();
 
         $countries = json_decode(file_get_contents(resource_path('views/partials/country.json')));
-        return view('admin.masters.detail', compact('pageTitle', 'master', 'totalDeposit',   'countries'));
+        return view('admin.masters.detail', compact('pageTitle', 'master', 'countries'));
     }
 
     public function addMasters()
@@ -464,113 +464,7 @@ class ManageMastersController extends Controller
         return view('admin.masters.notification_all', compact('pageTitle', 'masters', 'notifyToMaster'));
     }
 
-    public function sendNotificationAll(Request $request)
-    {
-        $request->validate([
-            'via'                          => 'required|in:email,sms,push',
-            'message'                      => 'required',
-            'subject'                      => 'required_if:via,email,push',
-            'start'                        => 'required|integer|gte:1',
-            'batch'                        => 'required|integer|gte:1',
-            'being_sent_to'                => 'required',
-            'cooling_time'                 => 'required|integer|gte:1',
-            'number_of_top_deposited_master' => 'required_if:being_sent_to,topDepositedMasters|integer|gte:0',
-            'number_of_days'               => 'required_if:being_sent_to,notLoginMasters|integer|gte:0',
-            'image'                        => ["nullable", 'image', new FileTypeValidate(['jpg', 'jpeg', 'png'])],
-        ], [
-            'number_of_days.required_if'               => "Number of days field is required",
-            'number_of_top_deposited_master.required_if' => "Number of top deposited master field is required",
-        ]);
-
-        if (!gs('en') && !gs('sn') && !gs('pn')) {
-            $notify[] = ['warning', 'Notification options are disabled currently'];
-            return to_route('admin.dashboard')->withNotify($notify);
-        }
-
-
-        $template = NotificationTemplate::where('act', 'DEFAULT')->where($request->via . '_status', Status::ENABLE)->exists();
-        if (!$template) {
-            $notify[] = ['warning', 'Default notification template is not enabled'];
-            return back()->withNotify($notify);
-        }
-
-        if ($request->being_sent_to == 'selectedMasters') {
-            if (session()->has("SEND_NOTIFICATION")) {
-                $request->merge(['master' => session()->get('SEND_NOTIFICATION')['master']]);
-            } else {
-                if (!$request->master || !is_array($request->master) || empty($request->master)) {
-                    $notify[] = ['error', "Ensure that the master field is populated when sending an email to the designated master group"];
-                    return back()->withNotify($notify);
-                }
-            }
-        }
-
-        $scope          = $request->being_sent_to;
-        $masterQuery      = Master::oldest()->active()->$scope();
-
-        if (session()->has("SEND_NOTIFICATION")) {
-            $totalMasterCount = session('SEND_NOTIFICATION')['total_master'];
-        } else {
-            $totalMasterCount = (clone $masterQuery)->count() - ($request->start - 1);
-        }
-
-
-        if ($totalMasterCount <= 0) {
-            $notify[] = ['error', "Notification recipients were not found among the selected master base."];
-            return back()->withNotify($notify);
-        }
-
-
-        $imageUrl = null;
-
-        if ($request->via == 'push' && $request->hasFile('image')) {
-            if (session()->has("SEND_NOTIFICATION")) {
-                $request->merge(['image' => session()->get('SEND_NOTIFICATION')['image']]);
-            }
-            if ($request->hasFile("image")) {
-                $imageUrl = fileUploader($request->image, getFilePath('push'));
-            }
-        }
-
-        $masters = (clone $masterQuery)->skip($request->start - 1)->limit($request->batch)->get();
-
-        foreach ($masters as $master) {
-            notify($master, 'DEFAULT', [
-                'subject' => $request->subject,
-                'message' => $request->message,
-            ], [$request->via], pushImage: $imageUrl);
-        }
-
-        return $this->sessionForNotification($totalMasterCount, $request);
-    }
-
-
-    private function sessionForNotification($totalMasterCount, $request)
-    {
-        if (session()->has('SEND_NOTIFICATION')) {
-            $sessionData                = session("SEND_NOTIFICATION");
-            $sessionData['total_sent'] += $sessionData['batch'];
-        } else {
-            $sessionData               = $request->except('_token');
-            $sessionData['total_sent'] = $request->batch;
-            $sessionData['total_master'] = $totalMasterCount;
-        }
-
-        $sessionData['start'] = $sessionData['total_sent'] + 1;
-
-        if ($sessionData['total_sent'] >= $totalMasterCount) {
-            session()->forget("SEND_NOTIFICATION");
-            $message = ucfirst($request->via) . " notifications were sent successfully";
-            $url     = route("admin.masters.notification.all");
-        } else {
-            session()->put('SEND_NOTIFICATION', $sessionData);
-            $message = $sessionData['total_sent'] . " " . $sessionData['via'] . "  notifications were sent successfully";
-            $url     = route("admin.masters.notification.all") . "?email_sent=yes";
-        }
-        $notify[] = ['success', $message];
-        return redirect($url)->withNotify($notify);
-    }
-
+  
     public function countBySegment($methodName)
     {
         return Master::active()->$methodName()->count();

@@ -22,7 +22,7 @@
                 </div>
                 <div class="d-widget-content">
                     <p>@lang('Pending Bet')</p>
-                    <h2 class="title">{{  getAmount($widget['pendingBet']) }}</h2>
+                    <h2 class="title">{{ getAmount($widget['pendingBet']) }}</h2>
                 </div>
             </div>
         </div>
@@ -55,13 +55,13 @@
                 </div>
                 <div class="d-widget-content">
                     <p>@lang('Refunded Bet')</p>
-                    <h2 class="title">{{getAmount($widget['refundedBet'])  }}</h2>
+                    <h2 class="title">{{getAmount($widget['refundedBet']) }}</h2>
                 </div>
             </div>
-        </div> 
+        </div>
     </div>
 
-    
+
 
 
     <div class="d-flex justify-content-between align-items-center mt-0 flex-wrap gap-3 pb-3 pt-3">
@@ -101,33 +101,33 @@
 
             <tbody>
                 @forelse ($bets as $bet)
-                    <tr>
-                        <td><span class="fw-bold">{{ __($bet->bet_number) }}</span> </td>
-                        <td>
-                            @php echo $bet->betTypeBadge @endphp
-                        </td>
-                        <td> {{ $bet->bets->count() }} </td>
-                        <td> {{ showAmount($bet->stake_amount) }} </td>
-                        <td> {{ showAmount($bet->return_amount) }} </td>
-                        <td>
-                            @if ($bet->amount_returned)
-                                <span class="badge badge--warning">@lang('Pending')</span>
-                            @else
-                                @php echo $bet->betStatusBadge @endphp
-                            @endif
-                        </td>
-                        <td>
-                            <button class="btn base--bg btn-sm detailBtn" data-amount_returned="{{ $bet->amount_returned }}"
-                                data-bet_details='{{ $bet->bets }}' type="button">
-                                <i class="las la-desktop"></i>
-                            </button>
+                <tr>
+                    <td><span class="fw-bold">{{ __($bet->bet_number) }}</span> </td>
+                    <td>
+                        @php echo $bet->betTypeBadge @endphp
+                    </td>
+                    <td> {{ $bet->bets->count() }} </td>
+                    <td> {{ showAmount($bet->stake_amount) }} </td>
+                    <td> {{ showAmount($bet->return_amount) }} </td>
+                    <td>
+                        @if ($bet->amount_returned)
+                        <span class="badge badge--warning">@lang('Pending')</span>
+                        @else
+                        @php echo $bet->betStatusBadge @endphp
+                        @endif
+                    </td>
+                    <td>
+                        <button class="btn base--bg btn-sm detailBtn" data-amount_returned="{{ $bet->amount_returned }}"
+                            data-bet_details='{{ $bet->bets }}' type="button">
+                            <i class="las la-desktop"></i>
+                        </button>
 
-                        </td>
-                    </tr>
+                    </td>
+                </tr>
                 @empty
-                    <tr>
-                        <td class="text-center" colspan="100%">{{ __($emptyMessage) }}</td>
-                    </tr>
+                <tr>
+                    <td class="text-center" colspan="100%">{{ __($emptyMessage) }}</td>
+                </tr>
                 @endforelse
             </tbody>
         </table>
@@ -165,31 +165,31 @@
 </div>
 @endsection
 @push('script')
-    <script>
-        (function ($) {
-            "use strict";
-            $('.detailBtn').on('click', function (e) {
-                var modal = $('#betDetailModal');
-                modal.find('tbody').html('');
-                var betDetails = $(this).data('bet_details');
-                var betStatus = $(this).data('amount_returned');
-                var tableRow = ``;
-                $.each(betDetails, function (index, detail) {
-                    var status = ``;
-                    if (betStatus) {
+<script>
+    (function($) {
+        "use strict";
+        $('.detailBtn').on('click', function(e) {
+            var modal = $('#betDetailModal');
+            modal.find('tbody').html('');
+            var betDetails = $(this).data('bet_details');
+            var betStatus = $(this).data('amount_returned');
+            var tableRow = ``;
+            $.each(betDetails, function(index, detail) {
+                var status = ``;
+                if (betStatus) {
+                    status = `<span class="badge badge--warning">@lang('Pending')</span>`
+                } else {
+                    if (detail.status == 1) {
+                        status = `<span class="badge badge--success">@lang('Won')</span>`
+                    } else if (detail.status == 2) {
                         status = `<span class="badge badge--warning">@lang('Pending')</span>`
-                    } else {
-                        if (detail.status == 1) {
-                            status = `<span class="badge badge--success">@lang('Won')</span>`
-                        } else if (detail.status == 2) {
-                            status = `<span class="badge badge--warning">@lang('Pending')</span>`
-                        } else if (detail.status == 3) {
-                            status = `<span class="badge badge--danger">@lang('Lose')</span>`
-                        } else if (detail.status == 4) {
-                            status = `<span class="badge badge--info">@lang('Refund')</span>`
-                        }
+                    } else if (detail.status == 3) {
+                        status = `<span class="badge badge--danger">@lang('Lose')</span>`
+                    } else if (detail.status == 4) {
+                        status = `<span class="badge badge--info">@lang('Refund')</span>`
                     }
-                    tableRow += `<tr>
+                }
+                tableRow += `<tr>
                                                         <td data-label="@lang('Game')">
                                                             ${detail.option.question.game.team_one.short_name}
                                                             <span class="text--base px-1">@lang('vs')</span>
@@ -201,10 +201,10 @@
                                                             ${status}
                                                         </td>
                                                     </tr>`
-                });
-                modal.find('tbody').html(tableRow);
-                modal.modal('show');
             });
-        })(jQuery)
-    </script>
+            modal.find('tbody').html(tableRow);
+            modal.modal('show');
+        });
+    })(jQuery)
+</script>
 @endpush

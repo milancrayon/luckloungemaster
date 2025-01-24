@@ -5,7 +5,6 @@ namespace App\Providers;
 use App\Constants\Status;
 use App\Lib\Searchable;
 use App\Models\AdminNotification;
-use App\Models\Deposit;
 use App\Models\Frontend;
 use App\Models\SupportTicket;
 use App\Models\User;
@@ -60,7 +59,6 @@ class AppServiceProvider extends ServiceProvider
                 'kycUnverifiedUsersCount'    => User::kycUnverified()->count(),
                 'kycPendingUsersCount'       => User::kycPending()->count(),
                 'pendingTicketCount'         => SupportTicket::whereIN('status', [Status::TICKET_OPEN, Status::TICKET_REPLY])->count(),
-                'pendingDepositsCount'       => Deposit::pending()->count(),
                 'pendingBetCount'            => Bet::pending()->count(),
                 'bannedMastersCount'           => Master::banned()->count(),
             ]);

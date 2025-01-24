@@ -14,7 +14,6 @@ use App\Models\Page;
 use App\Models\Subscriber;
 use App\Models\SupportMessage;
 use App\Models\SupportTicket;
-use App\Models\Deposit;
 use App\Models\GameLog;
 use App\Models\User;
 use Carbon\Carbon;
@@ -32,7 +31,6 @@ class SiteController extends Controller
         }
 
         $totalUsers = User::count();
-        $totalDeposit = Deposit::successful()->count();
         $totalWin = GameLog::win()->count();
 
         $pageTitle = 'Home';
@@ -40,7 +38,7 @@ class SiteController extends Controller
         $seoContents = $sections->seo_content;
 
         $seoImage = @$seoContents->image ? getImage(getFilePath('seo') . '/' . @$seoContents->image, getFileSize('seo')) : null;
-        return view('Template::home', compact('pageTitle', 'sections', 'seoContents', 'seoImage', 'totalUsers', 'totalDeposit', 'totalWin'))
+        return view('Template::home', compact('pageTitle', 'sections', 'seoContents', 'seoImage', 'totalUsers', 'totalWin'))
     }
 
     public function pages($slug)

@@ -16,8 +16,6 @@ Route::get('flutterwave/{trx}/{type}', 'Flutterwave\ProcessController@ipn')->nam
 Route::post('razorpay', 'Razorpay\ProcessController@ipn')->name('Razorpay');
 Route::post('instamojo', 'Instamojo\ProcessController@ipn')->name('Instamojo');
 Route::get('blockchain', 'Blockchain\ProcessController@ipn')->name('Blockchain');
-Route::post('coinpayments', 'Coinpayments\ProcessController@ipn')->name('Coinpayments');
-Route::post('coinpayments-fiat', 'CoinpaymentsFiat\ProcessController@ipn')->name('CoinpaymentsFiat');
 Route::post('coingate', 'Coingate\ProcessController@ipn')->name('Coingate');
 Route::post('coinbase-commerce', 'CoinbaseCommerce\ProcessController@ipn')->name('CoinbaseCommerce');
 Route::get('mollie', 'Mollie\ProcessController@ipn')->name('Mollie');
@@ -26,8 +24,6 @@ Route::post('mercado-pago', 'MercadoPago\ProcessController@ipn')->name('MercadoP
 Route::post('authorize', 'Authorize\ProcessController@ipn')->name('Authorize');
 Route::get('nmi', 'NMI\ProcessController@ipn')->name('NMI');
 Route::any('btc-pay', 'BTCPay\ProcessController@ipn')->name('BTCPay');
-Route::post('now-payments-hosted', 'NowPaymentsHosted\ProcessController@ipn')->name('NowPaymentsHosted');
-Route::post('now-payments-checkout', 'NowPaymentsCheckout\ProcessController@ipn')->name('NowPaymentsCheckout');
 Route::post('2checkout', 'TwoCheckout\ProcessController@ipn')->name('TwoCheckout');
 Route::any('checkout', 'Checkout\ProcessController@ipn')->name('Checkout');
 Route::post('sslcommerz', 'SslCommerz\ProcessController@ipn')->name('SslCommerz');

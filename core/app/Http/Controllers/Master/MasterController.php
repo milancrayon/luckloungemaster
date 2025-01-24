@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
-use App\Models\Deposit;
 use App\Models\Game;
 use App\Models\GameLog;
 use App\Models\MastersTransaction;
@@ -46,13 +45,7 @@ class MasterController extends Controller
             return collect($item)->count();
         })->sort()->reverse()->take(5);
 
-        $deposit['total_deposit_amount']   = Deposit::successful()->sum('amount');
-        $deposit['total_deposit_pending']  = Deposit::pending()->count();
-        $deposit['total_deposit_rejected'] = Deposit::rejected()->count();
-        $deposit['total_deposit_charge']   = Deposit::successful()->sum('charge');
-
-
-        return view('master.dashboard', compact('pageTitle', 'widget', 'chart', 'deposit'));
+        return view('master.dashboard', compact('pageTitle', 'widget', 'chart'));
     }
 
     public function profile()

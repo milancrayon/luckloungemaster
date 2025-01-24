@@ -13,11 +13,6 @@ class Status {
     const VERIFIED   = 1;
     const UNVERIFIED = 0;
 
-    const PAYMENT_INITIATE = 0;
-    const PAYMENT_SUCCESS  = 1;
-    const PAYMENT_PENDING  = 2;
-    const PAYMENT_REJECT   = 3;
-
     CONST TICKET_OPEN   = 0;
     CONST TICKET_ANSWER = 1;
     CONST TICKET_REPLY  = 2;

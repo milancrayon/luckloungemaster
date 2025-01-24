@@ -118,45 +118,6 @@ Route::middleware('admin')->group(function () {
         Route::post('remove/{id}', 'remove')->name('remove');
         Route::post('send-email', 'sendEmail')->name('send.email');
     });
-
-    // Deposit Gateway
-    Route::name('gateway.')->prefix('gateway')->group(function () {
-        // Automatic Gateway
-        Route::controller('AutomaticGatewayController')->prefix('automatic')->name('automatic.')->group(function () {
-            Route::get('/', 'index')->name('index');
-            Route::get('edit/{alias}', 'edit')->name('edit');
-            Route::post('update/{code}', 'update')->name('update');
-            Route::post('remove/{id}', 'remove')->name('remove');
-            Route::post('status/{id}', 'status')->name('status');
-        });
-
-        // Manual Methods
-        Route::controller('ManualGatewayController')->prefix('manual')->name('manual.')->group(function () {
-            Route::get('/', 'index')->name('index');
-            Route::get('new', 'create')->name('create');
-            Route::post('new', 'store')->name('store');
-            Route::get('edit/{alias}', 'edit')->name('edit');
-            Route::post('update/{id}', 'update')->name('update');
-            Route::post('status/{id}', 'status')->name('status');
-        });
-    });
-
-    // DEPOSIT SYSTEM
-    Route::controller('DepositController')->prefix('deposit')->name('deposit.')->group(function () {
-        Route::get('all/{user_id?}', 'deposit')->name('list');
-        Route::get('pending/{user_id?}', 'pending')->name('pending');
-        Route::get('rejected/{user_id?}', 'rejected')->name('rejected');
-        Route::get('approved/{user_id?}', 'approved')->name('approved');
-        Route::get('successful/{user_id?}', 'successful')->name('successful');
-        Route::get('initiated/{user_id?}', 'initiated')->name('initiated');
-        Route::get('details/{id}', 'details')->name('details');
-        Route::post('reject', 'reject')->name('reject');
-        Route::post('approve/{id}', 'approve')->name('approve');
-
-        Route::get('create/{user_id?}', 'create')->name('create');
-        Route::post('store', 'store')->name('store');
-        Route::post('validateidentifier', 'validateidentifier')->name('validateidentifier');
-    });
     // Report
     Route::controller('ReportController')->prefix('report')->name('report.')->group(function () {
         Route::get('transaction/{user_id?}', 'transaction')->name('transaction');

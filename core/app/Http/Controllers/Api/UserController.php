@@ -22,9 +22,11 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
 
-class UserController extends Controller {
+class UserController extends Controller
+{
 
-    public function dashboard() {
+    public function dashboard()
+    {
         $games         = Game::active()->get();
         $gamesTrending = Game::where('trending', Status::ENABLE)->active()->get();
         $gamesFeatured = Game::where('featured', Status::ENABLE)->active()->get();
@@ -55,7 +57,8 @@ class UserController extends Controller {
         ]);
     }
 
-    public function userDataSubmit(Request $request) {
+    public function userDataSubmit(Request $request)
+    {
         $user = auth()->user();
         if ($user->profile_complete == Status::YES) {
             $notify[] = 'You\'ve already completed your profile';
@@ -112,7 +115,8 @@ class UserController extends Controller {
         ]);
     }
 
-    public function kycForm() {
+    public function kycForm()
+    {
         $user = auth()->user();
         if ($user->kv == Status::KYC_PENDING) {
             $notify[] = 'Your KYC is under review';
@@ -142,7 +146,8 @@ class UserController extends Controller {
         ]);
     }
 
-    public function kycSubmit(Request $request) {
+    public function kycSubmit(Request $request)
+    {
         $form = Form::where('act', 'kyc')->first();
         if (!$form) {
             $notify[] = 'Invalid KYC request';
@@ -184,27 +189,11 @@ class UserController extends Controller {
             'status'  => 'success',
             'message' => ['success' => $notify],
         ]);
-
     }
 
-    public function depositHistory(Request $request) {
-        $deposits = auth()->user()->deposits();
-        if ($request->search) {
-            $deposits = $deposits->where('trx', $request->search);
-        }
-        $deposits = $deposits->with(['gateway'])->orderBy('id', 'desc')->paginate(getPaginate());
-        $notify[] = 'Deposit data';
-        return response()->json([
-            'remark'  => 'deposits',
-            'status'  => 'success',
-            'message' => ['success' => $notify],
-            'data'    => [
-                'deposits' => $deposits,
-            ],
-        ]);
-    }
 
-    public function transactions(Request $request) {
+    public function transactions(Request $request)
+    {
         $remarks      = Transaction::distinct('remark')->get('remark');
         $transactions = Transaction::where('user_id', auth()->id());
 
@@ -242,7 +231,8 @@ class UserController extends Controller {
         ]);
     }
 
-    public function submitProfile(Request $request) {
+    public function submitProfile(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'firstname' => 'required',
             'lastname'  => 'required',
@@ -279,7 +269,8 @@ class UserController extends Controller {
         ]);
     }
 
-    public function submitPassword(Request $request) {
+    public function submitPassword(Request $request)
+    {
         $passwordValidation = Password::min(6);
         if (gs('secure_password')) {
             $passwordValidation = $passwordValidation->mixedCase()->numbers()->symbols()->uncompromised();
@@ -319,7 +310,8 @@ class UserController extends Controller {
         }
     }
 
-    public function gameLog() {
+    public function gameLog()
+    {
         $logs     = GameLog::where('user_id', auth()->id())->where('status', 1)->latest()->with('game')->get();
         $notify[] = 'Game Logs';
         return response()->json([
@@ -332,9 +324,9 @@ class UserController extends Controller {
         ]);
     }
 
-    public function referrals() {
+    public function referrals()
+    {
         $user     = User::where('id', auth()->id())->with('allReferrals')->firstOrFail();
-        $maxLevel = Referral::where('commission_type', 'deposit')->max('level');
 
         $notify[] = 'Referrals Info';
         return response()->json([
@@ -343,12 +335,12 @@ class UserController extends Controller {
             'message' => ['success' => $notify],
             'data'    => [
                 'referral_users' => $user,
-                'level'          => $maxLevel,
             ],
         ]);
     }
 
-    public function addDeviceToken(Request $request) {
+    public function addDeviceToken(Request $request)
+    {
 
         $validator = Validator::make($request->all(), [
             'token' => 'required',
@@ -387,7 +379,8 @@ class UserController extends Controller {
         ]);
     }
 
-    public function show2faForm() {
+    public function show2faForm()
+    {
         $ga        = new GoogleAuthenticator();
         $user      = auth()->user();
         $secret    = $ga->createSecret();
@@ -404,7 +397,8 @@ class UserController extends Controller {
         ]);
     }
 
-    public function create2fa(Request $request) {
+    public function create2fa(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'secret' => 'required',
             'code'   => 'required',
@@ -443,7 +437,8 @@ class UserController extends Controller {
         }
     }
 
-    public function disable2fa(Request $request) {
+    public function disable2fa(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'code' => 'required',
         ]);
@@ -478,7 +473,8 @@ class UserController extends Controller {
         }
     }
 
-    public function pushNotifications() {
+    public function pushNotifications()
+    {
         $notifications = NotificationLog::where('user_id', auth()->id())->where('sender', 'firebase')->orderBy('id', 'desc')->paginate(getPaginate());
         $notify[]      = 'Push notifications';
         return response()->json([
@@ -491,7 +487,8 @@ class UserController extends Controller {
         ]);
     }
 
-    public function pushNotificationsRead($id) {
+    public function pushNotificationsRead($id)
+    {
         $notification = NotificationLog::where('user_id', auth()->id())->where('sender', 'firebase')->find($id);
         if (!$notification) {
             $notify[] = 'Notification not found';
@@ -512,7 +509,8 @@ class UserController extends Controller {
         ]);
     }
 
-    public function userInfo() {
+    public function userInfo()
+    {
         $notify[] = 'User information';
         return response()->json([
             'remark'  => 'user_info',
@@ -524,7 +522,8 @@ class UserController extends Controller {
         ]);
     }
 
-    public function deleteAccount() {
+    public function deleteAccount()
+    {
         $user           = auth()->user();
         $user->username = 'deleted_' . $user->username;
         $user->email    = 'deleted_' . $user->email;

@@ -114,20 +114,7 @@
                                     @if (gs('pn')) checked @endif>
                             </div>
                         </li>
-                        <!-- 
-                            <li class="list-group-item d-flex flex-sm-nowrap justify-content-between align-items-center flex-wrap gap-2">
-                                <div>
-                                    <p class="fw-bold mb-0">@lang('Deposit Referral Bonus')</p>
-                                    <p class="mb-0">
-                                        <small>@lang('If you enable this module, that means users will get the referral commission when his/her child user will make deposits. You can configure the bonus from') <a href="{{ route('admin.referral.index') }}">@lang('Referral Setting.')</a></small>
-                                    </p>
-                                </div>
-                                <div class="form-group">
-                                    <input name="dc" data-width="100%" data-size="large" data-onstyle="-success" data-offstyle="-danger" data-bs-toggle="toggle" data-height="35" data-on="@lang('Enable')" data-off="@lang('Disable')" type="checkbox" @if (gs('dc')) checked @endif>
-                                </div>
-                            </li> -->
-
-                        <li class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
+                                               <li class="list-group-item d-flex flex-wrap flex-sm-nowrap gap-2 justify-content-between align-items-center">
                             <div>
                                 <p class="fw-bold mb-0">@lang('Language Option')</p>
                                 <p class="mb-0">
