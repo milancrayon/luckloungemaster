@@ -1133,7 +1133,11 @@ class PlayController extends Controller
             ->orderBy('id', 'desc')
             ->limit(50)
             ->get();
-        print_r($transactions);
+        $post_balance = 0;
+        foreach ($transactions as $transaction) {
+            $post_balance = $post_balance + $transaction->post_balance;
+        }
+        print_r($post_balance);
         exit();
         $user->balance -= $request->invest;
         $user->save();
