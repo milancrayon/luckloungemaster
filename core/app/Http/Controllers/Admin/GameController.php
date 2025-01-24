@@ -128,8 +128,9 @@ class GameController extends Controller
             ->with('user', 'game') // Eager load relationships
             ->latest('id')
             ->paginate(getPaginate());
-        // $sql = $logs->toSql();
-        // dd($sql);
+        $sql = $logs->toSql();  // Get the raw SQL query
+        $bindings = $logs->getBindings();  // Get the bindings (values for placeholders)
+        dd($sql, $bindings);
         return view('admin.game.log', compact('pageTitle', 'logs'));
     }
 
