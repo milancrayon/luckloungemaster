@@ -41,9 +41,8 @@ Route::namespace('Api')->name('api.')->group(function () {
         Route::post('user-data-submit', 'UserController@userDataSubmit');
 
 
+
         Route::middleware(['check.status'])->group(function () {
-
-
 
             Route::controller('UserController')->group(function () {
                 Route::get('user/dashboard', 'dashboard');
@@ -126,7 +125,6 @@ Route::namespace('Api')->name('api.')->group(function () {
                 Route::post('poker/fold', 'pokerFold');
             });
         });
-
 
         Route::get('logout', 'Auth\LoginController@logout');
     });
