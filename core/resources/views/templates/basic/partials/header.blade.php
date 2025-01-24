@@ -1,7 +1,7 @@
 @php
-    $pages = App\Models\Page::where('tempname', $activeTemplate)
-        ->where('is_default', Status::NO)
-        ->get();
+$pages = App\Models\Page::where('tempname', $activeTemplate)
+->where('is_default', Status::NO)
+->get();
 
 @endphp
 <header class="header">
@@ -19,10 +19,10 @@
                     <ul class="navbar-nav main-menu m-auto">
                         <li><a href="{{ route('home') }}">@lang('Home')</a></li>
                         @foreach ($pages as $k => $data)
-                            @if($k == 2)
-                                <li><a href="{{ route('games') }}">@lang('Games')</a></li>
-                            @endif
-                            <li><a href="{{ route('pages', [$data->slug]) }}">{{ __($data->name) }}</a></li>
+                        @if($k == 2)
+                        <li><a href="{{ route('games') }}">@lang('Games')</a></li>
+                        @endif
+                        <li><a href="{{ route('pages', [$data->slug]) }}">{{ __($data->name) }}</a></li>
                         @endforeach
                         <li><a href="{{ route('blog') }}">@lang('Blog')</a></li>
                         <li><a href="{{ route('contact') }}">@lang('Contact')</a></li>
@@ -31,29 +31,22 @@
                     <div class="nav-right">
                         @include($activeTemplate . 'partials.language')
                         @auth
-                            <a href="{{ route('user.home') }}">
-                                <i class="las la-tachometer-alt" data-bs-toggle="tooltip"
-                                title="@lang('Dashboard')"></i> 
-                                <span>@lang('Dashboard')</span>
-                            </a>
-                            <a href="{{ route('user.logout') }}">
-                                <i class="las la-sign-out-alt" data-bs-toggle="tooltip"
-                                title="@lang('Logout')"></i> 
-                                <span>@lang('Logout')</span>
-                            </a>
+                        <a href="{{ route('user.home') }}">
+                            <i class="las la-tachometer-alt" data-bs-toggle="tooltip"
+                                title="@lang('Dashboard')"></i>
+                            <span>@lang('Dashboard')</span>
+                        </a>
+                        <a href="{{ route('user.logout') }}">
+                            <i class="las la-sign-out-alt" data-bs-toggle="tooltip"
+                                title="@lang('Logout')"></i>
+                            <span>@lang('Logout')</span>
+                        </a>
                         @else
-                            <a href="{{ route('user.login') }}">
-                                <i class="las la-sign-in-alt"  data-bs-toggle="tooltip"
-                                title="@lang('Login')"></i> 
-                                <span>@lang('Login')</span>
-                            </a>
-                            @if (gs('registration'))
-                                <a href="{{ route('user.register') }}">
-                                    <i class="las la-user-plus" data-bs-toggle="tooltip"
-                                    title="@lang('Register')"></i> 
-                                    <span>@lang('Register')</span>
-                                </a>
-                            @endif
+                        <a href="{{ route('user.login') }}">
+                            <i class="las la-sign-in-alt" data-bs-toggle="tooltip"
+                                title="@lang('Login')"></i>
+                            <span>@lang('Login')</span>
+                        </a>
                         @endauth
 
                         @include($activeTemplate . 'partials.search')
