@@ -109,7 +109,7 @@ class ManageUsersController extends Controller
         } else {
             $users = User::query();
         }
-        return $users->searchable(['username', 'email', 'created_by'])->orderBy('id', 'desc')->paginate(getPaginate());
+        return $users->searchable(['username', 'email'])->orderBy('id', 'desc')->paginate(getPaginate());
     }
 
     protected function masterData()
