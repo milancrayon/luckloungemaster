@@ -107,7 +107,8 @@ class LoginController extends Controller
     public function findUsername()
     {
         $login = request()->input('mastername');
-
+        print_r($login);
+        exit();
         $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'mastername';
         request()->merge([$fieldType => $login]);
         return $fieldType;
