@@ -71,7 +71,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>@lang('Email') </label>
-                                <input class="form-control" type="email" name="email" value="{{ $master->email }}" required>
+                                <input class="form-control" type="email" name="email" value="{{ $master->email }}" required disabled>
                             </div>
                         </div>
 
