@@ -27,6 +27,7 @@ class LoginController extends Controller
      * @var string
      */
     public $redirectTo = 'master';
+    protected $mastername;
 
     public function __construct()
     {
