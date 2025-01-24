@@ -31,7 +31,6 @@ class GeneralSettingController extends Controller {
             'timezone'        => 'required|integer',
             'currency_format' => 'required|in:1,2,3',
             'paginate_number' => 'required|integer',
-            'register_bonus'  => 'required|numeric|gt:0',
             'single_bet_min_limit' => 'required|numeric|gt:0',
             'single_bet_max_limit' => 'required|numeric|gt:single_bet_min_limit',
             'multi_bet_min_limit'  => 'required|numeric|gt:0',
@@ -49,7 +48,6 @@ class GeneralSettingController extends Controller {
         $general->base_color      = str_replace('#', '', $request->base_color);
         $general->secondary_color = str_replace('#', '', $request->secondary_color);
         $general->currency_format = $request->currency_format;
-        $general->register_bonus  = $request->register_bonus;
         $general->single_bet_min_limit = $request->single_bet_min_limit;
         $general->single_bet_max_limit = $request->single_bet_max_limit;
         $general->multi_bet_min_limit  = $request->multi_bet_min_limit;
@@ -78,7 +76,6 @@ class GeneralSettingController extends Controller {
         $general->pn              = $request->pn ? Status::ENABLE : Status::DISABLE;
         $general->force_ssl       = $request->force_ssl ? Status::ENABLE : Status::DISABLE;
         $general->secure_password = $request->secure_password ? Status::ENABLE : Status::DISABLE;
-        $general->registration    = $request->registration ? Status::ENABLE : Status::DISABLE;
         $general->agree           = $request->agree ? Status::ENABLE : Status::DISABLE;
         $general->multi_language  = $request->multi_language ? Status::ENABLE : Status::DISABLE;
         $general->dc              = $request->dc ? Status::ENABLE : Status::DISABLE;

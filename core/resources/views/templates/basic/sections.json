@@ -245,20 +245,6 @@
             "subtitle": "text"
         }
     },
-    "register": {
-        "name": "Register Page",
-        "builder": true,
-        "no_selection": true,
-        "content": {
-            "images": {
-                "image": {
-                    "size": "1920x960"
-                }
-            },
-            "title": "text",
-            "subtitle": "text"
-        }
-    },
     "contact_us": {
         "builder": true,
         "no_selection": true,

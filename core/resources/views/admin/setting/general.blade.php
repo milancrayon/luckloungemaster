@@ -96,16 +96,6 @@
                         </div>
                         <div class="col-xl-4 col-sm-6">
                             <div class="form-group">
-                                <label>@lang('Register Bonus')</label>
-                                <div class="input-group">
-                                    <input class="form-control" name="register_bonus" type="number"
-                                        value="{{ getAmount(gs('register_bonus')) }}" step="any" required>
-                                    <span class="input-group-text">{{ gs('cur_text') }}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-sm-6">
-                            <div class="form-group">
                                 <label>@lang('Single Bet Minimum Limit')</label>
                                 <div class="input-group">
                                     <input class="form-control" name="single_bet_min_limit" type="number"

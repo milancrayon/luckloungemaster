@@ -12,21 +12,25 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Hash;
 use Socialite;
 
-class SocialLogin {
+class SocialLogin
+{
     private $provider;
     private $fromApi;
 
-    public function __construct($provider, $fromApi = false) {
+    public function __construct($provider, $fromApi = false)
+    {
         $this->provider = $provider;
         $this->fromApi  = $fromApi;
         $this->configuration();
     }
 
-    public function redirectDriver() {
+    public function redirectDriver()
+    {
         return Socialite::driver($this->provider)->redirect();
     }
 
-    private function configuration() {
+    private function configuration()
+    {
         $provider      = $this->provider;
         $configuration = gs('socialite_credentials')->$provider;
         $provider      = $this->fromApi && $provider == 'linkedin' ? 'linkedin-openid' : $provider;
@@ -38,7 +42,8 @@ class SocialLogin {
         ]);
     }
 
-    public function login() {
+    public function login()
+    {
         $provider = $this->provider;
         $provider = $this->fromApi && $provider == 'linkedin' ? 'linkedin-openid' : $provider;
         $driver   = Socialite::driver($provider);
@@ -82,7 +87,8 @@ class SocialLogin {
         return $redirection ? $redirection : to_route('user.home');
     }
 
-    private function createUser($user, $provider) {
+    private function createUser($user, $provider)
+    {
         $general  = gs();
         $password = getTrx(8);
 
@@ -138,7 +144,8 @@ class SocialLogin {
         return $user;
     }
 
-    private function loginLog($user) {
+    private function loginLog($user)
+    {
         //Login Log Create
         $ip        = getRealIP();
         $exist     = UserLogin::where('user_ip', $ip)->first();
