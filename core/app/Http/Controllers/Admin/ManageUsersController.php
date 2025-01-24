@@ -115,7 +115,7 @@ class ManageUsersController extends Controller
     protected function masterData()
     {
         $masters = Master::query();
-        return $masters->searchable(['username', 'email'])->orderBy('id', 'desc')->paginate(getPaginate());
+        return $masters->orderBy('id', 'desc')->paginate(getPaginate());
     }
 
 
