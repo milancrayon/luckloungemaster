@@ -110,7 +110,7 @@ class GameController extends Controller
     {
         $pageTitle = "Game Logs";
         // $logs      = GameLog::where('status', Status::ENABLE)->searchable(['user:username', 'user:email', 'user:lastname', 'user:firstname', 'game:name'])->filter(['win_status'])->with('user', 'game')->latest('id')->paginate(getPaginate());
-        $logs      = GameLog::where('status', Status::ENABLE)
+        $logs = GameLog::where('status', Status::ENABLE)
             ->whereHas('user', function ($query) {
                 $query->where(function ($q) {
                     $q->where('firstname', 'like', '%' . request('search') . '%')
@@ -122,10 +122,14 @@ class GameController extends Controller
             ->whereHas('game', function ($query) {
                 $query->where('name', 'like', '%' . request('search') . '%');
             })
-            ->filter(['win_status']) // Apply additional filter for win_status if needed
+            ->filter(['win_status'])
             ->with('user', 'game')
             ->latest('id')
             ->paginate(getPaginate());
+
+        // Print the query
+        dd($logs->toSql());
+
         return view('admin.game.log', compact('pageTitle', 'logs'));
     }
 
