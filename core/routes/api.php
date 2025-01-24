@@ -41,6 +41,10 @@ Route::namespace('Api')->name('api.')->group(function () {
         Route::post('user-data-submit', 'UserController@userDataSubmit');
         Route::controller('AuthorizationController')->group(function () {
             Route::get('authorization', 'authorization');
+            Route::get('resend-verify/{type}', 'sendVerifyCode');
+            Route::post('verify-email', 'emailVerification');
+            Route::post('verify-mobile', 'mobileVerification');
+            Route::post('verify-g2fa', 'g2faVerification');
         });
 
         Route::middleware(['check.status'])->group(function () {
