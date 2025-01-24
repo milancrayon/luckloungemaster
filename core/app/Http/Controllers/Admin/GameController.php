@@ -111,14 +111,14 @@ class GameController extends Controller
         $pageTitle = "Game Logs";
         // $logs      = GameLog::where('status', Status::ENABLE)->searchable(['user:username', 'user:email', 'user:lastname', 'user:firstname', 'game:name'])->filter(['win_status'])->with('user', 'game')->latest('id')->paginate(getPaginate());
         $logs      = GameLog::where('status', Status::ENABLE)
-            ->whereHas('users', function ($query) {
+            ->whereHas('user', function ($query) {
                 // Search within the 'user' model's 'firstname' and 'lastname' fields
                 $query->where('firstname', 'like', '%' . request('search') . '%')
                     ->orWhere('lastname', 'like', '%' . request('search') . '%')
                     ->orWhere('email', 'like', '%' . request('search') . '%')
                     ->orWhere('username', 'like', '%' . request('search') . '%');
             })
-            ->whereHas('games', function ($query) {
+            ->whereHas('game', function ($query) {
                 // Search within the 'game' model's 'name' field
                 $query->where('name', 'like', '%' . request('search') . '%');
             })
