@@ -27,13 +27,6 @@ class LoginController extends Controller
      * @var string
      */
     public $redirectTo = 'master';
-    protected $mastername;
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->mastername = $this->findUsername();
-    }
 
     /**
      * Show the application's login form.
@@ -83,10 +76,11 @@ class LoginController extends Controller
             $this->fireLockoutEvent($request);
             return $this->sendLockoutResponse($request);
         }
-
-        if ($this->attemptLogin($request)) {
+        // Check if the input is an email or username and attempt login accordingly
+        if ($this->attemptLoginWithUsernameOrEmail($request)) {
             return $this->sendLoginResponse($request);
         }
+
 
         // If the login attempt was unsuccessful we will increment the number of attempts
         // to login and redirect the user back to the login form. Of course, when this
@@ -104,13 +98,19 @@ class LoginController extends Controller
     }
 
 
-    public function findUsername()
+    // Custom method to check login by username or email
+    protected function attemptLoginWithUsernameOrEmail(Request $request)
     {
-        $login = request()->input('mastername');
-        print_r($login);
-        exit();
-        $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'mastername';
-        request()->merge([$fieldType => $login]);
-        return $fieldType;
+        // Determine if the input is an email
+        $login = $request->input('mastername'); // Assuming the field name for username/email is 'login'
+
+        // Check if it's an email or username
+        $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'mastername';
+
+        // Attempt login using either email or username
+        return $this->guard()->attempt(
+            [$field => $login, 'password' => $request->input('password')],
+            $request->filled('remember')
+        );
     }
 }
