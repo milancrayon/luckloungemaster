@@ -10,14 +10,17 @@ use App\Models\GuessBonus;
 use App\Rules\FileTypeValidate;
 use Illuminate\Http\Request;
 
-class GameController extends Controller {
-    public function index() {
+class GameController extends Controller
+{
+    public function index()
+    {
         $pageTitle = "Games";
         $games     = Game::searchable(['name'])->orderBy('id', 'desc')->get();
         return view('admin.game.index', compact('pageTitle', 'games'));
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
         $game      = Game::findOrFail($id);
         $pageTitle = "Update " . $game->name;
 
@@ -35,7 +38,8 @@ class GameController extends Controller {
         return view('admin.game.' . $view, compact('pageTitle', 'game', 'bonuses'));
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         $request->validate([
             'name'        => 'required',
             'min'         => 'required|numeric',
@@ -88,8 +92,7 @@ class GameController extends Controller {
         $oldImage = $game->image;
 
         if ($request->hasFile('image')) {
-            try
-            {
+            try {
                 $game->image = fileUploader($request->image, getFilePath('game'), getFileSize('game'), $oldImage);
             } catch (\Exception $e) {
                 $notify[] = ['error', 'Could not upload the Image.'];
@@ -103,13 +106,15 @@ class GameController extends Controller {
         return back()->withNotify($notify);
     }
 
-    public function gameLog(Request $request) {
+    public function gameLog(Request $request)
+    {
         $pageTitle = "Game Logs";
-        $logs      = GameLog::where('status', Status::ENABLE)->searchable(['user:username'])->filter(['win_status'])->with('user', 'game')->latest('id')->paginate(getPaginate());
+        $logs      = GameLog::where('status', Status::ENABLE)->searchable(['user:username', 'user:email'])->filter(['win_status'])->with('user', 'game')->latest('id')->paginate(getPaginate());
         return view('admin.game.log', compact('pageTitle', 'logs'));
     }
 
-    public function chanceCreate(Request $request, $alias = null) {
+    public function chanceCreate(Request $request, $alias = null)
+    {
 
         $request->validate([
             'chance'    => 'required|array|min:1',
@@ -146,7 +151,8 @@ class GameController extends Controller {
         return back()->withNotify($notify);
     }
 
-    public function status($id) {
+    public function status($id)
+    {
         $game = Game::findOrFail($id);
 
         if ($game->status == Status::ENABLE) {
@@ -161,7 +167,8 @@ class GameController extends Controller {
         return back()->withNotify($notify);
     }
 
-    public function kenoUpdate(Request $request, $id) {
+    public function kenoUpdate(Request $request, $id)
+    {
         $request->validate([
             'name'              => 'required',
             'min'               => 'required|numeric',
@@ -204,8 +211,7 @@ class GameController extends Controller {
         $game->probable_win = $request->probable;
 
         if ($request->hasFile('image')) {
-            try
-            {
+            try {
                 $game->image = fileUploader($request->image, getFilePath('game'), getFileSize('game'), @$game->image);
             } catch (\Exception $e) {
                 $notify[] = ['error', 'Could not upload the Image.'];
