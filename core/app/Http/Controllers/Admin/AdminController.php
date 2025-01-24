@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Constants\Status;
 use App\Http\Controllers\Controller;
-use App\Lib\CurlRequest;
 use App\Models\AdminNotification;
 use App\Models\Deposit;
 use App\Models\Game;
@@ -12,7 +11,6 @@ use App\Models\GameLog;
 use App\Models\Transaction;
 use App\Models\User;
 use App\Models\UserLogin;
-use App\Models\Withdrawal;
 use App\Rules\FileTypeValidate;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -59,52 +57,6 @@ class AdminController extends Controller
         return view('admin.dashboard', compact('pageTitle', 'widget', 'chart', 'deposit'));
     }
 
-    public function depositAndWithdrawReport(Request $request)
-    {
-
-        $diffInDays = Carbon::parse($request->start_date)->diffInDays(Carbon::parse($request->end_date));
-
-        $groupBy = $diffInDays > 30 ? 'months' : 'days';
-        $format  = $diffInDays > 30 ? '%M-%Y' : '%d-%M-%Y';
-
-        if ($groupBy == 'days') {
-            $dates = $this->getAllDates($request->start_date, $request->end_date);
-        } else {
-            $dates = $this->getAllMonths($request->start_date, $request->end_date);
-        }
-
-        $deposits = Deposit::successful()
-            ->whereDate('created_at', '>=', $request->start_date)
-            ->whereDate('created_at', '<=', $request->end_date)
-            ->selectRaw('SUM(amount) AS amount')
-            ->selectRaw("DATE_FORMAT(created_at, '{$format}') as created_on")
-            ->latest()
-            ->groupBy('created_on')
-            ->get();
-
-
-        $data = [];
-
-        foreach ($dates as $date) {
-            $data[] = [
-                'created_on'  => $date,
-                'deposits'    => getAmount($deposits->where('created_on', $date)->first()?->amount ?? 0)
-            ];
-        }
-
-        $data = collect($data);
-
-        // Monthly Deposit & Withdraw Report Graph
-        $report['created_on'] = $data->pluck('created_on');
-        $report['data']       = [
-            [
-                'name' => 'Deposited',
-                'data' => $data->pluck('deposits'),
-            ],
-        ];
-
-        return response()->json($report);
-    }
 
     public function transactionReport(Request $request)
     {

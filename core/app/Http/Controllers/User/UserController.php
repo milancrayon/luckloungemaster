@@ -15,7 +15,6 @@ use App\Models\GameLog;
 use App\Models\Referral;
 use App\Models\Transaction;
 use App\Models\User;
-use App\Models\Withdrawal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;

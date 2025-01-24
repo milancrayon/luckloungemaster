@@ -141,21 +141,6 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex flex-wrap justify-content-between">
-                        <h5 class="card-title">@lang('Deposit & Withdraw Report')</h5>
-
-                        <div id="dwDatePicker" class="border p-1 cursor-pointer rounded">
-                            <i class="la la-calendar"></i>&nbsp;
-                            <span></span> <i class="la la-caret-down"></i>
-                        </div>
-                    </div>
-                    <div id="dwChartArea"> </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-6 mb-30">
-            <div class="card">
-                <div class="card-body">
-                    <div class="d-flex flex-wrap justify-content-between">
                         <h5 class="card-title">@lang('Transactions Report')</h5>
 
                         <div id="trxDatePicker" class="border p-1 cursor-pointer rounded">
@@ -248,20 +233,6 @@
             $(element).html(startDate.format('MMMM D, YYYY') + ' - ' + endDate.format('MMMM D, YYYY'));
         }
 
-        let dwChart = barChart(
-            document.querySelector("#dwChartArea"),
-            @json(__(gs('cur_text'))),
-            [{
-                    name: 'Deposited',
-                    data: []
-                },
-                {
-                    name: 'Withdrawn',
-                    data: []
-                }
-            ],
-            [],
-        );
 
         let trxChart = lineChart(
             document.querySelector("#transactionChartArea"),
@@ -314,10 +285,8 @@
         changeDatePickerText('#dwDatePicker span', start, end);
         changeDatePickerText('#trxDatePicker span', start, end);
 
-        depositWithdrawChart(start, end);
         transactionChart(start, end);
 
-        $('#dwDatePicker').on('apply.daterangepicker', (event, picker) => depositWithdrawChart(picker.startDate, picker.endDate));
         $('#trxDatePicker').on('apply.daterangepicker', (event, picker) => transactionChart(picker.startDate, picker.endDate));
 
         piChart(
