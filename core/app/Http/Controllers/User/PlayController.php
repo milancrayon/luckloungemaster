@@ -1137,7 +1137,7 @@ class PlayController extends Controller
         $exposure = $master->exposure;
         $post_balance = 0;
         foreach ($transactions as $transaction) {
-            $post_balance = Numbers($post_balance) + $transaction->post_balance;
+            $post_balance += $transaction->post_balance;
         }
         if ($post_balance > $exposure) {
             return response()->json(['errors' => 'Your place order amount exceeds the allowed balance for today.']);
