@@ -82,7 +82,6 @@ class MasterController extends Controller
         $user->mobile = $request->mobile;
         $user->firstname = $request->firstname;
         $user->lastname = $request->lastname;
-        $user->email = $request->email;
 
         $user->address = $request->address;
         $user->city = $request->city;
