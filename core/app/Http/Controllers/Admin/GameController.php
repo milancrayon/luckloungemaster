@@ -113,18 +113,31 @@ class GameController extends Controller
         $searchTerm = request('search'); // Get search term from the request
         $winStatus = request('win_status'); // Get win_status from the request if needed
 
-        $logs = GameLog::where('status', Status::ENABLE);
+        $logs = GameLog::where('status', Status::ENABLE); // Start by filtering for status
+
         if ($searchTerm !== null) {
-            $logs->where('user.username', 'like', '%' . $searchTerm . '%');
-            $logs->orWhere('user.email', 'like', '%' . $searchTerm . '%');
-            $logs->orWhere('user.lastname', 'like', '%' . $searchTerm . '%');
-            $logs->orWhere('user.firstname', 'like', '%' . $searchTerm . '%');
-            $logs->orWhere('game.name', 'like', '%' . $searchTerm . '%');
+            // Group the search conditions for 'user' and 'game' into their respective 'whereHas'
+            $logs->where(function ($query) use ($searchTerm) {
+                $query->whereHas('user', function ($query) use ($searchTerm) {
+                    $query->where('username', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('email', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('lastname', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('firstname', 'like', '%' . $searchTerm . '%');
+                })
+                    ->orWhereHas('game', function ($query) use ($searchTerm) {
+                        $query->where('name', 'like', '%' . $searchTerm . '%');
+                    });
+            });
         }
+
         if ($winStatus !== null) {
-            $logs->where('win_status', $winStatus);
+            $logs->where('win_status', $winStatus); // Apply win_status filter if provided
         }
-        $logs->with('user', 'game')->latest('id')->paginate(getPaginate());
+
+        $logs->with('user', 'game') // Eager load 'user' and 'game' relationships
+            ->latest('id') // Order by the latest 'id'
+            ->paginate(getPaginate()); // Paginate the results
+
 
         return view('admin.game.log', compact('pageTitle', 'logs'));
     }
