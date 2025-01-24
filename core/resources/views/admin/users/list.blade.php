@@ -91,7 +91,7 @@
 <x-search-form placeholder="Username / Email" />
 <form>
     <div class="input-group w-auto">
-        <select name="master_id" class="form-control win-status">
+        <select name="master_id" class="form-control master_id select2">
             <option value="">@lang('Select One')</option>
             @foreach ($masters as $master)
             <option value="{{ $master->id }}" @selected(request()->master_id == $master->id)>{{ __($master->mastername) }}</option>
@@ -104,7 +104,7 @@
 
 @push('style')
 <style>
-    .win-status {
+    .master_id {
         width: 217px !important;
     }
 </style>

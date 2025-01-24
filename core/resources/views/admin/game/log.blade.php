@@ -92,7 +92,7 @@
 <x-search-form />
 <form>
     <div class="input-group w-auto">
-        <select class="form-control win-status select2" name="win_status">
+        <select class="form-control win-status " name="win_status">
             <option value="">@lang('All')</option>
             <option value="1" @selected(request()->win_status == 1)>@lang('Win')</option>
             <option value="0" @selected(request()->win_status != null && request()->win_status == 0)>@lang('Loss')</option>
