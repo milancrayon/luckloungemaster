@@ -92,7 +92,7 @@
 <form>
     <div class="input-group w-auto">
         <select name="master_id" class="form-control master_id select2">
-            <option value="">@lang('Select One')</option>
+            <option value="">@lang('Select Master')</option>
             @foreach ($masters as $master)
             <option value="{{ $master->id }}" @selected(request()->master_id == $master->id)>{{ __($master->mastername) }}</option>
             @endforeach
@@ -104,7 +104,7 @@
 
 @push('style')
 <style>
-    .master_id ~ .select2-container .select2-selection--single .select2-selection__rendered {
+    .master_id~.select2-container .select2-selection--single .select2-selection__rendered {
         padding-left: 20px;
         padding-right: 36px;
     }
