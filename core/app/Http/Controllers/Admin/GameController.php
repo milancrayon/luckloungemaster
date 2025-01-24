@@ -124,9 +124,7 @@ class GameController extends Controller
         if ($winStatus !== null) {
             $logs->where('win_status', $winStatus);
         }
-        $logs->with('user', 'game') // Eager load relationships
-            ->latest('id') // Order by latest ID
-            ->paginate(getPaginate()); // Paginate the results
+        $logs->with('user', 'game')->latest('id')->paginate(getPaginate());
 
         return view('admin.game.log', compact('pageTitle', 'logs'));
     }
