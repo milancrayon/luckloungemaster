@@ -321,20 +321,20 @@
             $(element).html(startDate.format('MMMM D, YYYY') + ' - ' + endDate.format('MMMM D, YYYY'));
         }
 
-        let dwChart = barChart(
-            document.querySelector("#dwChartArea"),
-            @json(__(gs('cur_text'))),
-            [{
-                    name: 'Deposited',
-                    data: []
-                },
-                {
-                    name: 'Withdrawn',
-                    data: []
-                }
-            ],
-            [],
-        );
+        // let dwChart = barChart(
+        //     document.querySelector("#dwChartArea"),
+        //     @json(__(gs('cur_text'))),
+        //     [{
+        //             name: 'Deposited',
+        //             data: []
+        //         },
+        //         {
+        //             name: 'Withdrawn',
+        //             data: []
+        //         }
+        //     ],
+        //     [],
+        // );
 
         let trxChart = lineChart(
             document.querySelector("#transactionChartArea"),
@@ -351,28 +351,28 @@
         );
 
 
-        const depositWithdrawChart = (startDate, endDate) => {
+        // const depositWithdrawChart = (startDate, endDate) => {
 
-            const data = {
-                start_date: startDate.format('YYYY-MM-DD'),
-                end_date: endDate.format('YYYY-MM-DD')
-            }
+        //     const data = {
+        //         start_date: startDate.format('YYYY-MM-DD'),
+        //         end_date: endDate.format('YYYY-MM-DD')
+        //     }
 
-            const url = @json(route('admin.chart.deposit.withdraw'));
+        //     const url = @json(route('admin.chart.deposit.withdraw'));
 
-            $.get(url, data,
-                function(data, status) {
-                    if (status == 'success') {
-                        dwChart.updateSeries(data.data);
-                        dwChart.updateOptions({
-                            xaxis: {
-                                categories: data.created_on,
-                            }
-                        });
-                    }
-                }
-            );
-        }
+        //     $.get(url, data,
+        //         function(data, status) {
+        //             if (status == 'success') {
+        //                 dwChart.updateSeries(data.data);
+        //                 dwChart.updateOptions({
+        //                     xaxis: {
+        //                         categories: data.created_on,
+        //                     }
+        //                 });
+        //             }
+        //         }
+        //     );
+        // }
 
         const transactionChart = (startDate, endDate) => {
 
@@ -408,10 +408,10 @@
         changeDatePickerText('#dwDatePicker span', start, end);
         changeDatePickerText('#trxDatePicker span', start, end);
 
-        depositWithdrawChart(start, end);
+        // depositWithdrawChart(start, end);
         transactionChart(start, end);
 
-        $('#dwDatePicker').on('apply.daterangepicker', (event, picker) => depositWithdrawChart(picker.startDate, picker.endDate));
+        // $('#dwDatePicker').on('apply.daterangepicker', (event, picker) => depositWithdrawChart(picker.startDate, picker.endDate));
         $('#trxDatePicker').on('apply.daterangepicker', (event, picker) => transactionChart(picker.startDate, picker.endDate));
 
         piChart(

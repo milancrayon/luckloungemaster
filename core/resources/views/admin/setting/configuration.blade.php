@@ -137,7 +137,7 @@
                                            @if (gs('pn')) checked @endif>
                                 </div>
                             </li>
-
+<!-- 
                             <li class="list-group-item d-flex flex-sm-nowrap justify-content-between align-items-center flex-wrap gap-2">
                                 <div>
                                     <p class="fw-bold mb-0">@lang('Deposit Referral Bonus')</p>
@@ -148,7 +148,7 @@
                                 <div class="form-group">
                                     <input name="dc" data-width="100%" data-size="large" data-onstyle="-success" data-offstyle="-danger" data-bs-toggle="toggle" data-height="35" data-on="@lang('Enable')" data-off="@lang('Disable')" type="checkbox" @if (gs('dc')) checked @endif>
                                 </div>
-                            </li>
+                            </li> -->
                             <li class="list-group-item d-flex flex-sm-nowrap justify-content-between align-items-center flex-wrap gap-2">
                                 <div>
                                     <p class="fw-bold mb-0">@lang('Register Bonus')</p>

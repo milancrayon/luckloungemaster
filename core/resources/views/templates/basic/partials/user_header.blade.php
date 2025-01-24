@@ -12,7 +12,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     @auth
                         <ul class="navbar-nav main-menu m-auto"> 
-                            <li class="menu_has_children">
+                            <!-- <li class="menu_has_children">
                                 <a href="#">@lang('Deposit')</a>
                                 <ul class="sub-menu">
                                     <li><a href="{{ route('user.deposit.index') }}">@lang('Deposit')</a></li>
@@ -26,7 +26,7 @@
                                     <li><a href="{{ route('user.withdraw.history') }}">@lang('Withdraw Log')</a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li> -->
                             <li><a href="{{ route('user.referrals') }}">@lang('Referrals')</a></li>
                             <li class="menu_has_children">
                                 <a href="#">@lang('Reports')</a>

@@ -16,8 +16,7 @@
                               type="2" />
                 </div>
 
-
-                <div class="col-xxl-3 col-sm-6">
+                <!-- <div class="col-xxl-3 col-sm-6">
                     <x-widget
                               style="7"
                               link="{{ route('admin.deposit.list', $user->id) }}"
@@ -37,7 +36,7 @@
                               value="{{ showAmount($totalWithdrawals) }}"
                               bg="6"
                               type="2" />
-                </div>
+                </div> -->
 
                 <div class="col-xxl-3 col-sm-6">
                     <x-widget

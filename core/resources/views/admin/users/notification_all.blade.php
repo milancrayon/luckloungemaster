@@ -207,15 +207,15 @@
                     fetchUserList();
                     return;
                 }
-                if (methodName == 'TOPDEPOSITEDUSERS') {
-                    $('.input-append').html(`
-                    <div class="form-group">
-                        <label class="required">@lang('Number Of Top Deposited User')</label>
-                        <input class="form-control" type="number" name="number_of_top_deposited_user" >
-                    </div>
-                    `);
-                    return;
-                }
+                // if (methodName == 'TOPDEPOSITEDUSERS') {
+                //     $('.input-append').html(`
+                //     <div class="form-group">
+                //         <label class="required">@lang('Number Of Top Deposited User')</label>
+                //         <input class="form-control" type="number" name="number_of_top_deposited_user" >
+                //     </div>
+                //     `);
+                //     return;
+                // }
 
                 if (methodName == 'NOTLOGINUSERS') {
                     $('.input-append').html(`
@@ -273,7 +273,8 @@
 
             function getUserCount(methodName) {
                 var methodNameUpper = methodName.toUpperCase();
-                if (methodNameUpper == 'SELECTEDUSERS' || methodNameUpper == 'ALLUSERS' || methodNameUpper == 'TOPDEPOSITEDUSERS' ||
+                if (methodNameUpper == 'SELECTEDUSERS' || methodNameUpper == 'ALLUSERS' || 
+                methodNameUpper == 'TOPDEPOSITEDUSERS' ||
                     methodNameUpper == 'NOTLOGINUSERS') {
                     $('.userCount').text(0);
                     $('.userCountText').addClass('d-none');

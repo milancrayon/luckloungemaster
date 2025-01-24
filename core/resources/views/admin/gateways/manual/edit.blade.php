@@ -108,7 +108,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-12">
+                                <!-- <div class="col-lg-12">
                                     <div class="card border--primary mt-3">
 
                                         <h5 class="card-header bg--primary">@lang('Deposit Instruction')</h5>
@@ -119,7 +119,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="col-lg-12">
                                     <div class="submitRequired bg--warning form-change-alert d-none mt-3"><i
                                             class="fas fa-exclamation-triangle"></i>
