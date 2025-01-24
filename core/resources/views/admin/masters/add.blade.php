@@ -90,7 +90,7 @@
                         </div>
                         <div class="col-xl-3 col-md-6">
                             <div class="form-group">
-                                <label>@lang('Amount')</label>
+                                <label>@lang('Balance')</label>
                                 <div class="input-group">
                                     <input type="number" step="any" name="amount" class="form-control" placeholder="@lang('Please provide positive amount')" required>
                                     <div class="input-group-text">{{ __(gs('cur_text')) }}</div>
