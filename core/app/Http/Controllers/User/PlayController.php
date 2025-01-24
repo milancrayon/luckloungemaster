@@ -91,6 +91,8 @@ class PlayController extends Controller
         }
 
         $invest = $this->invest($user, $request, $game, $result, $win);
+        print_r($invest);
+        exit();
         if ($invest['error']) {
             return response()->json($invest);
         }
