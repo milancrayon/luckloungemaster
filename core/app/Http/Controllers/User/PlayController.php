@@ -2410,6 +2410,29 @@ class PlayController extends Controller
         $response = array("isSuccess" => true, "data" => $data, "message" => $message);
         return response()->json($response);
     }
+    public function roulettebetvalidation(Request $request)
+    {
+        $user = auth()->user();
+        $master = Master::findOrFail($user->created_by);
+        $transactions = GameLog::where('user_id', $user->id)
+            ->whereDate('created_at', '>=', Carbon::today()->toDateString())  // filters for today's date
+            ->orderBy('id', 'desc')
+            ->limit(50)
+            ->get();
+        $exposure = $master->exposure;
+        $amount = 0;
+        $amount +=  $request->invest;
+        foreach ($transactions as $transaction) {
+            $amount += $transaction->invest;
+        }
+
+        if ($amount > $exposure) {
+            $response = array("status" => false, "message" =>  "Your place order amount exceeds the allowed balance for today.");
+            return response()->json($response);
+        }
+        $response = array("status" => true, "message" =>  "");
+        return response()->json($response);
+    }
 
     public function roulettebet(Request $request)
     {
