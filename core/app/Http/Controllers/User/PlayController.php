@@ -2315,7 +2315,8 @@ class PlayController extends Controller
                     $win = Status::LOSS;
                     $invest = $this->invest($user, $request, $game, $result, $win);
                     if (isset($invest['error'])) {
-                        $response = array("isSuccess" => false, "data" => [], "message" => $invest['error']);
+                        $data = array();
+                        $response = array("isSuccess" => false, "data" => $data, "message" => $invest['error']);
                     } else {
                         $updateuser = auth()->user();
                         $printAmount = number_format($updateuser->balance, 2, '.', ',');
@@ -2422,7 +2423,7 @@ class PlayController extends Controller
         if ($request->invest < $user->balance && $request->invest <= $game->max_limit && $request->invest >= $game->min_limit) {
             $invest = $this->invest($user, $request, $game, '', 0);
             if (isset($invest['error'])) {
-                return response()->json($invest);
+                return response()->json('error', $invest['error'][0]);
             }
             $response = array("status" => true, "balance" => $user->balance);
             return response()->json($response);
