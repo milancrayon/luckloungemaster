@@ -2109,19 +2109,20 @@ function CGame(b) {
         0 !== t.getCurBet() &&
             (t.getCurBet() < MIN_BET
                 ? (A.show(TEXT_ERROR_MIN_BET), w.enableBetFiches(), w.enableSpin(!0))
-                : $resoinse?.status == false ? "" : E.visible ||
-                    ((E.visible = !0),
-                        C.hideBall(),
-                        B.hide(),
-                        F.hide(),
-                        w.enableSpin(!1),
-                        w.displayAction(TEXT_SPINNING),
-                        $(s_oMain).trigger("bet_placed", t.getCurBet()),
-                        this._startRouletteAnim(),
-                        this._startWheelTopAnim(),
-                        this._startBallSpinAnim(),
-                        this._setState(STATE_GAME_SPINNING),
-                        playSound("wheel_sound", 1, !1)));
+                : $resoinse?.status == false ||
+                E.visible ||
+                ((E.visible = !0),
+                    C.hideBall(),
+                    B.hide(),
+                    F.hide(),
+                    w.enableSpin(!1),
+                    w.displayAction(TEXT_SPINNING),
+                    $(s_oMain).trigger("bet_placed", t.getCurBet()),
+                    this._startRouletteAnim(),
+                    this._startWheelTopAnim(),
+                    this._startBallSpinAnim(),
+                    this._setState(STATE_GAME_SPINNING),
+                    playSound("wheel_sound", 1, !1)));
     }
 };
 this._onSitDown = function () {
