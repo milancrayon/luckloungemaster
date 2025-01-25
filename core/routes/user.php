@@ -48,7 +48,7 @@ Route::middleware('auth')->name('user.')->group(function () {
         Route::post('verify-mobile', 'mobileVerification')->name('verify.mobile');
         Route::post('verify-g2fa', 'g2faVerification')->name('2fa.verify');
     });
-    
+
     Route::middleware(['check.status'])->group(function () {
 
         Route::namespace('User')->group(function () {
@@ -103,6 +103,7 @@ Route::middleware('auth')->name('user.')->group(function () {
 
                 Route::post('roulettebet', 'roulettebet')->name('roulettebet');
                 Route::post('roulettebetupdate', 'roulettebetupdate')->name('roulettebetupdate');
+                Route::post('roulettebetvalidation', 'roulettebetvalidation')->name('roulettebetvalidation');
 
                 Route::get('game/{alias}', 'playGame')->name('game');
                 Route::post('game/invest/{alias}', 'investGame')->name('game.invest');
