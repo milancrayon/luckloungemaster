@@ -767,16 +767,20 @@ function gamegenerate() {
         },
         dataType: "json",
         success: function (data) {
+            for (let i = 0; i < bet_array.length; i++) {
+                bet_array[i].game_id = current_game_data.id;
+            }
+            console.log(result);
+            console.log(bet_array);
             $.ajax({
                 url: '/user/play/roulettebetvalidation',
                 type: "POST",
                 data: {
-                    _token: hash_id
+                    _token: hash_id,
+                    invest: bet_array[0].bet_amount,
                 },
                 dataType: "json",
                 success: function (result) {
-                    console.log(result);
-                    console.log(bet_array);
                     if (result.status) {
                         stage_time_out = 1;
                         if (bet_array.length > 0) {
