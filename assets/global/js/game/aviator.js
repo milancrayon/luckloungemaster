@@ -766,9 +766,7 @@ function gamegenerate() {
         beforeSend: function () {
         },
         dataType: "json",
-        success: function (result) {
-            console.log(result);
-            console.log(bet_array);
+        success: function (data) {
             $.ajax({
                 url: '/user/play/roulettebetvalidation',
                 type: "POST",
@@ -776,13 +774,15 @@ function gamegenerate() {
                     _token: hash_id
                 },
                 dataType: "json",
-                success: function (data) {
+                success: function (result) {
+                    console.log(result);
+                    console.log(bet_array);
                     if (result.isSuccess) {
                         stage_time_out = 1;
                         if (bet_array.length > 0) {
                             place_bet_now();
                         }
-                        current_game_data = result;
+                        current_game_data = data;
                         hide_loading_game();
                         new_game_generated();
                         lets_fly_one();
