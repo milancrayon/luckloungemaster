@@ -63,7 +63,7 @@
             });
 
             $(oMain).on("before_bet_place", function (evt, iTotBet) {  
-                console.log(before_bet_place);
+                console.log('before_bet_place');
                 $.ajaxSetup({
                     headers: {
                         "X-CSRF-TOKEN": "{{ csrf_token() }}",
@@ -86,7 +86,7 @@
             });
 
             $(oMain).on("bet_placed", function (evt, iTotBet) {  
-                console.log(bet_placed);
+                console.log('bet_placed');
                 $.ajaxSetup({
                     headers: {
                         "X-CSRF-TOKEN": "{{ csrf_token() }}",
