@@ -33,6 +33,7 @@
             });
 
             $(oMain).on("start_session", function (evt) {
+                console.log("start_session");
                 if (getParamValue('ctl-arcade') === "true") {
                     parent.__ctlArcadeStartSession();
                 } 
