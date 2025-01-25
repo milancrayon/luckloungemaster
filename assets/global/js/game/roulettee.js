@@ -2121,156 +2121,155 @@ function CGame(b) {
                         this._startBallSpinAnim(),
                         this._setState(STATE_GAME_SPINNING),
                         playSound("wheel_sound", 1, !1)));
-    }
-};
-this._onSitDown = function () {
-    this._setState(STATE_GAME_WAITING_FOR_BET);
-    t.setInfo(TOTAL_MONEY, z);
-    w.refreshMoney(TOTAL_MONEY);
-};
-this._onShowBetOnTable = function (a, b) {
-    var c = a.button,
-        r = a.numbers;
-    d -= a.bet_mult;
-    p.push(a.bet_mult);
-    var e = a.bet_win,
-        f = a.num_fiches;
-    if (b) var g = a.value;
-    else (g = w.getCurFicheSelected()), 0 === q.length && ((l = []), w.disableRebet()), l.push({ button: a.button, numbers: a.numbers, bet_mult: a.bet_mult, bet_win: a.bet_win, num_fiches: a.num_fiches, neighbors: !1, value: g });
-    var h = s_oGameSettings.getFicheValues(g);
-    q.push(e);
-    m.push(f);
-    var k = t.getCurBet();
-    if (0 > t.getCredit() - h * f) A.show(TEXT_ERROR_NO_MONEY_MSG), B.reset();
-    else if (k + h * f > MAX_BET) A.show(TEXT_ERROR_MAX_BET_REACHED), B.reset();
-    else {
-        switch (c) {
-            case "oBetVoisinsZero":
-                t.createPileForVoisinZero(h, g, r, e, f);
-                break;
-            case "oBetTier":
-                t.createPileForTier(h, g, r, e, f);
-                break;
-            case "oBetOrphelins":
-                t.createPileForOrphelins(h, g, r, e, f);
-                break;
-            case "oBetFinalsBet":
-                t.createPileForMultipleNumbers(h, g, r, e, f);
-                break;
-            default:
-                t.addFicheOnTable(h, g, r, e, c);
+    };
+    this._onSitDown = function () {
+        this._setState(STATE_GAME_WAITING_FOR_BET);
+        t.setInfo(TOTAL_MONEY, z);
+        w.refreshMoney(TOTAL_MONEY);
+    };
+    this._onShowBetOnTable = function (a, b) {
+        var c = a.button,
+            r = a.numbers;
+        d -= a.bet_mult;
+        p.push(a.bet_mult);
+        var e = a.bet_win,
+            f = a.num_fiches;
+        if (b) var g = a.value;
+        else (g = w.getCurFicheSelected()), 0 === q.length && ((l = []), w.disableRebet()), l.push({ button: a.button, numbers: a.numbers, bet_mult: a.bet_mult, bet_win: a.bet_win, num_fiches: a.num_fiches, neighbors: !1, value: g });
+        var h = s_oGameSettings.getFicheValues(g);
+        q.push(e);
+        m.push(f);
+        var k = t.getCurBet();
+        if (0 > t.getCredit() - h * f) A.show(TEXT_ERROR_NO_MONEY_MSG), B.reset();
+        else if (k + h * f > MAX_BET) A.show(TEXT_ERROR_MAX_BET_REACHED), B.reset();
+        else {
+            switch (c) {
+                case "oBetVoisinsZero":
+                    t.createPileForVoisinZero(h, g, r, e, f);
+                    break;
+                case "oBetTier":
+                    t.createPileForTier(h, g, r, e, f);
+                    break;
+                case "oBetOrphelins":
+                    t.createPileForOrphelins(h, g, r, e, f);
+                    break;
+                case "oBetFinalsBet":
+                    t.createPileForMultipleNumbers(h, g, r, e, f);
+                    break;
+                default:
+                    t.addFicheOnTable(h, g, r, e, c);
+            }
+            w.refreshMoney(t.getCredit());
+            w.enableSpin(!0);
+            playSound("chip", 1, !1);
         }
+    };
+    this._onShowBetOnTableFromNeighbors = function (a, b) {
+        var c = a.numbers;
+        d -= a.bet_mult;
+        p.push(a.bet_mult);
+        var r = a.bet_win,
+            e = a.num_fiches;
+        b ||
+            (0 === q.length && ((l = []), w.disableRebet()),
+                l.push({ button: a.button, numbers: a.numbers, bet_mult: a.bet_mult, bet_win: a.bet_win, num_fiches: a.num_fiches, value: w.getCurFicheSelected(), num_clicked: a.num_clicked, neighbors: !0 }));
+        q.push(r);
+        m.push(e);
+        var f = s_oGameSettings.getFicheValues(a.value);
+        f * e > t.getCredit() ? (A.show(TEXT_ERROR_NO_MONEY_MSG), B.reset()) : (t.createPileForMultipleNumbers(f, a.value, c, r, e), w.refreshMoney(t.getCredit()), w.enableSpin(!0), playSound("chip", 1, !1));
+    };
+    this._onShowEnlight = function (a) {
+        for (var b = a.numbers, c = 0; c < b.length; c++) n["oEnlight_" + b[c]].show();
+        (a = a.enlight) && n["oEnlight_" + a].show();
+    };
+    this._onHideEnlight = function (a) {
+        for (var b = a.numbers, c = 0; c < b.length; c++) n["oEnlight_" + b[c]].hide();
+        (a = a.enlight) && n["oEnlight_" + a].hide();
+    };
+    this.onClearLastBet = function () {
+        if (0 < p.length) {
+            var a = p.pop();
+            d += a;
+        }
+        0 === p.length && w.enableSpin(!1);
+        t.clearLastBet(q.pop(), m.pop());
         w.refreshMoney(t.getCredit());
-        w.enableSpin(!0);
-        playSound("chip", 1, !1);
-    }
-};
-this._onShowBetOnTableFromNeighbors = function (a, b) {
-    var c = a.numbers;
-    d -= a.bet_mult;
-    p.push(a.bet_mult);
-    var r = a.bet_win,
-        e = a.num_fiches;
-    b ||
-        (0 === q.length && ((l = []), w.disableRebet()),
-            l.push({ button: a.button, numbers: a.numbers, bet_mult: a.bet_mult, bet_win: a.bet_win, num_fiches: a.num_fiches, value: w.getCurFicheSelected(), num_clicked: a.num_clicked, neighbors: !0 }));
-    q.push(r);
-    m.push(e);
-    var f = s_oGameSettings.getFicheValues(a.value);
-    f * e > t.getCredit() ? (A.show(TEXT_ERROR_NO_MONEY_MSG), B.reset()) : (t.createPileForMultipleNumbers(f, a.value, c, r, e), w.refreshMoney(t.getCredit()), w.enableSpin(!0), playSound("chip", 1, !1));
-};
-this._onShowEnlight = function (a) {
-    for (var b = a.numbers, c = 0; c < b.length; c++) n["oEnlight_" + b[c]].show();
-    (a = a.enlight) && n["oEnlight_" + a].show();
-};
-this._onHideEnlight = function (a) {
-    for (var b = a.numbers, c = 0; c < b.length; c++) n["oEnlight_" + b[c]].hide();
-    (a = a.enlight) && n["oEnlight_" + a].hide();
-};
-this.onClearLastBet = function () {
-    if (0 < p.length) {
-        var a = p.pop();
-        d += a;
-    }
-    0 === p.length && w.enableSpin(!1);
-    t.clearLastBet(q.pop(), m.pop());
-    w.refreshMoney(t.getCredit());
-    B.clearLastBet();
-    0 < l.length && l.pop();
-};
-this.onClearAllBets = function () {
-    t.clearAllBets();
-    w.refreshMoney(t.getCredit());
-    w.enableSpin(!1);
-    B.reset();
-    l = [];
-    d = 37;
-};
-this.onRebet = function () {
-    for (var a = 0; a < l.length; a++) !0 === l[a].neighbors ? B.rebet(l[a].num_clicked) : this._onShowBetOnTable(l[a], !0);
-};
-this.onFinalBetShown = function () {
-    F.isVisible() ? F.hide() : F.show();
-};
-this.onOpenNeighbors = function () {
-    F.hide();
-    B.showPanel(w.getCurFicheSelected(), t.getCredit());
-};
-this.onExit = function () {
-    this.unload();
-    s_oMain.gotoMenu();
-    $(s_oMain).trigger("end_session");
-    $(s_oMain).trigger("share_event", t.getCredit());
-};
-this._updateWaitingBet = function () {
-    B.isVisible() ||
-        (0 === TIME_WAITING_BET
-            ? w.displayAction(TEXT_MIN_BET + ": " + MIN_BET + "\n" + TEXT_MAX_BET + ": " + MAX_BET, TEXT_DISPLAY_MSG_WAITING_BET)
-            : ((c += s_iTimeElaps),
-                c > TIME_WAITING_BET ? ((c = 0), this.onSpin()) : w.displayAction(TEXT_MIN_BET + ": " + MIN_BET + "\n" + TEXT_MAX_BET + ": " + MAX_BET, TEXT_DISPLAY_MSG_WAITING_BET + " " + Math.floor((TIME_WAITING_BET - c) / 1e3))));
-};
-this._updateSpinning = function () {
-    c += s_iTimeElaps;
-    C.getCurrentFrame() === NUM_WHEEL_TOP_FRAMES - 1 ? C.playToFrame(1) : C.nextFrame();
-    c > TIME_SPINNING && C.getCurrentFrame() === k && this._rouletteAnimEnded();
-};
-this._updateShowWinner = function () {
-    c += s_iTimeElaps;
-    c > TIME_SHOW_WINNER && ((c = 0), this._setState(STATE_DISTRIBUTE_FICHES));
-};
-this._updateDistributeFiches = function () {
-    c += s_iTimeElaps;
-    if (c > TIME_FICHES_MOV) (c = 0), playSound("fiche_collect", 1, !1), this._resetTable();
-    else for (var a = easeInOutCubic(c, 0, 1, TIME_FICHES_MOV), b = 0; b < x.length; b++) x[b].updatePos(a);
-};
-this.update = function () {
-    if (!1 !== e) {
-        switch (a) {
-            case STATE_GAME_WAITING_FOR_BET:
-                this._updateWaitingBet();
-                break;
-            case STATE_GAME_SPINNING:
-                this._updateSpinning();
-                break;
-            case STATE_GAME_SHOW_WINNER:
-                this._updateShowWinner();
-                break;
-            case STATE_DISTRIBUTE_FICHES:
-                this._updateDistributeFiches();
+        B.clearLastBet();
+        0 < l.length && l.pop();
+    };
+    this.onClearAllBets = function () {
+        t.clearAllBets();
+        w.refreshMoney(t.getCredit());
+        w.enableSpin(!1);
+        B.reset();
+        l = [];
+        d = 37;
+    };
+    this.onRebet = function () {
+        for (var a = 0; a < l.length; a++) !0 === l[a].neighbors ? B.rebet(l[a].num_clicked) : this._onShowBetOnTable(l[a], !0);
+    };
+    this.onFinalBetShown = function () {
+        F.isVisible() ? F.hide() : F.show();
+    };
+    this.onOpenNeighbors = function () {
+        F.hide();
+        B.showPanel(w.getCurFicheSelected(), t.getCredit());
+    };
+    this.onExit = function () {
+        this.unload();
+        s_oMain.gotoMenu();
+        $(s_oMain).trigger("end_session");
+        $(s_oMain).trigger("share_event", t.getCredit());
+    };
+    this._updateWaitingBet = function () {
+        B.isVisible() ||
+            (0 === TIME_WAITING_BET
+                ? w.displayAction(TEXT_MIN_BET + ": " + MIN_BET + "\n" + TEXT_MAX_BET + ": " + MAX_BET, TEXT_DISPLAY_MSG_WAITING_BET)
+                : ((c += s_iTimeElaps),
+                    c > TIME_WAITING_BET ? ((c = 0), this.onSpin()) : w.displayAction(TEXT_MIN_BET + ": " + MIN_BET + "\n" + TEXT_MAX_BET + ": " + MAX_BET, TEXT_DISPLAY_MSG_WAITING_BET + " " + Math.floor((TIME_WAITING_BET - c) / 1e3))));
+    };
+    this._updateSpinning = function () {
+        c += s_iTimeElaps;
+        C.getCurrentFrame() === NUM_WHEEL_TOP_FRAMES - 1 ? C.playToFrame(1) : C.nextFrame();
+        c > TIME_SPINNING && C.getCurrentFrame() === k && this._rouletteAnimEnded();
+    };
+    this._updateShowWinner = function () {
+        c += s_iTimeElaps;
+        c > TIME_SHOW_WINNER && ((c = 0), this._setState(STATE_DISTRIBUTE_FICHES));
+    };
+    this._updateDistributeFiches = function () {
+        c += s_iTimeElaps;
+        if (c > TIME_FICHES_MOV) (c = 0), playSound("fiche_collect", 1, !1), this._resetTable();
+        else for (var a = easeInOutCubic(c, 0, 1, TIME_FICHES_MOV), b = 0; b < x.length; b++) x[b].updatePos(a);
+    };
+    this.update = function () {
+        if (!1 !== e) {
+            switch (a) {
+                case STATE_GAME_WAITING_FOR_BET:
+                    this._updateWaitingBet();
+                    break;
+                case STATE_GAME_SPINNING:
+                    this._updateSpinning();
+                    break;
+                case STATE_GAME_SHOW_WINNER:
+                    this._updateShowWinner();
+                    break;
+                case STATE_DISTRIBUTE_FICHES:
+                    this._updateDistributeFiches();
+            }
+            D.update();
         }
-        D.update();
-    }
-};
-s_oGame = this;
-TOTAL_MONEY = b.money;
-MIN_BET = b.min_bet;
-MAX_BET = b.max_bet;
-TIME_WAITING_BET = b.time_bet;
-TIME_SHOW_WINNER = b.time_winner;
-WIN_OCCURRENCE = b.win_occurrence;
-NUM_HAND_FOR_ADS = b.num_hand_before_ads;
-var H = b.casino_cash;
-this._init();
+    };
+    s_oGame = this;
+    TOTAL_MONEY = b.money;
+    MIN_BET = b.min_bet;
+    MAX_BET = b.max_bet;
+    TIME_WAITING_BET = b.time_bet;
+    TIME_SHOW_WINNER = b.time_winner;
+    WIN_OCCURRENCE = b.win_occurrence;
+    NUM_HAND_FOR_ADS = b.num_hand_before_ads;
+    var H = b.casino_cash;
+    this._init();
 }
 var s_oGame, s_oTweenController, s_oGameSettings;
 function CInterface() {
