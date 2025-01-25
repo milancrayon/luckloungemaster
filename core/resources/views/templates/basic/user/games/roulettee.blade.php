@@ -62,7 +62,6 @@
             });
 
             $(oMain).on("before_bet_place", function (evt, iTotBet, w) {  
-                w.enableBetFiches(), w.enableSpin(!0)
                 $.ajaxSetup({
                     headers: {
                         "X-CSRF-TOKEN": "{{ csrf_token() }}",
@@ -73,16 +72,14 @@
                     invest:iTotBet, 
                 };
                 $.post(url, data, function(response) {
-                    $(s_oMain).trigger("bet_validation_response", response); 
                     if(response.status){ 
-                        w.enableBetFiches(), w.enableSpin(1)
                     }else{
-                        w.enableBetFiches(), w.enableSpin(!0)
                         notify("error", response.message);
                         oMain.gotoMenu();
                         $(oMain).trigger("end_session");
                         $(oMain).trigger("share_event");
                     }
+                    $(s_oMain).trigger("bet_validation_response", response); 
                 });
             });
 
