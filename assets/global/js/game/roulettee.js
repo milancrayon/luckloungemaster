@@ -5,16 +5,16 @@
         a = (function () {
             for (
                 var a,
-                    c = [
-                        "requestFullscreen exitFullscreen fullscreenElement fullscreenEnabled fullscreenchange fullscreenerror".split(" "),
-                        "webkitRequestFullscreen webkitExitFullscreen webkitFullscreenElement webkitFullscreenEnabled webkitfullscreenchange webkitfullscreenerror".split(" "),
-                        "webkitRequestFullScreen webkitCancelFullScreen webkitCurrentFullScreenElement webkitCancelFullScreen webkitfullscreenchange webkitfullscreenerror".split(" "),
-                        "mozRequestFullScreen mozCancelFullScreen mozFullScreenElement mozFullScreenEnabled mozfullscreenchange mozfullscreenerror".split(" "),
-                        "msRequestFullscreen msExitFullscreen msFullscreenElement msFullscreenEnabled MSFullscreenChange MSFullscreenError".split(" "),
-                    ],
-                    h = 0,
-                    d = c.length,
-                    e = {};
+                c = [
+                    "requestFullscreen exitFullscreen fullscreenElement fullscreenEnabled fullscreenchange fullscreenerror".split(" "),
+                    "webkitRequestFullscreen webkitExitFullscreen webkitFullscreenElement webkitFullscreenEnabled webkitfullscreenchange webkitfullscreenerror".split(" "),
+                    "webkitRequestFullScreen webkitCancelFullScreen webkitCurrentFullScreenElement webkitCancelFullScreen webkitfullscreenchange webkitfullscreenerror".split(" "),
+                    "mozRequestFullScreen mozCancelFullScreen mozFullScreenElement mozFullScreenEnabled mozfullscreenchange mozfullscreenerror".split(" "),
+                    "msRequestFullscreen msExitFullscreen msFullscreenElement msFullscreenEnabled MSFullscreenChange MSFullscreenError".split(" "),
+                ],
+                h = 0,
+                d = c.length,
+                e = {};
                 h < d;
                 h++
             )
@@ -56,28 +56,28 @@
         };
     a
         ? (Object.defineProperties(c, {
-              isFullscreen: {
-                  get: function () {
-                      return !!b[a.fullscreenElement];
-                  },
-              },
-              element: {
-                  enumerable: !0,
-                  get: function () {
-                      return b[a.fullscreenElement];
-                  },
-              },
-              enabled: {
-                  enumerable: !0,
-                  get: function () {
-                      return !!b[a.fullscreenEnabled];
-                  },
-              },
-          }),
-          e ? (module.exports = c) : (window.screenfull = c))
+            isFullscreen: {
+                get: function () {
+                    return !!b[a.fullscreenElement];
+                },
+            },
+            element: {
+                enumerable: !0,
+                get: function () {
+                    return b[a.fullscreenElement];
+                },
+            },
+            enabled: {
+                enumerable: !0,
+                get: function () {
+                    return !!b[a.fullscreenEnabled];
+                },
+            },
+        }),
+            e ? (module.exports = c) : (window.screenfull = c))
         : e
-        ? (module.exports = !1)
-        : (window.screenfull = !1);
+            ? (module.exports = !1)
+            : (window.screenfull = !1);
 })();
 var s_iScaleFactor = 1,
     s_bIsIphone = !1;
@@ -98,7 +98,7 @@ function trace(b) {
 }
 function isIOS() {
     var b = "iPad Simulator;iPhone Simulator;iPod Simulator;iPad;iPhone;iPod".split(";");
-    for (-1 !== navigator.userAgent.toLowerCase().indexOf("iphone") && (s_bIsIphone = !0); b.length; ) if (navigator.platform === b.pop()) return !0;
+    for (-1 !== navigator.userAgent.toLowerCase().indexOf("iphone") && (s_bIsIphone = !0); b.length;) if (navigator.platform === b.pop()) return !0;
     return (s_bIsIphone = !1);
 }
 window.addEventListener("orientationchange", onOrientationChange);
@@ -119,16 +119,16 @@ function sizeHandler() {
         e *= multiplier;
         s_bIsIphone
             ? ((canvas = document.getElementById("canvas")),
-              (s_oStage.canvas.width = 2 * b),
-              (s_oStage.canvas.height = 2 * e),
-              (canvas.style.width = b + "px"),
-              (canvas.style.height = e + "px"),
-              (e = Math.min(b / CANVAS_WIDTH, e / CANVAS_HEIGHT)),
-              (s_iScaleFactor = 2 * e),
-              (s_oStage.scaleX = s_oStage.scaleY = 2 * e))
+                (s_oStage.canvas.width = 2 * b),
+                (s_oStage.canvas.height = 2 * e),
+                (canvas.style.width = b + "px"),
+                (canvas.style.height = e + "px"),
+                (e = Math.min(b / CANVAS_WIDTH, e / CANVAS_HEIGHT)),
+                (s_iScaleFactor = 2 * e),
+                (s_oStage.scaleX = s_oStage.scaleY = 2 * e))
             : s_bMobile && !1 === isIOS()
-            ? ($("#canvas").css("width", b + "px"), $("#canvas").css("height", e + "px"))
-            : ((s_oStage.canvas.width = b), (s_oStage.canvas.height = e), (s_iScaleFactor = Math.min(b / CANVAS_WIDTH, e / CANVAS_HEIGHT)), (s_oStage.scaleX = s_oStage.scaleY = s_iScaleFactor));
+                ? ($("#canvas").css("width", b + "px"), $("#canvas").css("height", e + "px"))
+                : ((s_oStage.canvas.width = b), (s_oStage.canvas.height = e), (s_iScaleFactor = Math.min(b / CANVAS_WIDTH, e / CANVAS_HEIGHT)), (s_oStage.scaleX = s_oStage.scaleY = s_iScaleFactor));
         $("#canvas").css("left", f / 2 - b / 2 + "px");
         fullscreenHandler();
     }
@@ -141,8 +141,8 @@ function _checkOrientation(b, e) {
                 ? ($(".orientation-msg-container").css("display", "none"), s_oMain.startUpdate())
                 : ($(".orientation-msg-container").css("display", "block"), s_oMain.stopUpdate())
             : "portrait" === $(".orientation-msg-container").attr("data-orientation")
-            ? ($(".orientation-msg-container").css("display", "none"), s_oMain.startUpdate())
-            : ($(".orientation-msg-container").css("display", "block"), s_oMain.stopUpdate()));
+                ? ($(".orientation-msg-container").css("display", "none"), s_oMain.startUpdate())
+                : ($(".orientation-msg-container").css("display", "block"), s_oMain.stopUpdate()));
 }
 function createBitmap(b, e, f) {
     var a = new createjs.Bitmap(b),
@@ -163,7 +163,7 @@ function randomFloatBetween(b, e, f) {
     return parseFloat(Math.min(b + Math.random() * (e - b), e).toFixed(f));
 }
 function shuffle(b) {
-    for (var e = b.length, f, a; 0 !== e; ) (a = Math.floor(Math.random() * e)), --e, (f = b[e]), (b[e] = b[a]), (b[a] = f);
+    for (var e = b.length, f, a; 0 !== e;) (a = Math.floor(Math.random() * e)), --e, (f = b[e]), (b[e] = b[a]), (b[a] = f);
     return b;
 }
 function roundDecimal(b, e) {
@@ -991,7 +991,7 @@ function CPreloader() {
     this.unload = function () {
         d.removeAllChildren();
     };
-    this._onImagesLoaded = function () {};
+    this._onImagesLoaded = function () { };
     this._onAllImagesLoaded = function () {
         this.attachSprites();
         s_oMain.preloaderReady();
@@ -1127,11 +1127,11 @@ function CMain(b) {
         c.refreshLoader(Math.floor((f / a) * 100));
         f === a && (c.unload(), this.gotoMenu());
     };
-    this._onAllImagesLoaded = function () {};
+    this._onAllImagesLoaded = function () { };
     this.onAllPreloaderImagesLoaded = function () {
         this._loadImages();
     };
-    this.onImageLoadError = function (a) {};
+    this.onImageLoadError = function (a) { };
     this.preloaderReady = function () {
         this._loadImages();
         (!1 !== DISABLE_SOUND_MOBILE && !1 !== s_bMobile) || this._initSounds();
@@ -1761,9 +1761,9 @@ function CMenu() {
         g = s_oSpriteLibrary.getSprite("but_credits");
         SHOW_CREDITS
             ? ((_pStartPosCredits = { x: 10 + g.width / 2, y: g.height / 2 + 10 }),
-              (_oButCredits = new CGfxButton(_pStartPosCredits.x, _pStartPosCredits.y, g, s_oStage)),
-              _oButCredits.addEventListener(ON_MOUSE_UP, this._onCredits, this),
-              (_pStartPosFullscreen = { x: _pStartPosCredits.x + g.width + 10, y: _pStartPosCredits.y }))
+                (_oButCredits = new CGfxButton(_pStartPosCredits.x, _pStartPosCredits.y, g, s_oStage)),
+                _oButCredits.addEventListener(ON_MOUSE_UP, this._onCredits, this),
+                (_pStartPosFullscreen = { x: _pStartPosCredits.x + g.width + 10, y: _pStartPosCredits.y }))
             : (_pStartPosFullscreen = { x: 10 + g.width / 2, y: g.height / 2 + 10 });
         g = window.document;
         var h = g.documentElement;
@@ -1876,7 +1876,7 @@ function CGame(b) {
         A = new CMsgBox();
         var b = new createjs.Graphics().beginFill("rgba(0,0,0,0.01)").drawRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
         E = new createjs.Shape(b);
-        E.on("click", function () {});
+        E.on("click", function () { });
         E.visible = !1;
         s_oStage.addChild(E);
         u = [];
@@ -2099,23 +2099,24 @@ function CGame(b) {
         $(s_oMain).trigger("recharge");
     };
     this.onSpin = function () {
+        $(s_oMain).trigger("before_bet_place", t.getCurBet());
         if (B.isVisible()) B.onExit();
         0 !== t.getCurBet() &&
             (t.getCurBet() < MIN_BET
                 ? (A.show(TEXT_ERROR_MIN_BET), w.enableBetFiches(), w.enableSpin(!0))
                 : E.visible ||
-                  ((E.visible = !0),
-                  C.hideBall(),
-                  B.hide(),
-                  F.hide(),
-                  w.enableSpin(!1),
-                  w.displayAction(TEXT_SPINNING),
-                  $(s_oMain).trigger("bet_placed", t.getCurBet()),
-                  this._startRouletteAnim(),
-                  this._startWheelTopAnim(),
-                  this._startBallSpinAnim(),
-                  this._setState(STATE_GAME_SPINNING),
-                  playSound("wheel_sound", 1, !1)));
+                ((E.visible = !0),
+                    C.hideBall(),
+                    B.hide(),
+                    F.hide(),
+                    w.enableSpin(!1),
+                    w.displayAction(TEXT_SPINNING),
+                    $(s_oMain).trigger("bet_placed", t.getCurBet()),
+                    this._startRouletteAnim(),
+                    this._startWheelTopAnim(),
+                    this._startBallSpinAnim(),
+                    this._setState(STATE_GAME_SPINNING),
+                    playSound("wheel_sound", 1, !1)));
     };
     this._onSitDown = function () {
         this._setState(STATE_GAME_WAITING_FOR_BET);
@@ -2167,7 +2168,7 @@ function CGame(b) {
             e = a.num_fiches;
         b ||
             (0 === q.length && ((l = []), w.disableRebet()),
-            l.push({ button: a.button, numbers: a.numbers, bet_mult: a.bet_mult, bet_win: a.bet_win, num_fiches: a.num_fiches, value: w.getCurFicheSelected(), num_clicked: a.num_clicked, neighbors: !0 }));
+                l.push({ button: a.button, numbers: a.numbers, bet_mult: a.bet_mult, bet_win: a.bet_win, num_fiches: a.num_fiches, value: w.getCurFicheSelected(), num_clicked: a.num_clicked, neighbors: !0 }));
         q.push(r);
         m.push(e);
         var f = s_oGameSettings.getFicheValues(a.value);
@@ -2221,7 +2222,7 @@ function CGame(b) {
             (0 === TIME_WAITING_BET
                 ? w.displayAction(TEXT_MIN_BET + ": " + MIN_BET + "\n" + TEXT_MAX_BET + ": " + MAX_BET, TEXT_DISPLAY_MSG_WAITING_BET)
                 : ((c += s_iTimeElaps),
-                  c > TIME_WAITING_BET ? ((c = 0), this.onSpin()) : w.displayAction(TEXT_MIN_BET + ": " + MIN_BET + "\n" + TEXT_MAX_BET + ": " + MAX_BET, TEXT_DISPLAY_MSG_WAITING_BET + " " + Math.floor((TIME_WAITING_BET - c) / 1e3))));
+                    c > TIME_WAITING_BET ? ((c = 0), this.onSpin()) : w.displayAction(TEXT_MIN_BET + ": " + MIN_BET + "\n" + TEXT_MAX_BET + ": " + MAX_BET, TEXT_DISPLAY_MSG_WAITING_BET + " " + Math.floor((TIME_WAITING_BET - c) / 1e3))));
     };
     this._updateSpinning = function () {
         c += s_iTimeElaps;
@@ -2457,7 +2458,7 @@ function CInterface() {
             d++;
         }
     };
-    this.gameOver = function () {};
+    this.gameOver = function () { };
     this._onBetRelease = function (a) {
         var b = a.numbers,
             c = a.bet_mult,
@@ -2729,45 +2730,45 @@ function CTableController() {
         !1 === s_bMobile && (a.addEventListener(ON_MOUSE_OVER, this._onBetNumberOver, this), a.addEventListener(ON_MOUSE_OUT, this._onBetNumberOut, this));
         for (
             var d = [
-                    { x: 56, y: 162 },
-                    { x: 81, y: 137 },
-                    { x: 104, y: 115 },
-                    { x: 78, y: 181 },
-                    { x: 104, y: 156 },
-                    { x: 129, y: 131 },
-                    { x: 103, y: 197 },
-                    { x: 128, y: 172 },
-                    { x: 152, y: 148 },
-                    { x: 128, y: 215 },
-                    { x: 153, y: 190 },
-                    { x: 176, y: 166 },
-                    { x: 153, y: 233 },
-                    { x: 176, y: 208 },
-                    { x: 201, y: 183 },
-                    { x: 177, y: 253 },
-                    { x: 201, y: 226 },
-                    { x: 226, y: 202 },
-                    { x: 202, y: 271 },
-                    { x: 227, y: 244 },
-                    { x: 251, y: 220 },
-                    { x: 228, y: 289 },
-                    { x: 250, y: 265 },
-                    { x: 275, y: 238 },
-                    { x: 254, y: 310 },
-                    { x: 279, y: 282 },
-                    { x: 302, y: 257 },
-                    { x: 280, y: 330 },
-                    { x: 305, y: 301 },
-                    { x: 328, y: 275 },
-                    { x: 308, y: 348 },
-                    { x: 331, y: 322 },
-                    { x: 354, y: 294 },
-                    { x: 335, y: 370 },
-                    { x: 359, y: 341 },
-                    { x: 383, y: 314 },
-                ],
-                c = s_oSpriteLibrary.getSprite("hit_area_simple_bet"),
-                k = 1;
+                { x: 56, y: 162 },
+                { x: 81, y: 137 },
+                { x: 104, y: 115 },
+                { x: 78, y: 181 },
+                { x: 104, y: 156 },
+                { x: 129, y: 131 },
+                { x: 103, y: 197 },
+                { x: 128, y: 172 },
+                { x: 152, y: 148 },
+                { x: 128, y: 215 },
+                { x: 153, y: 190 },
+                { x: 176, y: 166 },
+                { x: 153, y: 233 },
+                { x: 176, y: 208 },
+                { x: 201, y: 183 },
+                { x: 177, y: 253 },
+                { x: 201, y: 226 },
+                { x: 226, y: 202 },
+                { x: 202, y: 271 },
+                { x: 227, y: 244 },
+                { x: 251, y: 220 },
+                { x: 228, y: 289 },
+                { x: 250, y: 265 },
+                { x: 275, y: 238 },
+                { x: 254, y: 310 },
+                { x: 279, y: 282 },
+                { x: 302, y: 257 },
+                { x: 280, y: 330 },
+                { x: 305, y: 301 },
+                { x: 328, y: 275 },
+                { x: 308, y: 348 },
+                { x: 331, y: 322 },
+                { x: 354, y: 294 },
+                { x: 335, y: 370 },
+                { x: 359, y: 341 },
+                { x: 383, y: 314 },
+            ],
+            c = s_oSpriteLibrary.getSprite("hit_area_simple_bet"),
+            k = 1;
             37 > k;
             k++
         )
@@ -3270,7 +3271,7 @@ function CWheelTopAnim(b, e) {
         a[f].visible = !0;
         d = a[f];
     };
-    this.stopAnim = function () {};
+    this.stopAnim = function () { };
     this.nextFrame = function () {
         d.visible = !1;
         f++;

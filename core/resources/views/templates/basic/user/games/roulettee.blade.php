@@ -62,7 +62,31 @@
                 });
             });
 
+            $(oMain).on("before_bet_place", function (evt, iTotBet) {  
+                console.log(before_bet_place);
+                $.ajaxSetup({
+                    headers: {
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                    }
+                });
+                var url = '{{ route('user.play.roulettebet') }}';
+                var data = {
+                    invest:iTotBet, 
+                };
+                $.post(url, data, function(response) { 
+                    if(response.status){ 
+                        notify("success", "Bet Placed!!");
+                    }else{
+                        notify("error", response.message);
+                        oMain.gotoMenu();
+                        $(oMain).trigger("end_session");
+                        $(oMain).trigger("share_event");
+                    }
+                });
+            });
+
             $(oMain).on("bet_placed", function (evt, iTotBet) {  
+                console.log(bet_placed);
                 $.ajaxSetup({
                     headers: {
                         "X-CSRF-TOKEN": "{{ csrf_token() }}",
