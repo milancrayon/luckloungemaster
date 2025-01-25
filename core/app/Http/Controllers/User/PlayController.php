@@ -2414,6 +2414,23 @@ class PlayController extends Controller
     public function roulettebet(Request $request)
     {
         $user = auth()->user();
+        $master = Master::findOrFail($user->created_by);
+        $transactions = GameLog::where('user_id', $user->id)
+            ->whereDate('created_at', '>=', Carbon::today()->toDateString())  // filters for today's date
+            ->orderBy('id', 'desc')
+            ->limit(50)
+            ->get();
+        $exposure = $master->exposure;
+        $amount = 0;
+        $amount +=  $request->invest;
+        foreach ($transactions as $transaction) {
+            $amount += $transaction->invest;
+        }
+
+        if ($amount > $exposure) {
+            $response = array("status" => false, "message" =>  "Your place order amount exceeds the allowed balance for today.");
+            return response()->json($response);
+        }
         $game = Game::where('alias', 'roulettee')->firstOrFail();
         $running = GameLog::where('status', 0)->where('user_id', $user->id)->where('game_id', $game->id)->first();
         if ($running) {
@@ -2423,8 +2440,6 @@ class PlayController extends Controller
         if ($request->invest < $user->balance && $request->invest <= $game->max_limit && $request->invest >= $game->min_limit) {
             $invest = $this->invest($user, $request, $game, '', 0);
             if (isset($invest['error'])) {
-                $response = array("status" => false, "message" =>  $invest['error'][0]);
-                return response()->json($response);
             }
             $response = array("status" => true, "balance" => $user->balance);
             return response()->json($response);
