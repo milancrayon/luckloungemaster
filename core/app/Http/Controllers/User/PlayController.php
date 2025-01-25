@@ -1161,7 +1161,7 @@ class PlayController extends Controller
         $amount = 0;
         $amount +=  $request->invest;
         foreach ($transactions as $transaction) {
-            $amount += $transaction->amount;
+            $amount += $transaction->invest;
         }
 
         if ($amount > $exposure) {
