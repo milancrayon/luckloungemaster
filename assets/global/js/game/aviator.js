@@ -777,7 +777,7 @@ function gamegenerate() {
                 success: function (result) {
                     console.log(result);
                     console.log(bet_array);
-                    if (result.isSuccess) {
+                    if (result.status) {
                         stage_time_out = 1;
                         if (bet_array.length > 0) {
                             place_bet_now();
