@@ -767,6 +767,7 @@ function gamegenerate() {
         },
         dataType: "json",
         success: function (result) {
+            console.log(result);
             stage_time_out = 1;
             if (bet_array.length > 0) {
                 place_bet_now();
