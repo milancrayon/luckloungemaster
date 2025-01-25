@@ -71,8 +71,8 @@
                 var data = {
                     invest:iTotBet, 
                 };
-                $(s_oMain).trigger("bet_validation_response", response);
-                $.post(url, data, function(response) { 
+                $.post(url, data, function(response) {
+                    $(s_oMain).trigger("bet_validation_response", response); 
                     if(response.status){ 
                        
                     }else{
