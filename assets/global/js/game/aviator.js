@@ -770,7 +770,7 @@ function gamegenerate() {
             for (let i = 0; i < bet_array.length; i++) {
                 bet_array[i].game_id = current_game_data.id;
             }
-            console.log(result);
+            console.log(data);
             console.log(bet_array);
             $.ajax({
                 url: '/user/play/roulettebetvalidation',
