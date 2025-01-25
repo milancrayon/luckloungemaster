@@ -62,19 +62,18 @@
             });
 
             $(oMain).on("before_bet_place", function (evt, iTotBet) {  
-                console.log('before_bet_place');
                 $.ajaxSetup({
                     headers: {
                         "X-CSRF-TOKEN": "{{ csrf_token() }}",
                     }
                 });
-                var url = '{{ route('user.play.roulettebet') }}';
+                var url = '{{ route('user.play.roulettebetvalidation') }}';
                 var data = {
                     invest:iTotBet, 
                 };
                 $.post(url, data, function(response) { 
                     if(response.status){ 
-                        notify("success", "Bet Placed!!");
+                       
                     }else{
                         notify("error", response.message);
                         oMain.gotoMenu();
