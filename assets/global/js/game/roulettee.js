@@ -2104,12 +2104,12 @@ function CGame(b) {
         $(s_oMain).on("bet_validation_response", function (evt, response) {
             $resoinse = response?.status
         });
-        console.log($resoinse?.status == false);
+
         if (B.isVisible()) B.onExit();
         0 !== t.getCurBet() &&
             (t.getCurBet() < MIN_BET
                 ? (A.show(TEXT_ERROR_MIN_BET), w.enableBetFiches(), w.enableSpin(!0))
-                : $resoinse?.status == false ? (w.enableBetFiches(), w.enableSpin(!0)) : E.visible ||
+                : $resoinse == false ? (w.enableBetFiches(), w.enableSpin(!0)) : E.visible ||
                     ((E.visible = !0),
                         C.hideBall(),
                         B.hide(),
