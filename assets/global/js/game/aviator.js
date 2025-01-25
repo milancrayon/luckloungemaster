@@ -756,7 +756,7 @@ function gameover(lastint) {
 function gamegenerate() {
     $("#auto_increment_number_div").hide();
     $('.loading-game').addClass('show');
-    var bet_array = array();
+    var bet_array = [];
     for (let i = 0; i < bet_array.length; i++) {
         bet_array[i].game_id = current_game_data.id;
     }
