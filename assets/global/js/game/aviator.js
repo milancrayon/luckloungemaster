@@ -765,7 +765,6 @@ function gamegenerate() {
         type: "POST",
         data: {
             _token: hash_id,
-            invest: bet_array[0].bet_amount,
         },
         beforeSend: function () {
         },
