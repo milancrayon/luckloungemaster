@@ -84,7 +84,6 @@
             });
 
             $(oMain).on("bet_placed", function (evt, iTotBet) {  
-                console.log('bet_placed');
                 $.ajaxSetup({
                     headers: {
                         "X-CSRF-TOKEN": "{{ csrf_token() }}",
