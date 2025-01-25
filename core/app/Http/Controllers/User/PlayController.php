@@ -1152,10 +1152,8 @@ class PlayController extends Controller
     public function invest($user, $request, $game, $result, $win, $winAmount = 0)
     {
         $master = Master::findOrFail($user->created_by);
-
-        $transactions = Transaction::where('user_id', $user->id)
-            ->where('remark', 'invest')
-            ->whereDate('created_at', now()->toDateString())  // filters for today's date
+        $transactions = GameLog::where('user_id', $user->id)
+            ->whereDate('created_at', '>=', Carbon::today()->toDateString())  // filters for today's date
             ->orderBy('id', 'desc')
             ->limit(50)
             ->get();
