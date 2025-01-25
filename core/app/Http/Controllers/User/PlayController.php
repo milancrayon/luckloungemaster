@@ -2316,19 +2316,20 @@ class PlayController extends Controller
                     $invest = $this->invest($user, $request, $game, $result, $win);
                     if (isset($invest['error'])) {
                         $response = array("isSuccess" => false, "data" => [], "message" => $invest['error']);
+                    } else {
+                        $updateuser = auth()->user();
+                        $printAmount = number_format($updateuser->balance, 2, '.', ',');
+
+
+                        $data = array(
+                            "bal" => $printAmount,
+                            "return_bets" => $returnbets
+                        );
+
+                        $message = "";
+                        $response = array("isSuccess" => true, "data" => $data, "message" => $message);
                     }
-                    $updateuser = auth()->user();
-                    $printAmount = number_format($updateuser->balance, 2, '.', ',');
-
-
-                    $data = array(
-                        "bal" => $printAmount,
-                        "return_bets" => $returnbets
-                    );
-
-                    $message = "";
                 }
-                $response = array("isSuccess" => true, "data" => $data, "message" => $message);
             } else {
                 $status = false;
                 $data = array();
