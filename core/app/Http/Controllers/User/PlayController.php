@@ -91,7 +91,7 @@ class PlayController extends Controller
         }
 
         $invest = $this->invest($user, $request, $game, $result, $win);
-        if (isset($invest['errors'])) {
+        if (isset($invest['error'])) {
             return response()->json($invest);
         }
         $res['game_id'] = $invest['game_log']->id;
@@ -169,7 +169,7 @@ class PlayController extends Controller
         }
 
         $invest = $this->invest($user, $request, $game, $result, $win);
-        if (isset($invest['errors'])) {
+        if (isset($invest['error'])) {
             return response()->json($invest);
         }
         $res['game_id'] = $invest['game_log']->id;
@@ -226,7 +226,7 @@ class PlayController extends Controller
         }
 
         $invest = $this->invest($user, $request, $game, $result, $win);
-        if (isset($invest['errors'])) {
+        if (isset($invest['error'])) {
             return response()->json($invest);
         }
         $res['game_id'] = $invest['game_log']->id;
@@ -280,7 +280,7 @@ class PlayController extends Controller
         $num = mt_rand(1, 100);
 
         $invest = $this->invest($user, $request, $game, $num, 0);
-        if (isset($invest['errors'])) {
+        if (isset($invest['error'])) {
             return response()->json($invest);
         }
         $res['game_id'] = $invest['game_log']->id;
@@ -439,7 +439,7 @@ class PlayController extends Controller
         }
 
         $invest = $this->invest($user, $request, $game, $result, $win);
-        if (isset($invest['errors'])) {
+        if (isset($invest['error'])) {
             return response()->json($invest);
         }
         $res['game_id'] = $invest['game_log']->id;
@@ -499,7 +499,7 @@ class PlayController extends Controller
         }
 
         $invest = $this->invest($user, $request, $game, $result, $win);
-        if (isset($invest['errors'])) {
+        if (isset($invest['error'])) {
             return response()->json($invest);
         }
         $res['game_id'] = $invest['game_log']->id;
@@ -564,7 +564,7 @@ class PlayController extends Controller
         }
 
         $invest = $this->invest($user, $request, $game, $result, $win);
-        if (isset($invest['errors'])) {
+        if (isset($invest['error'])) {
             return response()->json($invest);
         }
         $res['game_id'] = $invest['game_log']->id;
@@ -676,7 +676,7 @@ class PlayController extends Controller
         }
 
         $invest = $this->invest($user, $request, $game, $result, $win);
-        if (isset($invest['errors'])) {
+        if (isset($invest['error'])) {
             return response()->json($invest);
         }
         $res['game_id'] = $invest['game_log']->id;
@@ -878,7 +878,7 @@ class PlayController extends Controller
         }
         $winAmount = $request->invest * (36 / count($numbers));
         $invest = $this->invest($user, $request, $game, $random, $win, $winAmount); // random passed instead of number
-        if (isset($invest['errors'])) {
+        if (isset($invest['error'])) {
             return response()->json($invest);
         }
         $res['gameLog_id'] = $invest['game_log']->id;
@@ -991,7 +991,7 @@ class PlayController extends Controller
         }
 
         $invest = $this->invest($user, $request, $game, $number, $win, $winAmo);
-        if (isset($invest['errors'])) {
+        if (isset($invest['error'])) {
             return response()->json($invest);
         }
         $res['gameLog_id'] = $invest['game_log']->id;
@@ -1108,7 +1108,7 @@ class PlayController extends Controller
         }
 
         $invest = $this->invest($user, $request, $game, $result, $win, $winAmount);
-        if (isset($invest['errors'])) {
+        if (isset($invest['error'])) {
             return response()->json($invest);
         }
         $res['game_log_id'] = $invest['game_log']->id;
@@ -1166,9 +1166,8 @@ class PlayController extends Controller
             $amount += $transaction->amount;
         }
 
-
         if ($amount > $exposure) {
-            return ['errors' => 'Your place order amount exceeds the allowed balance for today.'];
+            return ['error' => ['Your place order amount exceeds the allowed balance for today.']];
         }
 
         $user->balance -= $request->invest;
@@ -1593,7 +1592,7 @@ class PlayController extends Controller
         }
 
         $invest = $this->invest($user, $request, $game, $result, $win);
-        if (isset($invest['errors'])) {
+        if (isset($invest['error'])) {
             return response()->json($invest);
         }
         $gameLog = $invest['game_log'];
@@ -1759,7 +1758,7 @@ class PlayController extends Controller
         }
         $result = $hand;
         $invest = $this->invest($user, $request, $game, $result, $win);
-        if (isset($invest['errors'])) {
+        if (isset($invest['error'])) {
             return response()->json($invest);
         }
         $res['game_log_id'] = $invest['game_log']->id;
@@ -2300,7 +2299,7 @@ class PlayController extends Controller
                     ]);
                     $win = Status::LOSS;
                     $invest = $this->invest($user, $request, $game, $result, $win);
-                    if (isset($invest['errors'])) {
+                    if (isset($invest['error'])) {
                         $response = array("isSuccess" => false, "data" => $data, "message" => $message);
                     }
                     $updateuser = auth()->user();
@@ -2406,7 +2405,7 @@ class PlayController extends Controller
         }
         if ($request->invest < $user->balance && $request->invest <= $game->max_limit && $request->invest >= $game->min_limit) {
             $invest = $this->invest($user, $request, $game, '', 0);
-            if (isset($invest['errors'])) {
+            if (isset($invest['error'])) {
                 return response()->json($invest);
             }
             $response = array("status" => true, "balance" => $user->balance);
