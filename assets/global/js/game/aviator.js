@@ -771,6 +771,7 @@ function gamegenerate() {
         },
         dataType: "json",
         success: function (result) {
+            console.log(result);
             if (result.isSuccess) {
                 stage_time_out = 1;
                 if (bet_array.length > 0) {
