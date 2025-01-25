@@ -756,7 +756,7 @@ function gameover(lastint) {
 function gamegenerate() {
     $("#auto_increment_number_div").hide();
     $('.loading-game').addClass('show');
-    
+
     $.ajax({
         url: '/user/play/aviatergenerate',
         type: "POST",
@@ -769,66 +769,76 @@ function gamegenerate() {
         success: function (result) {
             console.log(result);
             console.log(bet_array);
-            if (result.isSuccess) {
-                stage_time_out = 1;
-                if (bet_array.length > 0) {
-                    place_bet_now();
-                }
-                current_game_data = result;
-                hide_loading_game();
-                new_game_generated();
-                lets_fly_one();
-                lets_fly();
-                let currentbet = 0;
-                let a = 0.0;
-                $.ajax({
-                    url: '/user/play/aviatorincreamentor',
-                    type: "POST",
-                    data: {
-                        _token: hash_id
-                    },
-                    dataType: "json",
-                    success: function (data) {
-                        currentbet = data.result;
-                        let increamtsappgame = setInterval(async () => {
-                            if (a >= currentbet) {
-                                let res = parseFloat(a).toFixed(2);
-                                let result = res;
-                                crash_plane(result);
-                                incrementor(res);
-                                gameover(result);
-                                clearInterval(increamtsappgame);
-                            } else {
-                                a = parseFloat(a) + 0.01;
-                                incrementor(parseFloat(a).toFixed(2));
+            $.ajax({
+                url: '/user/play/roulettebetvalidation',
+                type: "POST",
+                data: {
+                    _token: hash_id
+                },
+                dataType: "json",
+                success: function (data) {
+                    if (result.isSuccess) {
+                        stage_time_out = 1;
+                        if (bet_array.length > 0) {
+                            place_bet_now();
+                        }
+                        current_game_data = result;
+                        hide_loading_game();
+                        new_game_generated();
+                        lets_fly_one();
+                        lets_fly();
+                        let currentbet = 0;
+                        let a = 0.0;
+                        $.ajax({
+                            url: '/user/play/aviatorincreamentor',
+                            type: "POST",
+                            data: {
+                                _token: hash_id
+                            },
+                            dataType: "json",
+                            success: function (data) {
+                                currentbet = data.result;
+                                let increamtsappgame = setInterval(async () => {
+                                    if (a >= currentbet) {
+                                        let res = parseFloat(a).toFixed(2);
+                                        let result = res;
+                                        crash_plane(result);
+                                        incrementor(res);
+                                        gameover(result);
+                                        clearInterval(increamtsappgame);
+                                    } else {
+                                        a = parseFloat(a) + 0.01;
+                                        incrementor(parseFloat(a).toFixed(2));
+                                    }
+                                }, 30); // plane speed update
                             }
-                        }, 30); // plane speed update
+                        });
+                    } else {
+                        crash_plane(0.1);
+                        gameover(0.1);
+                        notify("error", result.message);
+                        $("#main_bet_section").find("#bet_button").show();
+                        $("#main_bet_section").find("#cancle_button").hide();
+                        $("#main_bet_section").find("#cancle_button #waiting").hide();
+                        $("#main_bet_section").find("#cashout_button").hide();
+                        $("#main_bet_section .controls").removeClass('bet-border-red');
+                        $("#main_bet_section .controls").removeClass('bet-border-yellow');
+                        $("#main_bet_section .controls .navigation").removeClass('stop-action');
+
+                        $(".main_bet_amount").prop('disabled', false);
+                        $("#main_plus_btn").prop('disabled', false);
+                        $("#main_minus_btn").prop('disabled', false);
+                        $(".main_amount_btn").prop('disabled', false);
+                        $("#main_checkout").prop('disabled', false)
+                        if ($("#main_checkout").prop('checked')) {
+                            $("#main_incrementor").prop('disabled', false);
+                        }
+                        $('#main_auto_bet').prop('checked', false);
+
+                        bet_array = [];
                     }
-                });
-            } else {
-                crash_plane(0.1);
-                gameover(0.1);
-                notify("error", result.message);
-                $("#main_bet_section").find("#bet_button").show();
-                $("#main_bet_section").find("#cancle_button").hide();
-                $("#main_bet_section").find("#cancle_button #waiting").hide();
-                $("#main_bet_section").find("#cashout_button").hide();
-                $("#main_bet_section .controls").removeClass('bet-border-red');
-                $("#main_bet_section .controls").removeClass('bet-border-yellow');
-                $("#main_bet_section .controls .navigation").removeClass('stop-action');
-
-                $(".main_bet_amount").prop('disabled', false);
-                $("#main_plus_btn").prop('disabled', false);
-                $("#main_minus_btn").prop('disabled', false);
-                $(".main_amount_btn").prop('disabled', false);
-                $("#main_checkout").prop('disabled', false)
-                if ($("#main_checkout").prop('checked')) {
-                    $("#main_incrementor").prop('disabled', false);
                 }
-                $('#main_auto_bet').prop('checked', false);
-
-                bet_array = [];
-            }
+            });
         }
     });
 }
