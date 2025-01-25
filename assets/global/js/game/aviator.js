@@ -757,11 +757,15 @@ function gamegenerate() {
     $("#auto_increment_number_div").hide();
     $('.loading-game').addClass('show');
     hide_loading_game();
+    for (let i = 0; i < bet_array.length; i++) {
+        bet_array[i].game_id = current_game_data.id;
+    }
     $.ajax({
         url: '/user/play/aviatergenerate',
         type: "POST",
         data: {
-            _token: hash_id
+            _token: hash_id,
+            invest: bet_array[0].bet_amount,
         },
         beforeSend: function () {
         },
