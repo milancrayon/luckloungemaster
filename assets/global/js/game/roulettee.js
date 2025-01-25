@@ -2100,7 +2100,7 @@ function CGame(b) {
     };
     this.onSpin = function () {
         var $resoinse = false;
-        $(s_oMain).trigger("before_bet_place", t.getCurBet());
+        $(s_oMain).trigger("before_bet_place", t.getCurBet(), w);
         $(s_oMain).on("bet_validation_response", function (evt, response) {
             $resoinse = response?.status
         });
