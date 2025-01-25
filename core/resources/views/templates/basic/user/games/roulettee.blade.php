@@ -62,7 +62,7 @@
             });
 
             $(oMain).on("before_bet_place", function (evt, iTotBet, w) {  
-                w.disableBetFiches(), w.enableSpin(!0)
+                w.enableBetFiches(), w.enableSpin(!0)
                 $.ajaxSetup({
                     headers: {
                         "X-CSRF-TOKEN": "{{ csrf_token() }}",
@@ -75,7 +75,7 @@
                 $.post(url, data, function(response) {
                     $(s_oMain).trigger("bet_validation_response", response); 
                     if(response.status){ 
-                        w.enableBetFiches(), w.enableSpin(!0)
+                        w.enableBetFiches(), w.enableSpin(1)
                     }else{
                         w.enableBetFiches(), w.enableSpin(!0)
                         notify("error", response.message);
