@@ -2315,7 +2315,7 @@ class PlayController extends Controller
                     $win = Status::LOSS;
                     $invest = $this->invest($user, $request, $game, $result, $win);
                     if (isset($invest['error'])) {
-                        $response = array("isSuccess" => false, "data" => $data, "message" => $message);
+                        $response = array("isSuccess" => false, "data" => [], "message" => $invest['error']);
                     }
                     $updateuser = auth()->user();
                     $printAmount = number_format($updateuser->balance, 2, '.', ',');
