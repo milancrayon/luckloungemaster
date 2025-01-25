@@ -123,7 +123,7 @@ function cash_out_now(increment = '') {
         success: function (result) {
             if (result.isSuccess) {
                 $(".bal").html(result.data.bal);
-                playAudio("win.wav"); 
+                playAudio("win.wav");
                 $(".win-loss-popup").addClass("active");
                 $(".win-loss-popup__body").find("img").addClass("d-none");
                 $(".win-loss-popup__body").find(".win").removeClass("d-none");
@@ -144,7 +144,7 @@ function cash_out_now(increment = '') {
 
                 } else {
                     $(`#main_bet_section`).find('.controls').addClass('dullEffect');
-                } 
+                }
                 $(".main_bet_amount").prop('disabled', false);
                 $("#main_plus_btn").prop('disabled', false);
                 $("#main_minus_btn").prop('disabled', false);
@@ -152,15 +152,15 @@ function cash_out_now(increment = '') {
                 $("#main_checkout").prop('disabled', false)
                 if ($("#main_checkout").prop('checked')) {
                     $("#main_incrementor").prop('disabled', false);
-                } 
+                }
                 $("#main_auto_bet").prop('disabled', false);
             }
         }
     });
 }
 
-async function crash_plane(inc_no) { 
-    soundPlay();    
+async function crash_plane(inc_no) {
+    soundPlay();
     $(".flew_away_section").show();
     $("#auto_increment_number_div").addClass('plancrash');
     $("#auto_increment_number").addClass('text-danger');
@@ -176,7 +176,7 @@ async function crash_plane(inc_no) {
 
     const main_bet_id = $("#main_bet_id").val();
 
-    
+
     setTimeout(function () {
         const incrementor = $("#auto_increment_number").text().slice(0, -1);
         if (main_cash_out == 2) {
@@ -222,7 +222,7 @@ async function crash_plane(inc_no) {
         $("#main_bet_section").find("#cash_out_amount").text('');
     }
     if (bet_array[1] && bet_array[1].is_bet != undefined) {
-        if (is_main_auto_bet_checked) { 
+        if (is_main_auto_bet_checked) {
             $("#main_bet_section").find("#bet_button").hide();
             $("#main_bet_section").find("#cancle_button").show();
             $("#main_bet_section").find("#cancle_button #waiting").show();
@@ -251,14 +251,14 @@ async function crash_plane(inc_no) {
         $("#main_bet_id").val('');
         $("#main_bet_section").find("#cash_out_amount").text('');
     }
-    setTimeout(()=>{
+    setTimeout(() => {
         if ($(`#main_bet_section .controls`).hasClass('dullEffect')) {
             $(`#main_bet_section .controls`).removeClass('dullEffect');
         }
         // $('.loading-game').addClass('show');
         $("#main_auto_bet").prop('disabled', false);
         location.reload();
-    },3000);
+    }, 3000);
 }
 
 function new_game_generated() {
@@ -375,11 +375,11 @@ function lets_fly() {
 
 }
 
-function incrementor(inc_no) {	
+function incrementor(inc_no) {
     $('.loading-game').removeClass('show');
     $("#auto_increment_number_div").show();
-    $("#running_type").text('cash out time');	
-    document.getElementById('auto_increment_number').innerText = inc_no + '' + 'x';	
+    $("#running_type").text('cash out time');
+    document.getElementById('auto_increment_number').innerText = inc_no + '' + 'x';
     if (bet_array.length > 0) {
 
         let main_isChecked = $('#main_checkout').prop('checked');
@@ -390,14 +390,14 @@ function incrementor(inc_no) {
                 if (bet_array[i].is_bet == 1) {
                     if (main_isChecked == true) {
                         incrementor = $('#main_incrementor').val();
-                        main_incrementor = incrementor;						
+                        main_incrementor = incrementor;
                         if (parseFloat(inc_no) >= parseFloat(incrementor)) {
                             if (main_counter == 0) {
                                 cash_out_now(incrementor);
                                 main_counter++;
                                 main_cash_out = 1;
                             }
-                        } else {							
+                        } else {
                             main_cash_out = 2;
                         }
                     }
@@ -539,7 +539,7 @@ function place_bet_now() {
             if (result.isSuccess) {
                 aviatorHistory();
                 getAllbets();
-                $(".bal").html(result.data.bal); 
+                $(".bal").html(result.data.bal);
                 if (bet_array.length == 1) {
                     update_my_new_bet(bet_array[0].bet_amount, bet_array[0].section_no, '#my_bet_list .mCSB_container');
                 } else if (bet_array.length == 2) {
@@ -636,7 +636,7 @@ function flyPlaneSound() {
 function cashOutSound() {
     playAudio("plane-cashout.mp3");
 }
- 
+
 
 $(".main_bet_btn").on('click', function () {
     if (stage_time_out != 1) {
@@ -742,14 +742,14 @@ function gameover(lastint) {
         },
         dataType: "text",
         success: async function (data) {
-            $(".bal").html(data.bal); 
+            $(".bal").html(data.bal);
             for (let i = 0; i < bet_array.length; i++) {
                 if (bet_array[i] && bet_array[i].is_bet) {
                     bet_array.splice(i, 1);
                 }
             }
             aviatorHistory();
-            getAllbets(); 
+            getAllbets();
         }
     });
 }
@@ -767,42 +767,66 @@ function gamegenerate() {
         },
         dataType: "json",
         success: function (result) {
-            console.log(result);
-            stage_time_out = 1;
-            if (bet_array.length > 0) {
-                place_bet_now();
-            }
-            current_game_data = result;
-            hide_loading_game();
-            new_game_generated();
-            lets_fly_one();
-            lets_fly();
-            let currentbet = 0;
-            let a = 0.0;
-            $.ajax({
-                url: '/user/play/aviatorincreamentor',
-                type: "POST",
-                data: {
-                    _token: hash_id
-                },
-                dataType: "json",
-                success: function (data) {
-                    currentbet = data.result;
-                    let increamtsappgame = setInterval(async () => {
-                        if (a >= currentbet) {
-                            let res = parseFloat(a).toFixed(2);
-                            let result = res;
-                            crash_plane(result);
-                            incrementor(res);
-                            gameover(result);
-                            clearInterval(increamtsappgame);
-                        } else {
-                            a = parseFloat(a) + 0.01;
-                            incrementor(parseFloat(a).toFixed(2));
-                        }
-                    }, 30); // plane speed update
+            if (result.isSuccess) {
+                stage_time_out = 1;
+                if (bet_array.length > 0) {
+                    place_bet_now();
                 }
-            });
+                current_game_data = result;
+                hide_loading_game();
+                new_game_generated();
+                lets_fly_one();
+                lets_fly();
+                let currentbet = 0;
+                let a = 0.0;
+                $.ajax({
+                    url: '/user/play/aviatorincreamentor',
+                    type: "POST",
+                    data: {
+                        _token: hash_id
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        currentbet = data.result;
+                        let increamtsappgame = setInterval(async () => {
+                            if (a >= currentbet) {
+                                let res = parseFloat(a).toFixed(2);
+                                let result = res;
+                                crash_plane(result);
+                                incrementor(res);
+                                gameover(result);
+                                clearInterval(increamtsappgame);
+                            } else {
+                                a = parseFloat(a) + 0.01;
+                                incrementor(parseFloat(a).toFixed(2));
+                            }
+                        }, 30); // plane speed update
+                    }
+                });
+            } else {
+                crash_plane(0.1);
+                gameover(0.1);
+                notify("error", result.message);
+                $("#main_bet_section").find("#bet_button").show();
+                $("#main_bet_section").find("#cancle_button").hide();
+                $("#main_bet_section").find("#cancle_button #waiting").hide();
+                $("#main_bet_section").find("#cashout_button").hide();
+                $("#main_bet_section .controls").removeClass('bet-border-red');
+                $("#main_bet_section .controls").removeClass('bet-border-yellow');
+                $("#main_bet_section .controls .navigation").removeClass('stop-action');
+
+                $(".main_bet_amount").prop('disabled', false);
+                $("#main_plus_btn").prop('disabled', false);
+                $("#main_minus_btn").prop('disabled', false);
+                $(".main_amount_btn").prop('disabled', false);
+                $("#main_checkout").prop('disabled', false)
+                if ($("#main_checkout").prop('checked')) {
+                    $("#main_incrementor").prop('disabled', false);
+                }
+                $('#main_auto_bet').prop('checked', false);
+
+                bet_array = [];
+            }
         }
     });
 }
@@ -847,7 +871,7 @@ function aviatorHistory() {
 function updateBetlists(intialData) {
     current_game_data = intialData.currentGame;
     let bets = intialData.currentGameBet;
-    $("#total_bets").text(intialData.currentGameBetCount);  
+    $("#total_bets").text(intialData.currentGameBetCount);
     $("#all_bets").html('');
     var html = '';
     for (i = 0; i < bets.length; i++) {
@@ -860,7 +884,7 @@ function updateBetlists(intialData) {
             var badgeColor = 'bg2';
         }
         if (parseFloat(bets[i].cashout_multiplier) > 0) {
-            var cashOut = Math.round(bets[i].cashout_multiplier*bets[i].amount) + currency_symbol;
+            var cashOut = Math.round(bets[i].cashout_multiplier * bets[i].amount) + currency_symbol;
             var multiplication = '<div class="' + badgeColor + ' custom-badge mx-auto">' + bets[i].cashout_multiplier + 'x</div>';
         } else {
             var cashOut = '-';
@@ -878,7 +902,7 @@ function updateBetlists(intialData) {
             '<div class="column-4"> ' + cashOut + ' </div>' +
             '</div>';
     }
-    $("#all_bets").html(html); 
+    $("#all_bets").html(html);
 }
 
 function getAllbets() {
@@ -889,7 +913,7 @@ function getAllbets() {
             _token: hash_id
         },
         dataType: "json",
-        success: function (intialData) { 
+        success: function (intialData) {
             updateBetlists(intialData);
         }
     });

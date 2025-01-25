@@ -2223,9 +2223,26 @@ class PlayController extends Controller
 
     public function aviatergenerate(Request $request)
     {
+        $master = Master::findOrFail($user->created_by);
+        $transactions = GameLog::where('user_id', $user->id)
+            ->whereDate('created_at', '>=', Carbon::today()->toDateString())  // filters for today's date
+            ->orderBy('id', 'desc')
+            ->limit(50)
+            ->get();
+        $exposure = $master->exposure;
+        $amount = 0;
+        $amount +=  $request->invest;
+        foreach ($transactions as $transaction) {
+            $amount += $transaction->invest;
+        }
+
+        if ($amount > $exposure) {
+            return response()->json(["isSuccess" => false, "message" => 'Your place order amount exceeds the allowed balance for today.']);
+        }
+
         // $new = Setting::where('category', 'game_status')->update(['value' => '0']);
         $request->session()->put('gamegenerate', '1');
-        return response()->json(array("id" => aviatorId()));
+        return response()->json(array("isSuccess" => true, "id" => aviatorId()));
     }
 
     public function aviatorincreamentor(Request $request)
@@ -2314,22 +2331,18 @@ class PlayController extends Controller
                     ]);
                     $win = Status::LOSS;
                     $invest = $this->invest($user, $request, $game, $result, $win);
-                    if (isset($invest['error'])) {
-                        $data = array();
-                        $response = array("isSuccess" => false, "data" => $data, "message" => $invest['error']);
-                    } else {
-                        $updateuser = auth()->user();
-                        $printAmount = number_format($updateuser->balance, 2, '.', ',');
+
+                    $updateuser = auth()->user();
+                    $printAmount = number_format($updateuser->balance, 2, '.', ',');
 
 
-                        $data = array(
-                            "bal" => $printAmount,
-                            "return_bets" => $returnbets
-                        );
+                    $data = array(
+                        "bal" => $printAmount,
+                        "return_bets" => $returnbets
+                    );
 
-                        $message = "";
-                        $response = array("isSuccess" => true, "data" => $data, "message" => $message);
-                    }
+                    $message = "";
+                    $response = array("isSuccess" => true, "data" => $data, "message" => $message);
                 }
             } else {
                 $status = false;
@@ -2461,7 +2474,7 @@ class PlayController extends Controller
         }
         if ($request->invest < $user->balance && $request->invest <= $game->max_limit && $request->invest >= $game->min_limit) {
             $invest = $this->invest($user, $request, $game, '', 0);
-            
+
             $response = array("status" => true, "balance" => $user->balance);
             return response()->json($response);
         } else {
