@@ -1212,6 +1212,23 @@ class PlayController extends Controller
             return response()->json($fallback);
         }
 
+        $master = Master::findOrFail($user->created_by);
+        $transactions = GameLog::where('user_id', $user->id)
+            ->whereDate('created_at', '>=', Carbon::today()->toDateString())  // filters for today's date
+            ->orderBy('id', 'desc')
+            ->limit(50)
+            ->get();
+        $exposure = $master->exposure;
+        $amount = 0;
+        $amount +=  $request->invest;
+        foreach ($transactions as $transaction) {
+            $amount += $transaction->invest;
+        }
+
+        if ($amount > $exposure) {
+            return ['error' => ['Your place order amount exceeds the allowed balance for today.']];
+        }
+
         $values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
         $types = ["C", "D", "H", "S"];
         $deck = [];
