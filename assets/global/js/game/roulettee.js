@@ -2104,6 +2104,7 @@ function CGame(b) {
         $(s_oMain).on("bet_validation_response", function (evt, response) {
             $resoinse = response?.status
         });
+        console.log(resoinse);
         if (B.isVisible()) B.onExit();
         0 !== t.getCurBet() &&
             (t.getCurBet() < MIN_BET
