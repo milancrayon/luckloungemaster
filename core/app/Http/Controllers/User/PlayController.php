@@ -2238,7 +2238,7 @@ class PlayController extends Controller
         }
 
         if ($amount > $exposure) {
-            return response()->json(["isSuccess" => false, "message" => 'Your place order amount exceeds the allowed balance for today.']);
+            return response()->json(array("isSuccess" => false, "message" => 'Your place order amount exceeds the allowed balance for today.'));
         }
 
         // $new = Setting::where('category', 'game_status')->update(['value' => '0']);
