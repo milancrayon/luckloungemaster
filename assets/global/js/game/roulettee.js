@@ -2100,11 +2100,11 @@ function CGame(b) {
     };
     this.onSpin = function () {
         var $resoinse = false;
-        $(s_oMain).trigger("before_bet_place", t.getCurBet(), );
+        $(s_oMain).trigger("before_bet_place", t.getCurBet(),);
         $(s_oMain).on("bet_validation_response", function (evt, response) {
             $resoinse = response?.status
         });
-        console.log($resoinse);
+        console.log($resoinse?.status == false);
         if (B.isVisible()) B.onExit();
         0 !== t.getCurBet() &&
             (t.getCurBet() < MIN_BET
