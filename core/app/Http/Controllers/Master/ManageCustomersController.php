@@ -456,13 +456,7 @@ class ManageCustomersController extends Controller
         } else {
             $customer->kv = Status::KYC_VERIFIED;
         }
-        $customer_exists = User::where('created_by', $master_id)->exists();
 
-        if (!$customer_exists) {
-            $master = Master::findOrFail($master_id);
-            $master->exposure = $request->exposure;
-            $master->save();
-        }
         $customer->save();
 
         $notify[] = ['success', 'New Customer created successfully'];
