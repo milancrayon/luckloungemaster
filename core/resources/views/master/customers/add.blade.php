@@ -136,7 +136,7 @@
                         <div class="col-xl-3 col-md- col-12">
                             <div class="form-group">
                                 <label>@lang('KYC') </label>
-                                <input type="checkbox" data-width="100%" data-height="50" data-onstyle="-success" data-offstyle="-danger" data-bs-toggle="toggle" data-on="@lang('Verified')" data-off="@lang('Unverified')" name="kv">
+                                <input type="checkbox" data-width="100%" data-height="50" data-onstyle="-success" data-offstyle="-danger" data-bs-toggle="toggle" data-on="@lang('Verified')" data-off="@lang('Unverified')" name="kv" checked>
                             </div>
                         </div>
                         <div class="col-md-12">
