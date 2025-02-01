@@ -28,10 +28,10 @@
     <link rel="apple-touch-icon" href="{{ siteLogo() }}">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="{{ gs()->sitename($pageTitle) }}">
+    <!-- <meta name="apple-mobile-web-app-title" content="{{ gs()->sitename($pageTitle) }}"> -->
     {{--
     <!-- Google / Search Engine Tags --> --}}
-    <meta itemprop="name" content="{{ gs()->sitename($pageTitle) }}">
+    <!-- <meta itemprop="name" content="{{ gs()->sitename($pageTitle) }}"> -->
     <meta itemprop="description" content="{{ $seoContents->description }}">
     <meta itemprop="image" content="{{ $seoContents->image }}">
     {{--
