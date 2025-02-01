@@ -20,7 +20,7 @@
 @endif
 @if ($seoContents)
     <meta name="description" content="{{ $seoContents->meta_description ?? $seoContents->description }}">
-    <meta name="keywords" content="{{  $seoContents->keywords ?? implode(',', $seoContents->keywords) }}">
+    <meta name="keywords" content="{{ is_array($seoContents->keywords) ? implode(',', $seoContents->keywords) : $seoContents->keywords }}">
     <link rel="shortcut icon" href="{{ siteFavicon() }}" type="image/x-icon">
 
     {{--
