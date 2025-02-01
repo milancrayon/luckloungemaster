@@ -20,7 +20,6 @@
 @endif
 @if ($seoContents)
     <meta name="description" content="{{ $seoContents->meta_description ?? $seoContents->description }}">
-    <meta name="keywords" content="{{ $seoContents->keywords  }}">
     <link rel="shortcut icon" href="{{ siteFavicon() }}" type="image/x-icon">
 
  
