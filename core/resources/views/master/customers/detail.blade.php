@@ -126,9 +126,9 @@
                         </div>
                         <div class="col-md-2">
                             <div class="form-group">
-                                <label>@lang('Exposure')</label>
+                                <label>@lang('Exposure %')</label>
                                 <div class="input-group">
-                                    <input type="number" step="any" name="exposure" class="form-control" placeholder="@lang('Please provide positive exposure')" value="{{ $customer->exposure }}" required>
+                                    <input type="number" step="any" name="exposure" class="form-control" placeholder="@lang('Please provide positive exposure')" value="{{ $customer->exposure }}" min="1" max="100" required>
                                 </div>
                             </div>
                         </div>
