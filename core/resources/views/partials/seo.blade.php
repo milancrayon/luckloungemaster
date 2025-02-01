@@ -45,7 +45,6 @@
            echo '<meta property="og:image:type" content="'.pathinfo($seoContents->image)["extension"] .'" />';
         }
     @endphp
-    @endphp
     <meta property="og:image:width" content="{{ $socialImageSize[0] }}" />
     <meta property="og:image:height" content="{{ $socialImageSize[1] }}" />
     <meta property="og:url" content="{{ url()->current() }}">
