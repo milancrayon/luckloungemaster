@@ -11,7 +11,7 @@
     }
 @endphp
 
-<meta name="title" Content="{{ gs()->sitename(__($pageTitle)) }}">
+<!-- <meta name="title" Content="{{ gs()->sitename(__($pageTitle)) }}"> -->
 @if(Request::is('user/play/game/roulettee'))
 <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui">
 <meta name="msapplication-tap-highlight" content="no" />
