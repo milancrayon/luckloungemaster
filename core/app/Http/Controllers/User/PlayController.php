@@ -1159,12 +1159,12 @@ class PlayController extends Controller
         $exposure = $user->exposure;
         $amount = 0;
         $amount +=  $request->invest;
-        foreach ($transactions as $transaction) {
-            $amount += $transaction->invest;
-        }
+        // foreach ($transactions as $transaction) {
+        //     $amount += $transaction->invest;
+        // }
 
         if ($amount > $exposure) {
-            return ['error' => ['Your place order amount exceeds the allowed balance for today.']];
+            return ['error' => ["You can’t place a bet higher than the expected exposure of {$exposure}."]];
         }
 
         $user->balance -= $request->invest;
@@ -1219,12 +1219,12 @@ class PlayController extends Controller
         $exposure = $user->exposure;
         $amount = 0;
         $amount +=  $request->invest;
-        foreach ($transactions as $transaction) {
-            $amount += $transaction->invest;
-        }
+        // foreach ($transactions as $transaction) {
+        //     $amount += $transaction->invest;
+        // }
 
         if ($amount > $exposure) {
-            return ['error' => ['Your place order amount exceeds the allowed balance for today.']];
+            return ['error' => ["You can’t place a bet higher than the expected exposure of {$exposure}."]];
         }
 
         $values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
@@ -2230,12 +2230,12 @@ class PlayController extends Controller
         $exposure = $user->exposure;
         $amount = 0;
         $amount +=  $request->invest;
-        foreach ($transactions as $transaction) {
-            $amount += $transaction->invest;
-        }
+        // foreach ($transactions as $transaction) {
+        //     $amount += $transaction->invest;
+        // }
 
         if ($amount > $exposure) {
-            return response()->json(array("isSuccess" => false, "message" => 'Your place order amount exceeds the allowed balance for today.'));
+            return response()->json(array("isSuccess" => false, "message" => "You can’t place a bet higher than the expected exposure of {$exposure}."));
         }
 
         // $new = Setting::where('category', 'game_status')->update(['value' => '0']);
@@ -2432,12 +2432,12 @@ class PlayController extends Controller
         $exposure = $user->exposure;
         $amount = 0;
         $amount +=  $request->invest;
-        foreach ($transactions as $transaction) {
-            $amount += $transaction->invest;
-        }
+        // foreach ($transactions as $transaction) {
+        //     $amount += $transaction->invest;
+        // }
 
         if ($amount > $exposure) {
-            $response = array("status" => false, "message" =>  "Your place order amount exceeds the allowed balance for today.");
+            $response = array("status" => false, "message" =>  "You can’t place a bet higher than the expected exposure of {$exposure}.");
             return response()->json($response);
         }
         $response = array("status" => true, "message" =>  "");
@@ -2455,11 +2455,11 @@ class PlayController extends Controller
         $exposure = $user->exposure;
         $amount = 0;
         $amount +=  $request->invest;
-        foreach ($transactions as $transaction) {
-            $amount += $transaction->invest;
-        }
+        // foreach ($transactions as $transaction) {
+        //     $amount += $transaction->invest;
+        // }
         if ($amount > $exposure) {
-            $response = array("status" => false, "message" =>  "Your place order amount exceeds the allowed balance for today.");
+            $response = array("status" => false, "message" =>  "You can’t place a bet higher than the expected exposure of {$exposure}.");
             return response()->json($response);
         }
         $game = Game::where('alias', 'roulettee')->firstOrFail();
