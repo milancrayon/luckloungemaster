@@ -32,13 +32,13 @@
     {{--
     <!-- Google / Search Engine Tags --> --}}
     <!-- <meta itemprop="name" content="{{ gs()->sitename($pageTitle) }}"> -->
-    <meta itemprop="description" content="{{ $seoContents->description }}">
-    <meta itemprop="image" content="{{ $seoContents->image }}">
+    <!-- <meta itemprop="description" content="{{ $seoContents->description }}">
+    <meta itemprop="image" content="{{ $seoContents->image }}"> -->
     {{--
     <!-- Facebook Meta Tags --> --}}
     <meta property="og:type" content="website">
-    <meta property="og:title" content="{{ $seoContents->social_title }}">
-    <meta property="og:description" content="{{ $seoContents->social_description }}">
+    <!-- <meta property="og:title" content="{{ $seoContents->social_title }}">
+    <meta property="og:description" content="{{ $seoContents->social_description }}"> -->
     <meta property="og:image" content="/{{ getFilePath('seo') ."/". $seoContents->image }}" />
     @php
         if(isset(pathinfo($seoContents->image)['extension'])){
