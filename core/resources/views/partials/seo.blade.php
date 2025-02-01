@@ -39,10 +39,10 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="{{ $seoContents->social_title }}">
     <meta property="og:description" content="{{ $seoContents->social_description }}">
-    <meta property="og:image" content="{{ $seoContents->image }}" />
+    <meta property="og:image" content="/{{ getFilePath('seo') ."/". $seoContents->image }}" />
     @php
         if(isset(pathinfo($seoContents->image)['extension'])){
-            echo '<meta property="og:image:type" content="{{ pathinfo($seoContents->image)["extension"] }}" />';
+           echo '<meta property="og:image:type" content="'.pathinfo($seoContents->image)["extension"] .'" />';
         }
     @endphp
     <meta property="og:image:width" content="{{ $socialImageSize[0] }}" />
