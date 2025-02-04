@@ -20,7 +20,6 @@ $routesData[] = $routeData;
 <!-- navbar-wrapper start -->
 <nav class="navbar-wrapper bg--dark  d-flex flex-wrap">
     <div class="navbar__left">
-        <button type="button" class="res-sidebar-open-btn me-3"><i class="las la-bars"></i></button>
         <div class="widget-eight style-two master">
             <x-widget
                 style="7"
